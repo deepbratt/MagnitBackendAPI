@@ -16,7 +16,7 @@ exports.signup = catchAsync(async (req, res) => {
 		passwordConfirm: req.body.passwordConfirm,
 	};
 	await User.create(newUser);
-	res.status(200).json({
+	res.status(201).json({
 		status: 'success',
 		message: 'Account Created Successfully',
 	});
