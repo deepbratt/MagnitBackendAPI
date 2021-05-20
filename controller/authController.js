@@ -8,10 +8,10 @@ const jwtManagement = require('../utils/jwtManagement');
 
 exports.signup = catchAsync(async (req, res) => {
 	const newUser = {
-		firstName: req.body.firstName,
-		lastName: req.body.lastName,
-		email: req.body.email,
-		phone: req.body.phone,
+		firstName: req.body.firstName.trim(),
+		lastName: req.body.lastName.trim(),
+		email: req.body.email.trim(),
+		phone: req.body.phone.trim(),
 		password: req.body.password,
 		passwordConfirm: req.body.passwordConfirm,
 	};
