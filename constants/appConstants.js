@@ -1,4 +1,5 @@
 module.exports = {
-    swaggerDocRoute:'/magnetDoc',
-    userRoute:'/api/v1/Users',
+	swaggerDocRoute: '/magnet-api-doc',
+	userRoute: '/api/v1/Users',
+	quoteRoute: '/api/v1/Quote',
 };
