@@ -1,5 +1,6 @@
 const express = require('express');
 const quoteController = require('../controller/quoteController');
+const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
 
 // CREATE QUOTE
@@ -39,7 +40,7 @@ const router = express.Router();
  *      "201":
  *        description: "Quote created Successfully"
  */
-router.post('/createQuote', quoteController.addQuote);
+router.post('/createQuote', quoteValidationRules, validationFunction, quoteController.addQuote);
 
 // GET ALL QUOTES
 /**
@@ -60,6 +61,29 @@ router.post('/createQuote', quoteController.addQuote);
  */
 router.get('/allQuote', quoteController.getAllQuote);
 
+/**
+ *@swagger
+ *  /api/v1/Quote//getQuote/{id}:
+ *  get:
+ *    tags:
+ *    - "get a Quote"
+ *    summary: "Use To one Quote"
+ *    description: ""
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: mongodb object ID of the Quote to get
+ *    consumes:
+ *    - "application/json"
+ *    produces:
+ *    - "application/json"
+ *    responses:
+ *      "200":
+ *        description: "Success"
+ */
 router.get('/getQuote/:id', quoteController.getQuote);
 
 module.exports = router;

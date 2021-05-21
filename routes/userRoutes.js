@@ -1,8 +1,9 @@
 const express = require('express');
-const authController= require('../controller/authController')
-const router =express.Router();
+const authController = require('../controller/authController');
+const { signupValidationRules, validationFunction } = require('../utils/validation');
+const router = express.Router();
 
- // SIGNUP
+// SIGNUP
 /**
  *@swagger
  *  /api/v1/Users/signup:
@@ -32,7 +33,7 @@ const router =express.Router();
  *              phone:
  *                  type: "string"
  *              password:
- *                  type: "string"  
+ *                  type: "string"
  *              passwordConfirm:
  *                  type: "string"
  *    responses:
@@ -41,7 +42,7 @@ const router =express.Router();
  *      "201":
  *        description: "Account created Successfully"
  */
-router.post('/signup',authController.signup);
+router.post('/signup',signupValidationRules,validationFunction, authController.signup);
 
 //LOGIN
 
@@ -68,14 +69,14 @@ router.post('/signup',authController.signup);
  *              email:
  *                  type: "string"
  *              password:
- *                  type: "string"  
+ *                  type: "string"
  *    responses:
  *      "400":
  *        description: "incorrect email or password"
  *      "200":
  *        description: "you are logged in Successfully"
  */
-router.post('/login',authController.login);
+router.post('/login', authController.login);
 
 //LGOUT
 /**
@@ -89,13 +90,13 @@ router.post('/login',authController.login);
  *    consumes:
  *    - "application/json"
  *    produces:
- *    - "application/json"  
+ *    - "application/json"
  *    responses:
  *      "200":
  *        description: "operation successfull"
  */
 
-router.get('/logout',authController.logout);
-router.get('/protected',authController.authenticate, authController.protectedRoute);
+router.get('/logout', authController.logout);
+router.get('/protected', authController.authenticate, authController.protectedRoute);
 
 module.exports = router;
