@@ -42,7 +42,7 @@ const router = express.Router();
  *      "201":
  *        description: "Account created Successfully"
  */
-router.post('/signup',signupValidationRules,validationFunction, authController.signup);
+router.post('/signup', signupValidationRules, validationFunction, authController.signup);
 
 //LOGIN
 

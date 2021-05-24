@@ -63,7 +63,7 @@ router.get('/allQuote', quoteController.getAllQuote);
 
 /**
  *@swagger
- *  /api/v1/Quote//getQuote/{id}:
+ *  /api/v1/Quote/getQuote/{id}:
  *  get:
  *    tags:
  *    - "get a Quote"
