@@ -1,7 +1,7 @@
 {
 	"ENV": "development",
 	"DB_REMOTE": "mongodb://18.221.207.12:27017/Magnet",
-	"DB_LOCAL": "mongodb://127.0.0.1:27017/Magnet",
+	"DB_LOCAL": "mongodb:myUser:Abcd1234@//127.0.0.1:27017/Magnet",
 	"JWT_SECRET": "This is my jwt secret",
 	"JWT_EXPIRES_IN": 60,
 	"COOKIE_EXPIRES_IN": 60,
