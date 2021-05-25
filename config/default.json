@@ -1,6 +1,6 @@
 {
 	"ENV": "development",
-	"DB_REMOTE": "mongodb://myUser:Abcd1234@18.221.207.12:27017/Magnet",
+	"DB_REMOTE": "mongodb+srv://azeem:azeem0322..@cluster0.au9uh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
 	"DB_LOCAL": "mongodb://localhost:27017/Magnet",
 	"JWT_SECRET": "This is my jwt secret",
 	"JWT_EXPIRES_IN": 60,
