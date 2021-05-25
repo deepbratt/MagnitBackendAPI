@@ -5,8 +5,8 @@ const swaggerJsDoc = require('swagger-jsdoc');
 require('./config/dbConnection')(); // db connection
 const AppError = require('./utils/AppError');
 const userRoute = require('./constants/appConstants').routeConsts.userRoute; // User Api constant
-const quoteRoute = require('./constants/appConstants').routeConsts.userRoute; // Quote Api constant
-const swaggerRoute = require('./constants/appConstants').routeConsts.userRoute; // swagger doc constant
+const quoteRoute = require('./constants/appConstants').routeConsts.quoteRoute; // Quote Api constant
+const swaggerRoute = require('./constants/appConstants').routeConsts.swaggerDocRoute; // swagger doc constant
 const userRouter = require('./routes/userRoutes'); // userRoute
 const quoteRouter = require('./routes/quoteRoutes');
 const globalErrorHandler = require('./utils/errorHandler'); // errorHandler
