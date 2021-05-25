@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('config');
-const db = config.get('DB_LOCAL');
+const db = config.get('DB_REMOTE');
 const dbConnect = async () => {
 	try {
 		await mongoose.connect(db, {
