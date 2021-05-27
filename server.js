@@ -1,5 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 require('./config/dbConnection')(); // db connection
@@ -15,6 +16,8 @@ const swaggerOptions = require('./constants/swaggerOptions');
 const PORT = process.env.PORT || 3000; // port
 const app = express();
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
+// CORS
+app.use(cors());
 
 // GLOBAL MIDDLEWARES
 app.use(express.json()); // body parser (reading data from body to req.body)
