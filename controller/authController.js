@@ -27,13 +27,13 @@ exports.login = catchAsync(async (req, res,next) => {
 
 	if (!email || !password) {
 		// checking email or password empty?
-		return next(new AppError('Please provide email and password', 400));
+		return next(new AppError('Please provide email and password...', 400));
 	}
 
 	const user = await User.findOne({ email: email }).select('+password');
 	//user existance and password is correct
 	if (!user || !(await user.correctPassword(password, user.password))) {
-		return next(new AppError('Incorrect email or password', 401));
+		return next(new AppError('Incorrect email or password...', 401));
 	}
 	jwtManagement.createSendJwtToken(user, 200, req, res);
 });
