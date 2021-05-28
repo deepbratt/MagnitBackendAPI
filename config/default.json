@@ -1,6 +1,6 @@
 {
 	"ENV": "development",
-	"DB_REMOTE": "mongodb://18.221.207.12:27017/Magnet",
+	"DB_REMOTE": "mongodb://azeem:azeem123@52.15.134.80:27017/Magnet",
 	"DB_LOCAL": "mongodb://127.0.0.1:27017/Magnet",
 	"JWT_SECRET": "This is my jwt secret",
 	"JWT_EXPIRES_IN": 60,
@@ -8,5 +8,8 @@
 	"MAIL_TRAP_USERNAME": "4475c6ab51af34",
 	"MAIL_TRAP_PASSWORD": "3511b478c51d43",
 	"MAIL_TRAP_HOST": "smtp.mailtrap.io",
-	"MAIL_TRAP_PORT": 25
+	"MAIL_TRAP_PORT": 25,
+	"SENDGRID_USERNAME": "MAGNIT001",
+	"SENDGRID_PASSWORD": "Magnit@1234",
+	"MAILCHIMPAPI_KEY": "e8967137750fb29412752d777f8c7efe-us6"
 }

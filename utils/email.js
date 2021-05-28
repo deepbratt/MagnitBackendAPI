@@ -9,21 +9,15 @@ const MAIL_TRAP_PORT = config.get('MAIL_TRAP_PORT');
 module.exports = class Email {
 	constructor(user) {
 		this.to = user.email;
-		this.name = user.name;
+		this.firstName = user.firstName;
+		this.lastName = user.lastName;
 		//this.url = url;
-		this.from = `Magnet <magnetTeam@gmail.com>`;
+		this.from = `Magnet <magnetTeam@sandgrid.net>`;
 	}
-
 	newTransport() {
-		// if (NODE_ENV === 'production') {
-		// 	return nodemailer.createTransport({
-		// 		service: 'gmail',
-		// 		auth: {
-		// 			user: EMAIL,
-		// 			pass: PASSWORD,
-		// 		},
-		// 	});
-		// }
+		if (NODE_ENV === 'production') {
+			//request
+		}
 		return nodemailer.createTransport({
 			host: MAIL_TRAP_HOST,
 			port: MAIL_TRAP_PORT,
@@ -40,13 +34,16 @@ module.exports = class Email {
 			from: this.from,
 			to: this.to,
 			subject,
-			text:message,
+			text: message,
 		};
 		//create transport and send email
 		await this.newTransport().sendMail(mailOptions);
 	}
 
 	async sendEmailQuoteCreate() {
-		await this.send('your Qoute has been created successfully! We will respond you as early as possible.', 'Quote Created');
+		await this.send(
+			'your Qoute has been created successfully! We will respond you as early as possible.',
+			'Quote Created'
+		);
 	}
 };

@@ -6,7 +6,7 @@ const router = express.Router();
 // CREATE QUOTE
 /**
  *@swagger
- *  /api/v1/Quote/createQuote:
+ *  /v1/Quote/createQuote:
  *  post:
  *    tags:
  *    - "Quote"
@@ -45,7 +45,7 @@ router.post('/createQuote', quoteValidationRules, validationFunction, quoteContr
 // GET ALL QUOTES
 /**
  *@swagger
- *  /api/v1/Quote/allQuote:
+ *  /v1/Quote/allQuote:
  *  get:
  *    tags:
  *    - "All Quotes"
@@ -63,7 +63,7 @@ router.get('/allQuote', quoteController.getAllQuote);
 
 /**
  *@swagger
- *  /api/v1/Quote/getQuote/{id}:
+ *  /v1/Quote/getQuote/{id}:
  *  get:
  *    tags:
  *    - "get a Quote"

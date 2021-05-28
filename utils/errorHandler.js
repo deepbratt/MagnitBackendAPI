@@ -1,6 +1,7 @@
 const AppError = require('./AppError');
 const config = require('config');
 const NODE_ENV = config.get('ENV');
+const { appErrors } = require('../constants/appConstants');
 
 const handleCastErrorDB = (err) => {
 	const message = `invalid ${err.path}:${err.value}.`;
@@ -22,9 +23,9 @@ const handleValidationErrorExpress = (err) => {
 	return new AppError(message, 400);
 };
 const handleJWTError = () => {
-	return new AppError('Invalid token! Please Login Again', 401);
+	return new AppError(appErrors.INVALID_JWT, 401);
 };
-const handleJWTExpiredError = () => new AppError('Your token has expired! please login again', 401);
+const handleJWTExpiredError = () => new AppError(appErrors.EXPIRED_JWT, 401);
 const sendErrorDev = (err, req, res) => {
 	return res.status(err.statusCode).json({
 		status: err.status,
