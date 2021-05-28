@@ -8,7 +8,7 @@ const { appErrors } = require('../constants/appConstants');
 
 exports.userSubscribe = catchAsync(async (req, res, next) => {
 	mailchimp
-		.put(`/lists/dd701bbc3c/members`, {
+		.post(`/lists/dd701bbc3c/members`, {
 			email_address: req.body.email,
 			status: 'subscribed',
 		})

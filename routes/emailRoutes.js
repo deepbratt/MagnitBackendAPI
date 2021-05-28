@@ -1,5 +1,6 @@
 const express = require('express');
 const emailController = require('../controller/emailController');
+const { validEmail, validationFunction } = require('../utils/validation');
 const router = express.Router();
 
 //Email
@@ -24,10 +25,6 @@ const router = express.Router();
  *      schema:
  *        type: "object"
  *        properties:
- *              firstName:
- *                  type: "string"
- *              lastName:
- *                  type: "string"
  *              email:
  *                  type: "string"
  *    responses:
@@ -35,6 +32,6 @@ const router = express.Router();
  *        description: "Operation Successfull"
  */
 
-router.post('/subscribe', emailController.userSubscribe);
+router.post('/subscribe', validEmail, validationFunction, emailController.userSubscribe);
 
 module.exports = router;

@@ -51,5 +51,7 @@ exports.quoteValidationRules = [
 		.not()
 		.isEmpty()
 		.isLength({ min: 30 })
-		.withMessage('Project Details Should be Greater Than 30 characters.')
+		.withMessage('Project Details Should be Greater Than 30 characters.'),
 ];
+
+exports.validEmail = [check('email', 'Enter valid email address').not().isEmpty().isEmail()];
