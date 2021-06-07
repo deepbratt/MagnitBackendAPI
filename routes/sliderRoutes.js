@@ -41,7 +41,7 @@ const router = express.Router();
  *        description: "Slider Created Successfully"
  */
 
-// Get one Slider by ID
+// Get Single/One Slider by ID
 /**
  *@swagger
  *  /v1/slider/60be7439f8e5642f8c8fb398:
