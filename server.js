@@ -12,6 +12,9 @@ const quoteRouter = require('./routes/quoteRoutes');
 const globalErrorHandler = require('./utils/errorHandler'); // errorHandler
 const swaggerOptions = require('./constants/swaggerOptions');
 
+const sliderRoute = require('./constants/appConstants').routeConsts.sliderRoute;
+const sliderRouter = require('./routes/sliderRoutes');
+
 const PORT = process.env.PORT || 3000; // port
 const app = express();
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -26,13 +29,15 @@ app.use(swaggerRoute, swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 //ROUTES
 app.use(userRoute, userRouter); // user route
 app.use(quoteRoute, quoteRouter); // quote route
+app.use(sliderRoute, sliderRouter); // slider route
+
 app.all('*', (req, res, next) => {
-	next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
+  next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
 });
 
 //error handller
 app.use(globalErrorHandler);
 
 app.listen(PORT, () => {
-	console.log(`Listening on Port ${PORT}`);
+  console.log(`Listening on Port ${PORT}`);
 });
