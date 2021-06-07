@@ -1,10 +1,10 @@
 const Mailchimp = require('mailchimp-api-v3');
-const config = require('config');
-const MAILCHIMPAPI_KEY = config.get('MAILCHIMPAPI_KEY');
-const mailchimp = new Mailchimp(MAILCHIMPAPI_KEY);
+const mailchimp = new Mailchimp(process.env.MAILCHIMPAPI_KEY);
+
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
 const { appErrors } = require('../constants/appConstants');
+const { SUCCESS } = require('../constants/appConstants').resStatus;
 
 exports.userSubscribe = catchAsync(async (req, res, next) => {
 	mailchimp
@@ -14,7 +14,7 @@ exports.userSubscribe = catchAsync(async (req, res, next) => {
 		})
 		.then(function (results) {
 			res.status(200).json({
-				status: 'success',
+				status: SUCCESS,
 				message: appErrors.OPERATION_SUCCESSFULL,
 			});
 		})

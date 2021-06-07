@@ -2,9 +2,8 @@ const User = require('../model/userModel');
 const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
 const { appErrors } = require('../constants/appConstants');
+const { SUCCESS } = require('../constants/appConstants').resStatus;
 const jwt = require('jsonwebtoken');
-const config = require('config');
-const JWT_SECRET = config.get('JWT_SECRET');
 const jwtManagement = require('../utils/jwtManagement');
 
 exports.signup = catchAsync(async (req, res, next) => {
@@ -18,7 +17,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 	};
 	await User.create(newUser);
 	res.status(201).json({
-		status: 'success',
+		status: SUCCESS,
 		message: appErrors.OPERATION_SUCCESSFULL,
 	});
 });
@@ -51,7 +50,7 @@ exports.authenticate = catchAsync(async (req, res, next) => {
 		return next(new AppError(appErrors.UNAUTHORIZED_ERROR, 401));
 	}
 	//verification token
-	const decoded = jwt.verify(token, JWT_SECRET);
+	const decoded = jwt.verify(token, process.env.JWT_SECRET);
 	//check if user sitll exists
 	const currentUser = await User.findById(decoded.userdata.id);
 	if (!currentUser) {
@@ -72,11 +71,11 @@ exports.logout = catchAsync(async (req, res, next) => {
 		expires: new Date(Date.now() + 10),
 		httpOnly: true,
 	});
-	res.status(200).json({ status: 'success' });
+	res.status(200).json({ status: SUCCESS });
 });
 
 exports.protectedRoute = async (req, res) => {
 	res.status(200).json({
-		status: 'success',
+		status: SUCCESS,
 	});
 };

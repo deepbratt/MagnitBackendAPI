@@ -1,8 +1,10 @@
 const express = require('express');
+const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
+dotenv.config({ path: './config/config.env' }); // read config.env to environmental variables
 require('./config/dbConnection')(); // db connection
 const AppError = require('./utils/AppError');
 const userRoute = require('./constants/appConstants').routeConsts.userRoute; // User Api constant

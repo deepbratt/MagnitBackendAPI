@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
-const JWT_SECRET = config.get('JWT_SECRET');
-const JWT_EXPIRES_IN = config.get('JWT_EXPIRES_IN');
-const COOKIE_EXPIRES_IN = config.get('COOKIE_EXPIRES_IN');
+
+const { SUCCESS } = require('../constants/appConstants').resStatus;
 
 const signToken = (user) => {
 	const payload = {
@@ -10,21 +8,21 @@ const signToken = (user) => {
 			id: user._id,
 		},
 	};
-	return jwt.sign(payload, JWT_SECRET, {
-		expiresIn: JWT_EXPIRES_IN * 24 * 60 * 60 * 1000,
+	return jwt.sign(payload, process.env.JWT_SECRET, {
+		expiresIn: process.env.JWT_EXPIRES_IN * 24 * 60 * 60 * 1000,
 	});
 };
 exports.createSendJwtToken = (user, statuscode, req, res) => {
 	const token = signToken(user);
 	const cookieOptions = {
-		expires: new Date(Date.now() + COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+		expires: new Date(Date.now() + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
 		httpOnly: true,
 		//secure: req.secure || req.headers('x-forwarded-proto') === 'https',
 	};
 	res.cookie('jwt', token, cookieOptions);
 	user.password = undefined;
 	res.status(statuscode).json({
-		status: 'success',
+		status: SUCCESS,
 		token,
 		data: {
 			user,

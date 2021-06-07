@@ -1,6 +1,6 @@
 const express = require('express');
 const emailController = require('../controller/emailController');
-const { validEmail, validationFunction } = require('../utils/validation');
+const { quoteValidationRules, validEmail, validationFunction } = require('../utils/validation');
 const router = express.Router();
 
 //Email
@@ -33,5 +33,6 @@ const router = express.Router();
  */
 
 router.post('/subscribe', validEmail, validationFunction, emailController.userSubscribe);
+
 
 module.exports = router;

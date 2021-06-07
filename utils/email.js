@@ -1,10 +1,4 @@
 const nodemailer = require('nodemailer');
-const config = require('config');
-const NODE_ENV = config.get('ENV');
-const MAIL_TRAP_USERNAME = config.get('MAIL_TRAP_USERNAME');
-const MAIL_TRAP_PASSWORD = config.get('MAIL_TRAP_PASSWORD');
-const MAIL_TRAP_HOST = config.get('MAIL_TRAP_HOST');
-const MAIL_TRAP_PORT = config.get('MAIL_TRAP_PORT');
 
 module.exports = class Email {
 	constructor(user) {
@@ -15,15 +9,15 @@ module.exports = class Email {
 		this.from = `Magnet <magnetTeam@sandgrid.net>`;
 	}
 	newTransport() {
-		if (NODE_ENV === 'production') {
+		if (process.env.NODE_ENV === 'production') {
 			//request
 		}
 		return nodemailer.createTransport({
-			host: MAIL_TRAP_HOST,
-			port: MAIL_TRAP_PORT,
+			host: process.env.MAIL_TRAP_HOST,
+			port: process.env.MAIL_TRAP_PORT,
 			auth: {
-				user: MAIL_TRAP_USERNAME,
-				pass: MAIL_TRAP_PASSWORD,
+				user: process.env.MAIL_TRAP_USERNAME,
+				pass: process.env.MAIL_TRAP_PASSWORD,
 			},
 		});
 	}

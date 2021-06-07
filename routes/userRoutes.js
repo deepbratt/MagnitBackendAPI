@@ -1,13 +1,12 @@
 const express = require('express');
 const authController = require('../controller/authController');
-const emailController = require('../controller/emailController');
 const { signupValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
 
 // SIGNUP
 /**
  *@swagger
- *  /v1/Users/signup:
+ *  /v1/users/signup:
  *  post:
  *    tags:
  *    - "Signup"
@@ -49,7 +48,7 @@ router.post('/signup', signupValidationRules, validationFunction, authController
 
 /**
  *@swagger
- *  /v1/Users/login:
+ *  /v1/users/login:
  *  post:
  *    tags:
  *    - "login"
