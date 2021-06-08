@@ -1,17 +1,17 @@
 const express = require('express');
-const sliderController = require('../controller/sliderController');
+const servicesController = require('../controller/servicesController');
 
 const router = express.Router();
 
-// Creating Slider
+// Creating Service
 /**
  *@swagger
- *  /v1/slider:
+ *  /v1/services:
  *  post:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to Create Slider"
- *    description: "This API used for creating Slider"
+ *    - [Services API's]
+ *    summary: "Use to Create Service"
+ *    description: "This API used for creating Service"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -19,16 +19,16 @@ const router = express.Router();
  *    parameters:
  *    - in: "body"
  *      name: "body"
- *      description: "Data for Creating Slider"
+ *      description: "Data for Creating Service"
  *      required: true
  *      schema:
  *        type: "object"
  *        properties:
- *              backgroundImage:
+ *              image:
  *                  type: "string"
  *              title:
  *                  type: "string"
- *              items:
+ *              description:
  *                  type: "string"
  *              buttonLabel:
  *                  type: "string"
@@ -38,18 +38,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Slider Created Successfully"
+ *        description: "Service Created Successfully"
  */
 
-// Get single/one Slider by ID
+// Get single/one Service by ID
 /**
  *@swagger
- *  /v1/slider/60be7439f8e5642f8c8fb398:
+ *  /v1/services/60be7439f8e5642f8c8fb398:
  *  get:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to find one Slider"
- *    description: "This API used to find single/one Slider"
+ *    - [Services API's]
+ *    summary: "Use to find one Service"
+ *    description: "This API used to find single/one Service"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -58,18 +58,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Show Slider details of specific ID"
+ *        description: "Show Service details of specific ID"
  */
 
-// Get All Sliders
+// Get All Services
 /**
  *@swagger
- *  /v1/slider:
+ *  /v1/services:
  *  get:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to find All Sliders"
- *    description: "This API used to find All Sliders"
+ *    - [Services API's]
+ *    summary: "Use to find All Services"
+ *    description: "This API used to find All Services"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -78,18 +78,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Show All the Sliders"
+ *        description: "Show All the Services"
  */
 
-// Udpate/Patch Slider
+// Udpate/Patch Service
 /**
  *@swagger
- *  /v1/slider/60be7439f8e5642f8c8fb398:
+ *  /v1/services/60be7439f8e5642f8c8fb398:
  *  patch:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to Update Slider"
- *    description: "This API used for Updating Slider"
+ *    - [Services API's]
+ *    summary: "Use to Update Service"
+ *    description: "This API used for Updating Service"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -97,16 +97,16 @@ const router = express.Router();
  *    parameters:
  *    - in: "body"
  *      name: "body"
- *      description: "Data for Updating Slider"
+ *      description: "Data for Updating Service"
  *      required: true
  *      schema:
  *        type: "object"
  *        properties:
- *              backgroundImage:
+ *              image:
  *                  type: "string"
  *              title:
  *                  type: "string"
- *              items:
+ *              description:
  *                  type: "string"
  *              buttonLabel:
  *                  type: "string"
@@ -116,18 +116,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Slider Updated Successfully"
+ *        description: "Service Updated Successfully"
  */
 
-// Delete Slider by ID
+// Delete Service by ID
 /**
  *@swagger
- *  /v1/slider/:id:
+ *  /v1/services/:id:
  *  delete:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to Delete Slider by ID"
- *    description: "This API used to Delete Slider by ID"
+ *    - [Services API's]
+ *    summary: "Use to Delete Service by ID"
+ *    description: "This API used to Delete Service by ID"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -135,7 +135,7 @@ const router = express.Router();
  *    parameters:
  *    - in: "body"
  *      name: "body"
- *      description: "Provide ID of slider to delete"
+ *      description: "Provide ID of Service to delete"
  *      required: true
  *      schema:
  *        type: "object"
@@ -146,18 +146,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Slider deleted Successfully"
+ *        description: "Service deleted Successfully"
  */
 
 router
   .route('/')
-  .get(sliderController.getAllSliders)
-  .post(sliderController.createSlider);
+  .get(servicesController.getAllServices)
+  .post(servicesController.createService);
 
 router
   .route('/:id')
-  .get(sliderController.getSlider)
-  .patch(sliderController.updateSlider)
-  .delete(sliderController.deleteSlider);
+  .get(servicesController.getService)
+  .patch(servicesController.updateService)
+  .delete(servicesController.deleteService);
 
 module.exports = router;

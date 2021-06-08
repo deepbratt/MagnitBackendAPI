@@ -18,8 +18,14 @@ const emailRouter = require('./routes/emailRoutes'); // email route
 const globalErrorHandler = require('./utils/errorHandler'); // errorHandler
 const swaggerOptions = require('./constants/swaggerOptions');
 
+// For Slider
 const sliderRoute = require('./constants/appConstants').routeConsts.sliderRoute;
 const sliderRouter = require('./routes/sliderRoutes');
+
+// For Services
+const servicesRoute = require('./constants/appConstants').routeConsts
+  .servicesRoute;
+const servicesRouter = require('./routes/servicesRoutes');
 
 const PORT = process.env.PORT || 3000; // port
 const app = express();
@@ -42,6 +48,7 @@ app.use(userRoute, userRouter); // user route
 app.use(quoteRoute, quoteRouter); // quote route
 app.use(emailRoute, emailRouter); // email route
 app.use(sliderRoute, sliderRouter); // slider route
+app.use(servicesRoute, servicesRouter); // services route
 
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
