@@ -6,7 +6,7 @@ const router = express.Router();
 // Creating Slider
 /**
  *@swagger
- *  /v1/slider:
+ *  /v1/sliders:
  *  post:
  *    tags:
  *    - [Slider API's]
@@ -44,7 +44,7 @@ const router = express.Router();
 // Get single/one Slider by ID
 /**
  *@swagger
- *  /v1/slider/60be7439f8e5642f8c8fb398:
+ *  /v1/sliders/60be7439f8e5642f8c8fb398:
  *  get:
  *    tags:
  *    - [Slider API's]
@@ -64,7 +64,7 @@ const router = express.Router();
 // Get All Sliders
 /**
  *@swagger
- *  /v1/slider:
+ *  /v1/sliders:
  *  get:
  *    tags:
  *    - [Slider API's]
@@ -84,7 +84,7 @@ const router = express.Router();
 // Udpate/Patch Slider
 /**
  *@swagger
- *  /v1/slider/60be7439f8e5642f8c8fb398:
+ *  /v1/sliders/60be7439f8e5642f8c8fb398:
  *  patch:
  *    tags:
  *    - [Slider API's]
@@ -122,7 +122,7 @@ const router = express.Router();
 // Delete Slider by ID
 /**
  *@swagger
- *  /v1/slider/:id:
+ *  /v1/sliders/:id:
  *  delete:
  *    tags:
  *    - [Slider API's]

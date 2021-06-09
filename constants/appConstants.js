@@ -3,10 +3,11 @@ exports.routeConsts = {
   userRoute: '/v1/Users',
   quoteRoute: '/v1/Quote',
   emailRoute: '/v1/Email',
-  sliderRoute: '/v1/slider',
+  sliderRoute: '/v1/sliders',
   servicesRoute: '/v1/services',
   benifitsRoute: '/v1/benifits',
   ourWorkRoute: '/v1/ourwork',
+  awardsRoute: '/v1/awards',
 };
 exports.appErrors = {
   UNAUTHORIZED_ERROR: 'You are not logged in please login to get Access',
