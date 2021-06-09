@@ -6,7 +6,7 @@ const router = express.Router();
 // SIGNUP
 /**
  *@swagger
- *  /v1/users/signup:
+ *  /v1/Users/signup:
  *  post:
  *    tags:
  *    - "Signup"
@@ -48,7 +48,7 @@ router.post('/signup', signupValidationRules, validationFunction, authController
 
 /**
  *@swagger
- *  /v1/users/login:
+ *  /v1/Users/login:
  *  post:
  *    tags:
  *    - "login"
@@ -97,6 +97,77 @@ router.post('/login', authController.login);
  */
 
 router.get('/logout', authController.logout);
+
+// SIGNUP
+/**
+ *@swagger
+ *  /v1/Users/forgotPassword:
+ *  post:
+ *    tags:
+ *    - "forgotPassword"
+ *    summary: "use for forgot password"
+ *    description: ""
+ *    consumes:
+ *    - "application/json"
+ *    produces:
+ *    - "application/json"
+ *    parameters:
+ *    - in: "body"
+ *      name: "body"
+ *      description: "signup data"
+ *      required: true
+ *      schema:
+ *        type: "object"
+ *        properties:
+ *              email:
+ *                  type: "string"
+ *    responses:
+ *      "400":
+ *        description: "Invalid input"
+ *      "200":
+ *        description: "Reset Link Sent"
+ */
+router.post('/forgotPassword', authController.forgotPassword);
+
+// RESET PASSWORD
+/**
+ *@swagger
+ *  /v1/Users/resetPassword/{token}:
+ *  patch:
+ *    tags:
+ *    - "forgotPassword"
+ *    summary: "reset password"
+ *    description: ""
+ *    consumes:
+ *    - "application/json"
+ *    produces:
+ *    - "application/json"
+ *    parameters:
+ *    - in: path
+ *      name: token
+ *      schema:
+ *        type: string
+ *        required: true
+ *        description: reset token
+ *    - in: "body"
+ *      name: "body"
+ *      description: "reset data"
+ *      required: true
+ *      schema:
+ *        type: "object"
+ *        properties:
+ *              password:
+ *                  type: "string"
+ *              passwordConfirm:
+ *                  type: "string"
+ *    responses:
+ *      "400":
+ *        description: "Invalid input"
+ *      "200":
+ *        description: "Password reset Successfully"
+ */
+
+router.patch('/resetPassword/:token', authController.resetPassword);
 router.get('/protected', authController.authenticate, authController.protectedRoute);
 
 module.exports = router;
