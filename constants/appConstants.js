@@ -6,6 +6,7 @@ exports.routeConsts = {
   sliderRoute: '/v1/slider',
   servicesRoute: '/v1/services',
   benifitsRoute: '/v1/benifits',
+  ourWorkRoute: '/v1/ourwork',
 };
 exports.appErrors = {
   UNAUTHORIZED_ERROR: 'You are not logged in please login to get Access',

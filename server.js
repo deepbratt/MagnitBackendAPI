@@ -32,6 +32,11 @@ const benifitsRoute = require('./constants/appConstants').routeConsts
   .benifitsRoute;
 const benifitsRouter = require('./routes/benifitsRoutes');
 
+// For Our Work
+const ourWorkRoute = require('./constants/appConstants').routeConsts
+  .ourWorkRoute;
+const ourWorkRouter = require('./routes/ourWorkRoutes');
+
 const PORT = process.env.PORT || 3000; // port
 const app = express();
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -55,6 +60,7 @@ app.use(emailRoute, emailRouter); // email route
 app.use(sliderRoute, sliderRouter); // slider route
 app.use(servicesRoute, servicesRouter); // services route
 app.use(benifitsRoute, benifitsRouter); // benifits route
+app.use(ourWorkRoute, ourWorkRouter); // our work route
 
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
