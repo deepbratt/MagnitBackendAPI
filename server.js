@@ -41,6 +41,11 @@ const ourWorkRouter = require('./routes/ourWorkRoutes');
 const awardsRoute = require('./constants/appConstants').routeConsts.awardsRoute;
 const awardsRouter = require('./routes/awardsRoutes');
 
+// For How It Works
+const howItWorksRoute = require('./constants/appConstants').routeConsts
+  .howItWorks;
+const howItWorksRouter = require('./routes/howItWorksRoutes');
+
 const PORT = process.env.PORT || 3000; // port
 const app = express();
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -65,7 +70,8 @@ app.use(sliderRoute, sliderRouter); // slider route
 app.use(servicesRoute, servicesRouter); // services route
 app.use(benifitsRoute, benifitsRouter); // benifits route
 app.use(ourWorkRoute, ourWorkRouter); // our work route
-app.use(awardsRoute, awardsRouter);
+app.use(awardsRoute, awardsRouter); // awards route
+app.use(howItWorksRoute, howItWorksRouter); // how it works route
 
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
