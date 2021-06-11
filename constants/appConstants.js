@@ -11,6 +11,7 @@ exports.routeConsts = {
   howItWorksRoute: '/v1/howitworks',
   FAQRoutes: '/v1/faqs',
   reviewRoute: '/v1/Review',
+  caseStudyRoute: '/v1/casestudies',
 };
 
 exports.appErrors = {

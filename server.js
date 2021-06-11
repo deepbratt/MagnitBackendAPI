@@ -61,6 +61,11 @@ const howItWorksRouter = require('./routes/howItWorksRoutes');
 const FAQsRoute = require('./constants/appConstants').routeConsts.FAQRoutes;
 const FAQsRouter = require('./routes/FAQsRoutes');
 
+// Case Studies
+const caseStudiesRoute = require('./constants/appConstants').routeConsts
+  .caseStudyRoute;
+const caseStudiesRouter = require('./routes/caseStudiesRoutes');
+
 const PORT = process.env.PORT || 3000; // port
 const app = express();
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -96,6 +101,7 @@ app.use(ourWorkRoute, ourWorkRouter); // our work route
 app.use(awardsRoute, awardsRouter); // awards route
 app.use(howItWorksRoute, howItWorksRouter); // how it works route
 app.use(FAQsRoute, FAQsRouter); // Feedback and questions
+app.use(caseStudiesRoute, caseStudiesRouter);
 
 app.use(reviewRoute, reviewRouter); // review route
 
