@@ -1,6 +1,6 @@
 const Services = require('../model/servicesModel');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 
 exports.createService = catchAsync(async (req, res, next) => {
   const newService = await Services.create(req.body);
