@@ -1,6 +1,6 @@
 const FeedbackAndQuestion = require('../model/FAQsModel');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 
 exports.createFAQ = catchAsync(async (req, res, next) => {
   const newFAQ = await FeedbackAndQuestion.create(req.body);
