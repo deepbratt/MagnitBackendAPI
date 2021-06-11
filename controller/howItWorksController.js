@@ -1,6 +1,6 @@
 const HowItWorks = require('../model/howItWorksModel');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 
 exports.createHowItWorks = catchAsync(async (req, res, next) => {
   const newHowItWork = await HowItWorks.create(req.body);
