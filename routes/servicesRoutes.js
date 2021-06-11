@@ -1,5 +1,6 @@
 const express = require('express');
 const servicesController = require('../controller/servicesController');
+const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
 
@@ -152,12 +153,12 @@ const router = express.Router();
 router
   .route('/')
   .get(servicesController.getAllServices)
-  .post(servicesController.createService);
+  .post(fileUpload.upload.single('image'), servicesController.createService);
 
 router
   .route('/:id')
   .get(servicesController.getService)
-  .patch(servicesController.updateService)
+  .patch(fileUpload.upload.single('image'), servicesController.updateService)
   .delete(servicesController.deleteService);
 
 module.exports = router;
