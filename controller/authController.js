@@ -1,7 +1,9 @@
+const crypto = require('crypto');
 const User = require('../model/userModel');
 const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
-const { appErrors } = require('../constants/appConstants');
+const Email = require('../utils/email');
+const { appErrors,appSuccess } = require('../constants/appConstants');
 const { SUCCESS } = require('../constants/appConstants').resStatus;
 const jwt = require('jsonwebtoken');
 const jwtManagement = require('../utils/jwtManagement');
@@ -18,7 +20,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 	await User.create(newUser);
 	res.status(201).json({
 		status: SUCCESS,
-		message: appErrors.OPERATION_SUCCESSFULL,
+		message: appSuccess.OPERATION_SUCCESSFULL,
 	});
 });
 
@@ -57,13 +59,63 @@ exports.authenticate = catchAsync(async (req, res, next) => {
 		return next(new AppError(`User ${appErrors.NOT_FOUND}`, 404));
 	}
 	//check if user changed password after the token was issued
-	// if (currentUser.changedPasswordAfter(decoded.iat)) {
-	// 	return next(new AppError('You have recently changed password! Please login again.', 401));
-	// }
+	if (currentUser.changedPasswordAfter(decoded.iat)) {
+		return next(new AppError('You have recently changed password! Please login again.', 401));
+	}
 
 	//Grant access to protected route
 	req.user = currentUser;
 	next();
+});
+
+exports.forgotPassword = catchAsync(async (req, res,next) => {
+	const email = req.body.email.trim();
+	//get user on pasted email address
+	const user = await User.findOne({ email: email });
+	if (!user) {
+		return next(new AppError('No user exist agaist this email', 404));
+	}
+
+	//generate random reset token
+	const resetToken = user.createPasswordResetToken();
+	await user.save({ validateBeforeSave: false });
+	//send it to user's email
+	const resetURL = `${req.protocol}://${req.get('host')}/resetpassword/${resetToken}`;
+
+	try {
+		await new Email(user, resetURL).sendPasswordResetToken();
+		res.status(200).json({
+			status: SUCCESS,
+			message: 'Password rest link sent',
+		});
+	} catch (err) {
+		user.passwordResetToken = undefined;
+		user.passwordResetExpires = undefined;
+		await user.save({ validateBeforeSave: false });
+		console.log(err);
+		return next(new AppError(err.message, 500));
+	}
+});
+
+module.exports.resetPassword = catchAsync(async (req, res, next) => {
+	//console.log(req.params.token);
+	const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+	const user = await User.findOne({
+		passwordResetToken: hashedToken,
+		passwordResetExpires: { $gt: Date.now() },
+	});
+	if (!user) {
+		return next(new AppError('Password reset link is invalid or has been expired'));
+	}
+	user.password = req.body.password;
+	user.passwordConfirm = req.body.passwordConfirm;
+	user.passwordResetToken = undefined;
+	user.passwordResetExpires = undefined;
+	await user.save();
+	res.status(200).json({
+		status: SUCCESS,
+		message: 'Your Password has been reset successfully',
+	});
 });
 
 exports.logout = catchAsync(async (req, res, next) => {

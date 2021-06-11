@@ -1,6 +1,6 @@
 const Quote = require('../model/quoteModel');
 const AppError = require('../utils/AppError');
-const { appErrors } = require('../constants/appConstants');
+const { appErrors,appSuccess } = require('../constants/appConstants');
 const { SUCCESS } = require('../constants/appConstants').resStatus;
 const catchAsync = require('../utils/catchAsync');
 
@@ -15,7 +15,7 @@ exports.addQuote = catchAsync(async (req, res) => {
 	const quote = await Quote.create(newQuote);
 	res.status(201).json({
 		status: SUCCESS,
-		message: `Quote Created ${appErrors.OPERATION_SUCCESSFULL}`,
+		message: `Quote Created ${appSuccess.OPERATION_SUCCESSFULL}`,
 		data: {
 			quote,
 		},

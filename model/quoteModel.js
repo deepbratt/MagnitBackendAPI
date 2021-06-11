@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
+const { appErrors } = require('../constants/appConstants');
+
 const quoteSchema = new mongoose.Schema({
 	name: {
 		type: String,
@@ -12,7 +14,7 @@ const quoteSchema = new mongoose.Schema({
 		type: String,
 		required: [true, 'Please Enter your Email'],
 		lowercase: true,
-		validate: [validator.isEmail, 'Please Enter Valid Email'],
+		validate: [validator.isEmail, appErrors.INVALID_EMAIL],
 	},
 	companyName: {
 		type: String,
@@ -21,7 +23,7 @@ const quoteSchema = new mongoose.Schema({
 	phone: {
 		type: String,
         required: [true, 'Please Enter Phone Number'],
-		validate: [validator.isMobilePhone, 'Enter valid Phone Number'],
+		validate: [validator.isMobilePhone, appErrors.INVALID_PHONE_NUM],
 	},
 	projectDetails:{
         type: String,

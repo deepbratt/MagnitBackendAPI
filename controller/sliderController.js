@@ -1,9 +1,14 @@
 const Slider = require('../model/sliderModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const { uploadFile } = require('../utils/s3');
 
 exports.createSlider = catchAsync(async (req, res, next) => {
+  const file = req.file;
+  const { Location } = await uploadFile(file);
+  req.body.backgroundImage = Location;
   const newSlider = await Slider.create(req.body);
+  console.log(req.body);
 
   res.status(201).json({
     status: 'Success',
@@ -44,6 +49,11 @@ exports.getSlider = catchAsync(async (req, res, next) => {
 });
 
 exports.updateSlider = catchAsync(async (req, res, next) => {
+  if (req.file) {
+    const { Location } = await uploadFile(req.file);
+    req.body.backgroundImage = Location;
+  }
+
   const slider = await Slider.findByIdAndUpdate(req.params.id, req.body, {
     runValidator: true,
     new: true,

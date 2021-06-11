@@ -1,5 +1,6 @@
 const express = require('express');
 const sliderController = require('../controller/sliderController');
+const fileUpload = require('../utils/mluter')
 
 const router = express.Router();
 
@@ -152,12 +153,12 @@ const router = express.Router();
 router
   .route('/')
   .get(sliderController.getAllSliders)
-  .post(sliderController.createSlider);
+  .post(fileUpload.upload.single('backgroundImage'),sliderController.createSlider);
 
 router
   .route('/:id')
   .get(sliderController.getSlider)
-  .patch(sliderController.updateSlider)
+  .patch(fileUpload.upload.single('backgroundImage'),sliderController.updateSlider)
   .delete(sliderController.deleteSlider);
 
 module.exports = router;
