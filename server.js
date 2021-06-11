@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -43,8 +44,12 @@ const awardsRouter = require('./routes/awardsRoutes');
 
 // For How It Works
 const howItWorksRoute = require('./constants/appConstants').routeConsts
-  .howItWorks;
+  .howItWorksRoute;
 const howItWorksRouter = require('./routes/howItWorksRoutes');
+
+// Feedback and questions
+const FAQsRoute = require('./constants/appConstants').routeConsts.FAQRoutes;
+const FAQsRouter = require('./routes/FAQsRoutes');
 
 const PORT = process.env.PORT || 3000; // port
 const app = express();
@@ -54,6 +59,15 @@ app.use(cors());
 
 // CORS
 app.use(cors());
+
+// Morgan
+app.use(
+  morgan('dev', {
+    skip: function (req, res) {
+      return res.statusCode < 200;
+    },
+  }),
+);
 
 // GLOBAL MIDDLEWARES
 app.use(express.json()); // body parser (reading data from body to req.body)
@@ -72,6 +86,7 @@ app.use(benifitsRoute, benifitsRouter); // benifits route
 app.use(ourWorkRoute, ourWorkRouter); // our work route
 app.use(awardsRoute, awardsRouter); // awards route
 app.use(howItWorksRoute, howItWorksRouter); // how it works route
+app.use(FAQsRoute, FAQsRouter); // Feedback and questions
 
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));

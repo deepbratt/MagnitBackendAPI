@@ -8,7 +8,8 @@ exports.routeConsts = {
   benifitsRoute: '/v1/benifits',
   ourWorkRoute: '/v1/ourwork',
   awardsRoute: '/v1/awards',
-  howItWorks: '/v1/howitworks',
+  howItWorksRoute: '/v1/howitworks',
+  FAQRoutes: '/v1/faqs',
 };
 exports.appErrors = {
   UNAUTHORIZED_ERROR: 'You are not logged in please login to get Access',
