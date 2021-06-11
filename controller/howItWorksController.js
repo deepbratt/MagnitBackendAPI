@@ -1,8 +1,13 @@
 const HowItWorks = require('../model/howItWorksModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const { uploadFile } = require('../utils/s3');
 
 exports.createHowItWorks = catchAsync(async (req, res, next) => {
+  const file = req.file;
+  const { Location } = await uploadFile(file);
+  req.body.image = Location;
+
   const newHowItWork = await HowItWorks.create(req.body);
 
   res.status(201).json({
@@ -44,6 +49,11 @@ exports.getHowItWork = catchAsync(async (req, res, next) => {
 });
 
 exports.updateHowItWork = catchAsync(async (req, res, next) => {
+  if (req.file) {
+    const { Location } = await uploadFile(req.file);
+    req.body.image = Location;
+  }
+
   const howItWork = await HowItWorks.findByIdAndUpdate(
     req.params.id,
     req.body,
