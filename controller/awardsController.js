@@ -1,8 +1,13 @@
 const Awards = require('../model/awardsModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const { uploadFile } = require('../utils/s3');
 
 exports.createAward = catchAsync(async (req, res, next) => {
+  const file = req.file;
+  const { Location } = await uploadFile(file);
+  req.body.image = Location;
+
   const newAward = await Awards.create(req.body);
 
   res.status(201).json({
@@ -45,6 +50,11 @@ exports.getAward = catchAsync(async (req, res, next) => {
 });
 
 exports.updateAward = catchAsync(async (req, res, next) => {
+  if (req.file) {
+    const { Location } = await uploadFile(req.file);
+    req.body.image = Location;
+  }
+
   const award = await Awards.findByIdAndUpdate(req.params.id, req.body, {
     runValidator: true,
     new: true,
