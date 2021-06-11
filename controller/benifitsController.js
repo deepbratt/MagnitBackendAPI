@@ -1,6 +1,6 @@
 const Benifits = require('../model/benifitsModel');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 
 exports.createBenifit = catchAsync(async (req, res, next) => {
   const newBenifit = await Benifits.create(req.body);
