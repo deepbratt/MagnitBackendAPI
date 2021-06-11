@@ -1,13 +1,13 @@
 const express = require('express');
 const sliderController = require('../controller/sliderController');
-const fileUpload = require('../utils/mluter')
+const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
 
 // Creating Slider
 /**
  *@swagger
- *  /v1/sliders:
+/v1/sliders:
  *  post:
  *    tags:
  *    - [Slider API's]
@@ -153,12 +153,12 @@ const router = express.Router();
 router
   .route('/')
   .get(sliderController.getAllSliders)
-  .post(fileUpload.upload.single('backgroundImage'),sliderController.createSlider);
+  .post(fileUpload.upload.single('image'), sliderController.createSlider);
 
 router
   .route('/:id')
   .get(sliderController.getSlider)
-  .patch(fileUpload.upload.single('backgroundImage'),sliderController.updateSlider)
+  .patch(fileUpload.upload.single('image'), sliderController.updateSlider)
   .delete(sliderController.deleteSlider);
 
 module.exports = router;
