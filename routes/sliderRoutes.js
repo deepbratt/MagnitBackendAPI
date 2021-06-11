@@ -153,12 +153,18 @@ const router = express.Router();
 router
   .route('/')
   .get(sliderController.getAllSliders)
-  .post(fileUpload.upload.single('image'), sliderController.createSlider);
+  .post(
+    fileUpload.upload.single('backgroundImage'),
+    sliderController.createSlider,
+  );
 
 router
   .route('/:id')
   .get(sliderController.getSlider)
-  .patch(fileUpload.upload.single('image'), sliderController.updateSlider)
+  .patch(
+    fileUpload.upload.single('backgroundImage'),
+    sliderController.updateSlider,
+  )
   .delete(sliderController.deleteSlider);
 
 module.exports = router;
