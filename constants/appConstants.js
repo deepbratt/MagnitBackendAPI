@@ -3,7 +3,8 @@ exports.routeConsts = {
 	userRoute: '/v1/Users',
 	quoteRoute: '/v1/Quote',
 	emailRoute: '/v1/Email',
-	reviewRoute:'/v1/Review'
+	reviewRoute: '/v1/Review',
+	trainingCertificationRoute: '/v1/trainingCertification',
 };
 exports.appErrors = {
 	// JWT || CREDENTIAL ERRORS

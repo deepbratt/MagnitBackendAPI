@@ -10,12 +10,15 @@ const AppError = require('./utils/AppError');
 const userRoute = require('./constants/appConstants').routeConsts.userRoute; // User Api constant
 const quoteRoute = require('./constants/appConstants').routeConsts.quoteRoute; // Quote Api constant
 const emailRoute = require('./constants/appConstants').routeConsts.emailRoute; // for emails handling / subscription
-const reviewRoute=require('./constants/appConstants').routeConsts.reviewRoute; // for reviews
+const reviewRoute = require('./constants/appConstants').routeConsts.reviewRoute; // for reviews
+const trainingCertificationRoute = require('./constants/appConstants').routeConsts
+	.trainingCertificationRoute; //for training&Certification
 const swaggerRoute = require('./constants/appConstants').routeConsts.swaggerDocRoute; // swagger doc constant
 const userRouter = require('./routes/userRoutes'); // userRoute
-const quoteRouter = require('./routes/quoteRoutes');// quote Route
-const emailRouter = require('./routes/emailRoutes');// email route
-const reviewRouter= require('./routes/reviewRoutes');// review Route
+const quoteRouter = require('./routes/quoteRoutes'); // quote Route
+const emailRouter = require('./routes/emailRoutes'); // email route
+const reviewRouter = require('./routes/reviewRoutes'); // review Route
+const trainingCertificationRouter = require('./routes/trainingCertificationRoutes'); // training&Certification route
 const globalErrorHandler = require('./utils/errorHandler'); // errorHandler
 const swaggerOptions = require('./constants/swaggerOptions');
 
@@ -38,6 +41,7 @@ app.use(userRoute, userRouter); // user route
 app.use(quoteRoute, quoteRouter); // quote route
 app.use(emailRoute, emailRouter); // email route
 app.use(reviewRoute, reviewRouter); // review route
+app.use(trainingCertificationRoute,trainingCertificationRouter); // training route
 app.all('*', (req, res, next) => {
 	next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
 });

@@ -1,17 +1,16 @@
 const express = require('express');
-const reviewController = require('../controller/reviewController');
-const fileUpload = require('../utils/mluter');
+const trainingCertificationController = require('../controller/trainingCertification');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
 
-// CREATE QUOTE
+// CREATE trainingCertification
 /**
  *@swagger
- *  /v1/Review/addReview:
+ *  /v1/trainingCertification/create:
  *  post:
  *    tags:
- *    - "Review"
- *    summary: "Use To create a Review"
+ *    - "trainingCertification"
+ *    summary: "Use To create trainingCertification"
  *    description: ""
  *    consumes:
  *    - "application/json"
@@ -20,22 +19,16 @@ const router = express.Router();
  *    parameters:
  *    - in: "body"
  *      name: "body"
- *      description: "Review data"
+ *      description: "trainingCertification data"
  *      required: true
  *      schema:
  *        type: "object"
  *        properties:
- *              clientName:
+ *              jsonText:
+ *                  type: "object"
+ *              title:
  *                  type: "string"
- *              projectName:
- *                  type: "string"
- *              projectType:
- *                  type: "string"
- *              rating:
- *                  type: "number"
- *              review:
- *                  type: "string"
- *              image:
+ *              description:
  *                  type: "string"
  *    responses:
  *      "400":
@@ -43,16 +36,16 @@ const router = express.Router();
  *      "201":
  *        description: "Operation Successfull"
  */
-router.post('/addReview', fileUpload.upload.single('image'), reviewController.addReview);
+router.post('/create',trainingCertificationController.createTrainingCertification);
 
 // GET ALL Reviews
 /**
  *@swagger
- *  /v1/Review/getAllRewiews:
+ *  /v1/trainingCertification/getAll:
  *  get:
  *    tags:
- *    - "Review"
- *    summary: "Use To get All Reviews"
+ *    - "trainingCertification"
+ *    summary: "Use To get All trainingCertifications"
  *    description: ""
  *    consumes:
  *    - "application/json"
@@ -62,16 +55,16 @@ router.post('/addReview', fileUpload.upload.single('image'), reviewController.ad
  *      "200":
  *        description: "Success"
  */
-router.get('/getAllRewiews', reviewController.getAllReviews);
+router.get('/getAll', trainingCertificationController.getAll);
 
 // GET REVIEW
 /**
  *@swagger
- *  /v1/Review/getReview/{id}:
+ *  /v1/trainingCertification/getOne/{id}:
  *  get:
  *    tags:
- *    - "Review"
- *    summary: "Use To get one Review"
+ *    - "trainingCertification"
+ *    summary: "Use To get one trainingCertification"
  *    description: ""
  *    parameters:
  *      - in: path
@@ -79,7 +72,7 @@ router.get('/getAllRewiews', reviewController.getAllReviews);
  *        schema:
  *          type: string
  *        required: true
- *        description: mongodb object ID of the Review to get
+ *        description: mongodb object ID of the trainingCertification to get
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -88,18 +81,17 @@ router.get('/getAllRewiews', reviewController.getAllReviews);
  *      "200":
  *        description: "Success"
  */
-router.get('/getReview/:id', reviewController.getReview);
+router.get('/getOne/:id', trainingCertificationController.getOne);
 
-
-// UPDATE REVIEW
+// UPDATE trainingCertification
 
 /**
  *@swagger
- *  /v1/Review/updateReview/{id}:
- *  patch:
+ *  /v1/trainingCertification/update/{id}:
+ *  put:
  *    tags:
- *    - "Review"
- *    summary: "used to update review"
+ *    - "trainingCertification"
+ *    summary: "used to update trainingCertification"
  *    description: ""
  *    consumes:
  *    - "application/json"
@@ -119,17 +111,11 @@ router.get('/getReview/:id', reviewController.getReview);
  *      schema:
  *        type: "object"
  *        properties:
- *              clientName:
+ *              jsonText:
+ *                  type: "object"
+ *              title:
  *                  type: "string"
- *              projectName:
- *                  type: "string"
- *              projectType:
- *                  type: "string"
- *              rating:
- *                  type: "number"
- *              review:
- *                  type: "string"
- *              image:
+ *              description:
  *                  type: "string"
  *    responses:
  *      "400":
@@ -138,16 +124,16 @@ router.get('/getReview/:id', reviewController.getReview);
  *        description: "operation Successfull"
  */
 
-router.put('/updateReview/:id', fileUpload.upload.single('image'), reviewController.updateReview);
+router.put('/update/:id', trainingCertificationController.updateTrainingCertification);
 
 // DELETE REVIEW
 /**
  *@swagger
- *  /v1/Review/deleteReview/{id}:
+ *  /v1/trainingCertification/delete/{id}:
  *  delete:
  *    tags:
- *    - "Review"
- *    summary: "Use To delete Review"
+ *    - "trainingCertification"
+ *    summary: "Use To delete trainingCertification"
  *    description: ""
  *    parameters:
  *      - in: path
@@ -155,7 +141,7 @@ router.put('/updateReview/:id', fileUpload.upload.single('image'), reviewControl
  *        schema:
  *          type: string
  *        required: true
- *        description: mongodb object ID of the Review to get
+ *        description: mongodb object ID of the trainingCertification to delete
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -164,6 +150,6 @@ router.put('/updateReview/:id', fileUpload.upload.single('image'), reviewControl
  *      "200":
  *        description: "Success"
  */
-router.delete('/deleteReview/:id', reviewController.deleteReview);
+router.delete('/delete/:id', trainingCertificationController.deleteTrainingCertification);
 
 module.exports = router;
