@@ -1,6 +1,6 @@
 const Awards = require('../model/awardsModel');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 
 exports.createAward = catchAsync(async (req, res, next) => {
   const newAward = await Awards.create(req.body);
