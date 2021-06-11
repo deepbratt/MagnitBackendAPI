@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -22,12 +23,53 @@ const trainingCertificationRouter = require('./routes/trainingCertificationRoute
 const globalErrorHandler = require('./utils/errorHandler'); // errorHandler
 const swaggerOptions = require('./constants/swaggerOptions');
 
+// For Slider
+const sliderRoute = require('./constants/appConstants').routeConsts.sliderRoute;
+const sliderRouter = require('./routes/sliderRoutes');
+
+// For Services Section
+const servicesRoute = require('./constants/appConstants').routeConsts
+  .servicesRoute;
+const servicesRouter = require('./routes/servicesRoutes');
+
+// For Benifit Section
+const benifitsRoute = require('./constants/appConstants').routeConsts
+  .benifitsRoute;
+const benifitsRouter = require('./routes/benifitsRoutes');
+
+// For Our Work
+const ourWorkRoute = require('./constants/appConstants').routeConsts
+  .ourWorkRoute;
+const ourWorkRouter = require('./routes/ourWorkRoutes');
+
+// For Awards
+const awardsRoute = require('./constants/appConstants').routeConsts.awardsRoute;
+const awardsRouter = require('./routes/awardsRoutes');
+
+// For How It Works
+const howItWorksRoute = require('./constants/appConstants').routeConsts
+  .howItWorksRoute;
+const howItWorksRouter = require('./routes/howItWorksRoutes');
+
+// Feedback and questions
+const FAQsRoute = require('./constants/appConstants').routeConsts.FAQRoutes;
+const FAQsRouter = require('./routes/FAQsRoutes');
+
 const PORT = process.env.PORT || 3000; // port
 const app = express();
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 // CORS
 app.use(cors());
+
+// Morgan
+app.use(
+  morgan('dev', {
+    skip: function (req, res) {
+      return res.statusCode < 200;
+    },
+  }),
+);
 
 // GLOBAL MIDDLEWARES
 app.use(express.json()); // body parser (reading data from body to req.body)
@@ -40,15 +82,22 @@ app.use(swaggerRoute, swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(userRoute, userRouter); // user route
 app.use(quoteRoute, quoteRouter); // quote route
 app.use(emailRoute, emailRouter); // email route
+app.use(sliderRoute, sliderRouter); // slider route
+app.use(servicesRoute, servicesRouter); // services route
+app.use(benifitsRoute, benifitsRouter); // benifits route
+app.use(ourWorkRoute, ourWorkRouter); // our work route
+app.use(awardsRoute, awardsRouter); // awards route
+app.use(howItWorksRoute, howItWorksRouter); // how it works route
+app.use(FAQsRoute, FAQsRouter); // Feedback and questions
 app.use(reviewRoute, reviewRouter); // review route
 app.use(trainingCertificationRoute,trainingCertificationRouter); // training route
 app.all('*', (req, res, next) => {
-	next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
+  next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
 });
 
 //error handller
 app.use(globalErrorHandler);
 
 app.listen(PORT, () => {
-	console.log(`Listening on Port ${PORT}`);
+  console.log(`Listening on Port ${PORT}`);
 });

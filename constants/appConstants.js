@@ -5,7 +5,15 @@ exports.routeConsts = {
 	emailRoute: '/v1/Email',
 	reviewRoute: '/v1/Review',
 	trainingCertificationRoute: '/v1/trainingCertification',
+	sliderRoute: '/v1/sliders',
+	servicesRoute: '/v1/services',
+	benifitsRoute: '/v1/benifits',
+	ourWorkRoute: '/v1/ourwork',
+	awardsRoute: '/v1/awards',
+	howItWorksRoute: '/v1/howitworks',
+	FAQRoutes: '/v1/faqs',
 };
+
 exports.appErrors = {
 	// JWT || CREDENTIAL ERRORS
 	UNAUTHORIZED_ERROR: 'You are not logged in please login to get Access',
