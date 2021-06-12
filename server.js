@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const path = require('path');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 dotenv.config({ path: './config/config.env' }); // read config.env to environmental variables
@@ -61,6 +62,10 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 // CORS
 app.use(cors());
+//ejs for emails
+app.set('view engine', 'ejs');
+
+app.set('utils', path.join(__dirname, 'utils'))
 
 // Morgan
 app.use(
