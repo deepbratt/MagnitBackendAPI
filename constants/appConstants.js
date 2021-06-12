@@ -5,6 +5,7 @@ exports.routeConsts = {
 	emailRoute: '/v1/Email',
 	reviewRoute: '/v1/Review',
 	trainingCertificationRoute: '/v1/trainingCertification',
+	appAdminPanelRoute:'/v1/adminPanel',
 	sliderRoute: '/v1/sliders',
 	servicesRoute: '/v1/services',
 	benifitsRoute: '/v1/benifits',
