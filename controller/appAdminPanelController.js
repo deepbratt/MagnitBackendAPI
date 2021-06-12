@@ -23,7 +23,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 	const id = req.params.id;
 	const adminPanel = await AdminPanel.findOne({ _id: id });
 	if (!adminPanel) {
-		return next(new AppError(appErrors.NOT_FOUND,404));
+		return next(new AppError(appErrors.NOT_FOUND, 404));
 	}
 	res.status(200).json({
 		status: SUCCESS,
