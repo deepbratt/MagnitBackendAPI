@@ -96,7 +96,7 @@ router.get('/getReview/:id', reviewController.getReview);
 /**
  *@swagger
  *  /v1/Review/updateReview/{id}:
- *  patch:
+ *  put:
  *    tags:
  *    - "Review"
  *    summary: "used to update review"
