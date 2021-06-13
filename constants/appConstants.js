@@ -12,6 +12,7 @@ exports.routeConsts = {
   FAQRoutes: '/v1/faqs',
   reviewRoute: '/v1/Review',
   caseStudyRoute: '/v1/casestudies',
+  bannerRoute: '/v1/banners',
 };
 
 exports.appErrors = {
