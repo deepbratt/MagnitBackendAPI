@@ -8,26 +8,24 @@ const swaggerJsDoc = require('swagger-jsdoc');
 dotenv.config({ path: './config/config.env' }); // read config.env to environmental variables
 require('./config/dbConnection')(); // db connection
 const AppError = require('./utils/AppError');
-const userRoute = require('./constants/appConstants').routeConsts.userRoute; // User Api constant
-const quoteRoute = require('./constants/appConstants').routeConsts.quoteRoute; // Quote Api constant
-const emailRoute = require('./constants/appConstants').routeConsts.emailRoute; // for emails handling / subscription
 
-// const swaggerRoute = require('./constants/appConstants').routeConsts
-//   .swaggerDocRoute; // swagger doc constant
-// const userRouter = require('./routes/userRoutes'); // userRoute
-// const quoteRouter = require('./routes/quoteRoutes'); // quote Route
-// const emailRouter = require('./routes/emailRoutes'); // email route
-
-const reviewRoute = require('./constants/appConstants').routeConsts.reviewRoute; // for reviews
 const swaggerRoute = require('./constants/appConstants').routeConsts
   .swaggerDocRoute; // swagger doc constant
-const userRouter = require('./routes/userRoutes'); // userRoute
-const quoteRouter = require('./routes/quoteRoutes'); // quote Route
-const emailRouter = require('./routes/emailRoutes'); // email route
+const swaggerOptions = require('./constants/swaggerOptions');
+
+const reviewRoute = require('./constants/appConstants').routeConsts.reviewRoute; // for reviews
 const reviewRouter = require('./routes/reviewRoutes'); // review Route
 
+const userRoute = require('./constants/appConstants').routeConsts.userRoute; // User Api constant
+const userRouter = require('./routes/userRoutes'); // userRoute
+
+const quoteRouter = require('./routes/quoteRoutes'); // quote Route
+const quoteRoute = require('./constants/appConstants').routeConsts.quoteRoute; // Quote Api constant
+
+const emailRoute = require('./constants/appConstants').routeConsts.emailRoute; // for emails handling / subscription
+const emailRouter = require('./routes/emailRoutes'); // email route
+
 const globalErrorHandler = require('./utils/errorHandler'); // errorHandler
-const swaggerOptions = require('./constants/swaggerOptions');
 
 // For Slider
 const sliderRoute = require('./constants/appConstants').routeConsts.sliderRoute;
@@ -66,6 +64,10 @@ const caseStudiesRoute = require('./constants/appConstants').routeConsts
   .caseStudyRoute;
 const caseStudiesRouter = require('./routes/caseStudiesRoutes');
 
+// For Banners
+const bannerRoute = require('./constants/appConstants').routeConsts.bannerRoute;
+const bannerRouter = require('./routes/bannerRoutes');
+
 const PORT = process.env.PORT || 3000; // port
 const app = express();
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -101,7 +103,8 @@ app.use(ourWorkRoute, ourWorkRouter); // our work route
 app.use(awardsRoute, awardsRouter); // awards route
 app.use(howItWorksRoute, howItWorksRouter); // how it works route
 app.use(FAQsRoute, FAQsRouter); // Feedback and questions
-app.use(caseStudiesRoute, caseStudiesRouter);
+app.use(caseStudiesRoute, caseStudiesRouter); // case studies
+app.use(bannerRoute, bannerRouter); //banner route
 
 app.use(reviewRoute, reviewRouter); // review route
 
