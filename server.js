@@ -9,6 +9,7 @@ dotenv.config({ path: './config/config.env' }); // read config.env to environmen
 require('./config/dbConnection')(); // db connection
 const AppError = require('./utils/AppError');
 
+// Swagger routes
 const swaggerRoute = require('./constants/appConstants').routeConsts
   .swaggerDocRoute; // swagger doc constant
 const swaggerOptions = require('./constants/swaggerOptions');
