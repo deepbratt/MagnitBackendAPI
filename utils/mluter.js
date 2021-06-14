@@ -1,4 +1,5 @@
 const multer = require('multer');
+//const bcrypt = require('bcrypt');
 
 const AppError = require('./AppError');
 
@@ -6,8 +7,10 @@ exports.upload = multer({
 	storage: multer.diskStorage({
 		filename: async function (req, file, cb) {
 			const fileName = `${Date.now()}${file.originalname}`;
-			//const hashedFileName = await bcrypt.hash(fileName, 12);
-			cb(null, fileName);
+			// const split = fileName.split('.');
+			// const ext = split[split.length - 1];
+			// const hashedFileName = await bcrypt.hash(fileName, 6);
+			cb(null,fileName);
 		},
 	}),
 	fileFilter: (req, file, callback) => {

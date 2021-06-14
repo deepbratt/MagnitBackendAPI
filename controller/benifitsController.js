@@ -1,7 +1,7 @@
 const Benifits = require('../model/benifitsModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-const { UploadFile, uploadFile } = require('../utils/s3');
+const { uploadFile } = require('../utils/s3');
 
 exports.createBenifit = catchAsync(async (req, res, next) => {
   const file = req.file;

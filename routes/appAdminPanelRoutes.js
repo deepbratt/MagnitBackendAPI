@@ -1,17 +1,17 @@
 const express = require('express');
-const reviewController = require('../controller/reviewController');
+const adminPanelController = require('../controller/appAdminPanelController');
 const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
 
-// CREATE QUOTE
+// CREATE PANEL
 /**
  *@swagger
- *  /v1/Review/addReview:
+ *  /v1/adminPanel/create:
  *  post:
  *    tags:
- *    - "Review"
- *    summary: "Use To create a Review"
+ *    - "Admin Panel"
+ *    summary: "Use To create a Admin Panel"
  *    description: ""
  *    consumes:
  *    - "application/json"
@@ -20,22 +20,14 @@ const router = express.Router();
  *    parameters:
  *    - in: "body"
  *      name: "body"
- *      description: "Review data"
+ *      description: "data"
  *      required: true
  *      schema:
  *        type: "object"
  *        properties:
- *              clientName:
- *                  type: "string"
- *              projectName:
- *                  type: "string"
- *              projectType:
- *                  type: "string"
- *              rating:
- *                  type: "number"
- *              review:
- *                  type: "string"
  *              image:
+ *                  type: "string"
+ *              description:
  *                  type: "string"
  *    responses:
  *      "400":
@@ -43,16 +35,16 @@ const router = express.Router();
  *      "201":
  *        description: "Operation Successfull"
  */
-router.post('/addReview', fileUpload.upload.single('image'), reviewController.addReview);
+router.post('/create', fileUpload.upload.single('image'), adminPanelController.createAdminPanel);
 
-// GET ALL Reviews
+// GET ALL Panels
 /**
  *@swagger
- *  /v1/Review/getAllRewiews:
+ *  /v1/adminPanel/getAll:
  *  get:
  *    tags:
- *    - "Review"
- *    summary: "Use To get All Reviews"
+ *    - "Admin Panel"
+ *    summary: "Use To get All Admin Panel"
  *    description: ""
  *    consumes:
  *    - "application/json"
@@ -62,16 +54,16 @@ router.post('/addReview', fileUpload.upload.single('image'), reviewController.ad
  *      "200":
  *        description: "Success"
  */
-router.get('/getAllRewiews', reviewController.getAllReviews);
+router.get('/getAll', adminPanelController.getAll);
 
-// GET REVIEW
+// GET Admin Panel
 /**
  *@swagger
- *  /v1/Review/getReview/{id}:
+ *  /v1/adminPanel/getOne/{id}:
  *  get:
  *    tags:
- *    - "Review"
- *    summary: "Use To get one Review"
+ *    - "Admin Panel"
+ *    summary: "Use To get one Admin Panel"
  *    description: ""
  *    parameters:
  *      - in: path
@@ -79,7 +71,7 @@ router.get('/getAllRewiews', reviewController.getAllReviews);
  *        schema:
  *          type: string
  *        required: true
- *        description: mongodb object ID of the Review to get
+ *        description: mongodb object ID of the Admin Panel to get
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -88,18 +80,17 @@ router.get('/getAllRewiews', reviewController.getAllReviews);
  *      "200":
  *        description: "Success"
  */
-router.get('/getReview/:id', reviewController.getReview);
+router.get('/getOne/:id', adminPanelController.getOne);
 
-
-// UPDATE REVIEW
+// UPDATE Admin Panel
 
 /**
  *@swagger
- *  /v1/Review/updateReview/{id}:
+ *  /v1/adminPanel/update/{id}:
  *  put:
  *    tags:
- *    - "Review"
- *    summary: "used to update review"
+ *    - "Admin Panel"
+ *    summary: "used to update Admin Panel"
  *    description: ""
  *    consumes:
  *    - "application/json"
@@ -119,17 +110,9 @@ router.get('/getReview/:id', reviewController.getReview);
  *      schema:
  *        type: "object"
  *        properties:
- *              clientName:
- *                  type: "string"
- *              projectName:
- *                  type: "string"
- *              projectType:
- *                  type: "string"
- *              rating:
- *                  type: "number"
- *              review:
- *                  type: "string"
  *              image:
+ *                  type: "string"
+ *              description:
  *                  type: "string"
  *    responses:
  *      "400":
@@ -138,16 +121,16 @@ router.get('/getReview/:id', reviewController.getReview);
  *        description: "operation Successfull"
  */
 
-router.put('/updateReview/:id', fileUpload.upload.single('image'), reviewController.updateReview);
+router.put('/update/:id', fileUpload.upload.single('image'), adminPanelController.updatePanel);
 
-// DELETE REVIEW
+// DELETE Admin Panel
 /**
  *@swagger
- *  /v1/Review/deleteReview/{id}:
+ *  /v1/adminPanel/delete/{id}:
  *  delete:
  *    tags:
- *    - "Review"
- *    summary: "Use To delete Review"
+ *    - "Admin Panel"
+ *    summary: "Use To delete Admin Panel"
  *    description: ""
  *    parameters:
  *      - in: path
@@ -155,7 +138,7 @@ router.put('/updateReview/:id', fileUpload.upload.single('image'), reviewControl
  *        schema:
  *          type: string
  *        required: true
- *        description: mongodb object ID of the Review to get
+ *        description: mongodb object ID of the Admin Panel to get
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -164,6 +147,6 @@ router.put('/updateReview/:id', fileUpload.upload.single('image'), reviewControl
  *      "200":
  *        description: "Success"
  */
-router.delete('/deleteReview/:id', reviewController.deleteReview);
+router.delete('/delete/:id', adminPanelController.deletePanel);
 
 module.exports = router;

@@ -1,14 +1,18 @@
 const HowItWorks = require('../model/howItWorksModel');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 const { uploadFile } = require('../utils/s3');
 
 exports.createHowItWorks = catchAsync(async (req, res, next) => {
   const file = req.file;
   const { Location } = await uploadFile(file);
-  req.body.image = Location;
 
-  const newHowItWork = await HowItWorks.create(req.body);
+  const newObj = {
+    title: req.body.title.trim(),
+    text: req.body.text.trim(),
+    image: Location,
+  };
+  const newHowItWork = await HowItWorks.create(newObj);
 
   res.status(201).json({
     status: 'Success',
@@ -62,13 +66,6 @@ exports.updateHowItWork = catchAsync(async (req, res, next) => {
       new: true,
     },
   );
-
-  if (!howItWork) {
-    return next(
-      new AppError(`Cannot Update Document, Something went wrong`),
-      404,
-    );
-  }
 
   res.status(200).json({
     status: 'success',

@@ -2,7 +2,6 @@ const Ourwork = require('../model/ourWorkModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const { uploadFile } = require('../utils/s3');
-const { upload } = require('../utils/mluter');
 
 exports.createOurWork = catchAsync(async (req, res, next) => {
   const file = req.file;

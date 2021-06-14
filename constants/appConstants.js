@@ -11,6 +11,8 @@ exports.routeConsts = {
   howItWorksRoute: '/v1/howitworks',
   FAQRoutes: '/v1/faqs',
   reviewRoute: '/v1/Review',
+  trainingCertificationRoute: '/v1/trainingCertification',
+  appAdminPanelRoute: '/v1/adminPanel',
   caseStudyRoute: '/v1/casestudies',
   bannerRoute: '/v1/banners',
   workflowRoute: '/v1/workflows',

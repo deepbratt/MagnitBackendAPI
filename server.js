@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const path = require('path');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 dotenv.config({ path: './config/config.env' }); // read config.env to environmental variables
@@ -14,17 +15,25 @@ const swaggerRoute = require('./constants/appConstants').routeConsts
   .swaggerDocRoute; // swagger doc constant
 const swaggerOptions = require('./constants/swaggerOptions');
 
-const reviewRoute = require('./constants/appConstants').routeConsts.reviewRoute; // for reviews
-const reviewRouter = require('./routes/reviewRoutes'); // review Route
-
-const userRoute = require('./constants/appConstants').routeConsts.userRoute; // User Api constant
 const userRouter = require('./routes/userRoutes'); // userRoute
+const userRoute = require('./constants/appConstants').routeConsts.userRoute; // User Api constant
 
 const quoteRouter = require('./routes/quoteRoutes'); // quote Route
 const quoteRoute = require('./constants/appConstants').routeConsts.quoteRoute; // Quote Api constant
 
 const emailRoute = require('./constants/appConstants').routeConsts.emailRoute; // for emails handling / subscription
 const emailRouter = require('./routes/emailRoutes'); // email route
+
+const reviewRouter = require('./routes/reviewRoutes'); // review Route
+const reviewRoute = require('./constants/appConstants').routeConsts.reviewRoute; // for reviews
+
+const adminPanelRouter = require('./routes/appAdminPanelRoutes'); // Admin Panel Route
+const appAdminPanelRoute = require('./constants/appConstants').routeConsts
+  .appAdminPanelRoute; // for admin panel
+
+const trainingCertificationRoute = require('./constants/appConstants')
+  .routeConsts.trainingCertificationRoute; //for training&Certification
+const trainingCertificationRouter = require('./routes/trainingCertificationRoutes'); // training&Certification route
 
 const globalErrorHandler = require('./utils/errorHandler'); // errorHandler
 
@@ -80,6 +89,10 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 // CORS
 app.use(cors());
+//ejs for emails
+app.set('view engine', 'ejs');
+
+app.set('utils', path.join(__dirname, 'utils'));
 
 // Morgan
 app.use(
@@ -101,7 +114,6 @@ app.use(swaggerRoute, swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(userRoute, userRouter); // user route
 app.use(quoteRoute, quoteRouter); // quote route
 app.use(emailRoute, emailRouter); // email route
-
 app.use(sliderRoute, sliderRouter); // slider route
 app.use(servicesRoute, servicesRouter); // services route
 app.use(benifitsRoute, benifitsRouter); // benifits route
@@ -114,14 +126,8 @@ app.use(bannerRoute, bannerRouter); //banner route
 app.use(workflowRoute, workflowRouter); // workflow router
 
 app.use(reviewRoute, reviewRouter); // review route
-
-// visit count
-// var count = 0;
-// app.use((req, res) => {
-//   if (req === workflowRoute) {
-//     console.log(count++);
-//   }
-// });
+app.use(trainingCertificationRoute, trainingCertificationRouter); // training route
+app.use(appAdminPanelRoute, adminPanelRouter); // Admin Panel Route
 
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));

@@ -48,7 +48,7 @@ router.post('/createQuote', quoteValidationRules, validationFunction, quoteContr
  *  /v1/Quote/allQuote:
  *  get:
  *    tags:
- *    - "All Quotes"
+ *    - "Quote"
  *    summary: "Use To get All Quotes"
  *    description: ""
  *    consumes:
@@ -66,7 +66,7 @@ router.get('/allQuote', quoteController.getAllQuote);
  *  /v1/Quote/getQuote/{id}:
  *  get:
  *    tags:
- *    - "get a Quote"
+ *    - "Quote"
  *    summary: "Use To one Quote"
  *    description: ""
  *    parameters:

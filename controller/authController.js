@@ -3,7 +3,7 @@ const User = require('../model/userModel');
 const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
 const Email = require('../utils/email');
-const { appErrors,appSuccess } = require('../constants/appConstants');
+const { appErrors, appSuccess } = require('../constants/appConstants');
 const { SUCCESS } = require('../constants/appConstants').resStatus;
 const jwt = require('jsonwebtoken');
 const jwtManagement = require('../utils/jwtManagement');
@@ -68,7 +68,7 @@ exports.authenticate = catchAsync(async (req, res, next) => {
 	next();
 });
 
-exports.forgotPassword = catchAsync(async (req, res,next) => {
+exports.forgotPassword = catchAsync(async (req, res, next) => {
 	const email = req.body.email.trim();
 	//get user on pasted email address
 	const user = await User.findOne({ email: email });
