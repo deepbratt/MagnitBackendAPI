@@ -69,6 +69,11 @@ const caseStudiesRouter = require('./routes/caseStudiesRoutes');
 const bannerRoute = require('./constants/appConstants').routeConsts.bannerRoute;
 const bannerRouter = require('./routes/bannerRoutes');
 
+// For Workflow
+const workflowRoute = require('./constants/appConstants').routeConsts
+  .workflowRoute;
+const workflowRouter = require('./routes/workflowRoutes');
+
 const PORT = process.env.PORT || 3000; // port
 const app = express();
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -106,8 +111,17 @@ app.use(howItWorksRoute, howItWorksRouter); // how it works route
 app.use(FAQsRoute, FAQsRouter); // Feedback and questions
 app.use(caseStudiesRoute, caseStudiesRouter); // case studies
 app.use(bannerRoute, bannerRouter); //banner route
+app.use(workflowRoute, workflowRouter); // workflow router
 
 app.use(reviewRoute, reviewRouter); // review route
+
+// visit count
+// var count = 0;
+// app.use((req, res) => {
+//   if (req === workflowRoute) {
+//     console.log(count++);
+//   }
+// });
 
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
