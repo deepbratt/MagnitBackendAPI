@@ -11,7 +11,7 @@ exports.createBanner = catchAsync(async (req, res, next) => {
   req.body.image = Location;
 
   const newBanner = await Banner.create(req.body);
-  //   console.log(req.body);
+  console.log(req.body);
 
   res.status(201).json({
     status: SUCCESS,
