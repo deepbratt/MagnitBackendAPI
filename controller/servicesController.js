@@ -1,6 +1,6 @@
 const Services = require('../model/servicesModel');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 const { uploadFile } = require('../utils/s3');
 
 exports.createService = catchAsync(async (req, res, next) => {
