@@ -1,4 +1,3 @@
-const { listenerCount } = require('events');
 const mongoose = require('mongoose');
 
 const workflowSchema = new mongoose.Schema({
