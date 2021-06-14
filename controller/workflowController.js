@@ -2,7 +2,7 @@ const Workflow = require('../model/workflowModel');
 const catchAsync = require('../utils/catchAsync');
 const { appErrors, appSuccess } = require('../constants/appConstants');
 const { SUCCESS } = require('../constants/appConstants').resStatus;
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 const { uploadFile } = require('../utils/s3');
 
 var counter = 0;
