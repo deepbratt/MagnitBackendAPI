@@ -1,5 +1,6 @@
 const express = require('express');
 const howItWorksController = require('../controller/howItWorksController');
+const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
 
@@ -144,12 +145,12 @@ const router = express.Router();
 router
   .route('/')
   .get(howItWorksController.getAllHowItWorks)
-  .post(howItWorksController.createHowItWorks);
+  .post(fileUpload.upload.single('image'),howItWorksController.createHowItWorks);
 
 router
   .route('/:id')
   .get(howItWorksController.getHowItWork)
-  .patch(howItWorksController.updateHowItWork)
+  .patch(fileUpload.upload.single('image'),howItWorksController.updateHowItWork)
   .delete(howItWorksController.deleteHowItWork);
 
 module.exports = router;
