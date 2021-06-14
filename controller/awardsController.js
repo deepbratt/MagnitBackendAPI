@@ -1,6 +1,6 @@
 const Awards = require('../model/awardsModel');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 const { uploadFile } = require('../utils/s3');
 
 exports.createAward = catchAsync(async (req, res, next) => {
