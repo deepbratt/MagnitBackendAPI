@@ -26,7 +26,7 @@ const router = express.Router();
  *        type: "object"
  *        properties:
  *              image:
- *                  type: "string"
+ *                  type: "multipart/form-data"
  *              title:
  *                  type: "string"
  *              description:
@@ -34,6 +34,8 @@ const router = express.Router();
  *              buttonLabel:
  *                  type: "string"
  *              buttonLink:
+ *                  type: "string"
+ *              color:
  *                  type: "string"
  *    responses:
  *      "400":
@@ -104,7 +106,7 @@ const router = express.Router();
  *        type: "object"
  *        properties:
  *              image:
- *                  type: "string"
+ *                  type: "multipart/form-data"
  *              title:
  *                  type: "string"
  *              description:
@@ -112,6 +114,8 @@ const router = express.Router();
  *              buttonLabel:
  *                  type: "string"
  *              buttonLink:
+ *                  type: "string"
+ *              color:
  *                  type: "string"
  *    responses:
  *      "400":

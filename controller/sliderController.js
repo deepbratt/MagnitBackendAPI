@@ -61,7 +61,7 @@ exports.updateSlider = catchAsync(async (req, res, next) => {
     const { Location } = await uploadFile(req.file);
     req.body.backgroundImage = Location;
   }
-  const items = req.body.items;
+  const items = req.body.items.split(',');
   req.body.items = items;
 
   const slider = await Slider.findByIdAndUpdate(req.params.id, req.body, {
