@@ -1,18 +1,18 @@
 const express = require('express');
-const sliderController = require('../controller/sliderController');
+const workflowController = require('../controller/workflowController');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
 
-// Creating Slider
+// Creating Workflow
 /**
  *@swagger
-/v1/sliders:
+/v1/workflows:
  *  post:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to Create Slider"
- *    description: "This API used for creating Slider"
+ *    - [Workflow's API's]
+ *    summary: "Use to Create Workflow"
+ *    description: "This API used for creating Workflow"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -20,37 +20,29 @@ const router = express.Router();
  *    parameters:
  *    - in: "body"
  *      name: "body"
- *      description: "Data for Creating Slider"
+ *      description: "Data for Creating Workflow"
  *      required: true
  *      schema:
  *        type: "object"
  *        properties:
- *              backgroundImage:
- *                  type: "string"
- *              title:
- *                  type: "string"
- *              items:
- *                  type: "string"
- *              buttonLabel:
- *                  type: "string"
- *              buttonLink:
- *                  type: "string"
+ *              image:
+ *                  type: "multipart/form-data"
  *    responses:
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Slider Created Successfully"
+ *        description: "Workflow Created Successfully"
  */
 
-// Get single/one Slider by ID
+// Get single/one Workflow by ID
 /**
  *@swagger
- *  /v1/sliders/60be7439f8e5642f8c8fb398:
+ *  /v1/workflows/60be7439f8e5642f8c8fb398:
  *  get:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to find one Slider"
- *    description: "This API used to find single/one Slider"
+ *    - [Workflow's API's]
+ *    summary: "Use to find one Workflow"
+ *    description: "This API used to find single/one Workflow"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -59,18 +51,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Show Slider details of specific ID"
+ *        description: "Show Workflow details of specific ID"
  */
 
-// Get All Sliders
+// Get All Workflows
 /**
  *@swagger
- *  /v1/sliders:
+ *  /v1/workflows:
  *  get:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to find All Sliders"
- *    description: "This API used to find All Sliders"
+ *    - [Workflow's API's]
+ *    summary: "Use to find All Workflows"
+ *    description: "This API used to find All Workflows"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -79,18 +71,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Show All the Sliders"
+ *        description: "Show All the Workflows"
  */
 
-// Udpate/Patch Slider
+// Udpate/Patch Workflow
 /**
  *@swagger
- *  /v1/sliders/60be7439f8e5642f8c8fb398:
+ *  /v1/workflows/60be7439f8e5642f8c8fb398:
  *  patch:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to Update Slider"
- *    description: "This API used for Updating Slider"
+ *    - [Workflow's API's]
+ *    summary: "Use to Update Workflow"
+ *    description: "This API used for Updating Workflow"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -98,7 +90,7 @@ const router = express.Router();
  *    parameters:
  *    - in: "body"
  *      name: "body"
- *      description: "Data for Updating Slider"
+ *      description: "Data for Updating Workflow"
  *      required: true
  *      schema:
  *        type: "object"
@@ -117,18 +109,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Slider Updated Successfully"
+ *        description: "Workflow Updated Successfully"
  */
 
-// Delete Slider by ID
+// Delete Workflow by ID
 /**
  *@swagger
- *  /v1/sliders/:id:
+ *  /v1/workflows/:id:
  *  delete:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to Delete Slider by ID"
- *    description: "This API used to Delete Slider by ID"
+ *    - [Workflow's API's]
+ *    summary: "Use to Delete Workflow by ID"
+ *    description: "This API used to Delete Workflow by ID"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -136,7 +128,7 @@ const router = express.Router();
  *    parameters:
  *    - in: "body"
  *      name: "body"
- *      description: "Provide ID of slider to delete"
+ *      description: "Provide ID of Workflow to delete"
  *      required: true
  *      schema:
  *        type: "object"
@@ -147,24 +139,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Slider deleted Successfully"
+ *        description: "Workflow deleted Successfully"
  */
 
 router
   .route('/')
-  .get(sliderController.getAllSliders)
-  .post(
-    fileUpload.upload.single('backgroundImage'),
-    sliderController.createSlider,
-  );
+  .get(workflowController.getAllWorkflows)
+  .post(fileUpload.upload.single('image'), workflowController.createWorkflow);
 
 router
   .route('/:id')
-  .get(sliderController.getSlider)
-  .patch(
-    fileUpload.upload.single('backgroundImage'),
-    sliderController.updateSlider,
-  )
-  .delete(sliderController.deleteSlider);
+  .get(workflowController.getWorkflow)
+  .patch(fileUpload.upload.single('image'), workflowController.updateWorkflow)
+  .delete(workflowController.deleteWorkflow);
 
 module.exports = router;

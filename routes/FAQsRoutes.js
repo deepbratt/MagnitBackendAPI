@@ -113,7 +113,7 @@ const router = express.Router();
  *  /v1/faqs/:id:
  *  delete:
  *    tags:
- *    - [FAQ'S API's]
+ *    - [FAQ's API's]
  *    summary: "Use to Delete Feedback and Questions by ID"
  *    description: "This API used to Delete Feedback and Questions by ID"
  *    consumes:

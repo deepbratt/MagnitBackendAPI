@@ -1,18 +1,18 @@
 const express = require('express');
-const sliderController = require('../controller/sliderController');
+const bannerController = require('../controller/bannerController');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
 
-// Creating Slider
+// Creating Banner
 /**
  *@swagger
-/v1/sliders:
+/v1/banners:
  *  post:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to Create Slider"
- *    description: "This API used for creating Slider"
+ *    - [Banner's API's]
+ *    summary: "Use to Create Banner"
+ *    description: "This API used for creating Banner"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -20,16 +20,20 @@ const router = express.Router();
  *    parameters:
  *    - in: "body"
  *      name: "body"
- *      description: "Data for Creating Slider"
+ *      description: "Data for Creating Banner"
  *      required: true
  *      schema:
  *        type: "object"
  *        properties:
- *              backgroundImage:
+ *              heading:
+ *                  type: "multipart/form-data"
+ *              subHeading:
  *                  type: "string"
- *              title:
+ *              image:
  *                  type: "string"
- *              items:
+ *              link:
+ *                  type: "string"
+ *              type:
  *                  type: "string"
  *              buttonLabel:
  *                  type: "string"
@@ -39,18 +43,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Slider Created Successfully"
+ *        description: "Banner Created Successfully"
  */
 
-// Get single/one Slider by ID
+// Get single/one Banner by ID
 /**
  *@swagger
- *  /v1/sliders/60be7439f8e5642f8c8fb398:
+ *  /v1/banners/60be7439f8e5642f8c8fb398:
  *  get:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to find one Slider"
- *    description: "This API used to find single/one Slider"
+ *    - [Banner's API's]
+ *    summary: "Use to find one Banner"
+ *    description: "This API used to find single/one Banner"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -59,18 +63,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Show Slider details of specific ID"
+ *        description: "Show Banner details of specific ID"
  */
 
-// Get All Sliders
+// Get All Banners
 /**
  *@swagger
- *  /v1/sliders:
+ *  /v1/banners:
  *  get:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to find All Sliders"
- *    description: "This API used to find All Sliders"
+ *    - [Banner's API's]
+ *    summary: "Use to find All Banners"
+ *    description: "This API used to find All Banners"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -79,18 +83,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Show All the Sliders"
+ *        description: "Show All the Banners"
  */
 
-// Udpate/Patch Slider
+// Udpate/Patch Banner
 /**
  *@swagger
- *  /v1/sliders/60be7439f8e5642f8c8fb398:
+ *  /v1/banners/60be7439f8e5642f8c8fb398:
  *  patch:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to Update Slider"
- *    description: "This API used for Updating Slider"
+ *    - [Banner's API's]
+ *    summary: "Use to Update Banner"
+ *    description: "This API used for Updating Banner"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -98,16 +102,20 @@ const router = express.Router();
  *    parameters:
  *    - in: "body"
  *      name: "body"
- *      description: "Data for Updating Slider"
+ *      description: "Data for Updating Banner"
  *      required: true
  *      schema:
  *        type: "object"
  *        properties:
- *              backgroundImage:
+ *              heading:
  *                  type: "string"
- *              title:
+ *              subHeading:
  *                  type: "string"
- *              items:
+ *              image:
+ *                  type: "string"
+ *              link:
+ *                  type: "string"
+ *              type:
  *                  type: "string"
  *              buttonLabel:
  *                  type: "string"
@@ -117,18 +125,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Slider Updated Successfully"
+ *        description: "Banner Updated Successfully"
  */
 
-// Delete Slider by ID
+// Delete Banner by ID
 /**
  *@swagger
- *  /v1/sliders/:id:
+ *  /v1/banners/:id:
  *  delete:
  *    tags:
- *    - [Slider API's]
- *    summary: "Use to Delete Slider by ID"
- *    description: "This API used to Delete Slider by ID"
+ *    - [Banner's API's]
+ *    summary: "Use to Delete Banner by ID"
+ *    description: "This API used to Delete Banner by ID"
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -136,7 +144,7 @@ const router = express.Router();
  *    parameters:
  *    - in: "body"
  *      name: "body"
- *      description: "Provide ID of slider to delete"
+ *      description: "Provide ID of Banner to delete"
  *      required: true
  *      schema:
  *        type: "object"
@@ -147,24 +155,18 @@ const router = express.Router();
  *      "400":
  *        description: "Invalid input"
  *      "201":
- *        description: "Slider deleted Successfully"
+ *        description: "Banner deleted Successfully"
  */
 
 router
   .route('/')
-  .get(sliderController.getAllSliders)
-  .post(
-    fileUpload.upload.single('backgroundImage'),
-    sliderController.createSlider,
-  );
+  .get(bannerController.getAllBanners)
+  .post(fileUpload.upload.single('image'), bannerController.createBanner);
 
 router
   .route('/:id')
-  .get(sliderController.getSlider)
-  .patch(
-    fileUpload.upload.single('backgroundImage'),
-    sliderController.updateSlider,
-  )
-  .delete(sliderController.deleteSlider);
+  .get(bannerController.getBanner)
+  .patch(fileUpload.upload.single('image'), bannerController.updateBanner)
+  .delete(bannerController.deleteBanner);
 
 module.exports = router;
