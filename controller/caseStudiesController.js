@@ -1,6 +1,6 @@
 const CaseStudies = require('../model/caseStudiesModel');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 const { uploadFile } = require('../utils/s3');
 
 exports.createCaseStudy = catchAsync(async (req, res, next) => {
