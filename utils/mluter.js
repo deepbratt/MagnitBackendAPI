@@ -1,18 +1,11 @@
+const { memoryStorage } = require('multer');
 const multer = require('multer');
 //const bcrypt = require('bcrypt');
 
 const AppError = require('./AppError');
 
 exports.upload = multer({
-	storage: multer.diskStorage({
-		filename: async function (req, file, cb) {
-			const fileName = `${Date.now()}${file.originalname}`;
-			// const split = fileName.split('.');
-			// const ext = split[split.length - 1];
-			// const hashedFileName = await bcrypt.hash(fileName, 6);
-			cb(null,fileName);
-		},
-	}),
+	storage: memoryStorage(),
 	fileFilter: (req, file, callback) => {
 		if (file.mimetype.startsWith('image')) {
 			callback(null, true);
