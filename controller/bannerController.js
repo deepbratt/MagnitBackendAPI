@@ -1,6 +1,6 @@
 const Banner = require('../model/bannerModel');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 const { SUCCESS } = require('../constants/appConstants').resStatus;
 const { appErrors, appSuccess } = require('../constants/appConstants');
 const { uploadFile } = require('../utils/s3');
