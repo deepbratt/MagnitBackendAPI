@@ -83,6 +83,11 @@ const workflowRoute = require('./constants/appConstants').routeConsts
   .workflowRoute;
 const workflowRouter = require('./routes/workflowRoutes');
 
+// For Facts About Us
+const factsAboutUsRoute = require('./constants/appConstants').routeConsts
+  .factsAboutUsRoute;
+const factsAboutUsRouter = require('./routes/factsAboutUsRoutes');
+
 const PORT = process.env.PORT || 3000; // port
 const app = express();
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -124,6 +129,7 @@ app.use(FAQsRoute, FAQsRouter); // Feedback and questions
 app.use(caseStudiesRoute, caseStudiesRouter); // case studies
 app.use(bannerRoute, bannerRouter); //banner route
 app.use(workflowRoute, workflowRouter); // workflow router
+app.use(factsAboutUsRoute, factsAboutUsRouter);
 
 app.use(reviewRoute, reviewRouter); // review route
 app.use(trainingCertificationRoute, trainingCertificationRouter); // training route
