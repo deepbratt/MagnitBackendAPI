@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		validate: [validator.isMobilePhone, appErrors.INVALID_PHONE_NUM],
 	},
+	role: {
+		type: String,
+		enum: ['Admin','Moderator'],
+	},
 	password: {
 		type: String,
 		required: [true, appErrors.PASSWORD_REQUIRED],

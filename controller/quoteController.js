@@ -24,6 +24,9 @@ exports.addQuote = catchAsync(async (req, res) => {
 
 exports.getAllQuote = catchAsync(async (req, res) => {
 	const quotes = await Quote.find();
+	if (quotes.length === 0) {
+		return next(new AppError(appErrors.NOT_FOUND, 404));
+	}
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
