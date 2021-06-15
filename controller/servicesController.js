@@ -2,6 +2,8 @@ const Services = require('../model/servicesModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
 const { uploadFile } = require('../utils/s3');
+const { appErrors, appSuccess } = require('../constants/appConstants');
+const { SUCCESS } = require('../constants/appConstants').resStatus;
 
 exports.createService = catchAsync(async (req, res, next) => {
   const file = req.file;
@@ -11,9 +13,9 @@ exports.createService = catchAsync(async (req, res, next) => {
   const newService = await Services.create(req.body);
 
   res.status(201).json({
-    status: 'Success',
+    status: SUCCESS,
     data: {
-      data: newService,
+      newService,
     },
   });
 });
@@ -21,14 +23,14 @@ exports.getAllServices = catchAsync(async (req, res, next) => {
   const service = await Services.find();
 
   if (!service) {
-    return next(new AppError(`No Service found.`), 404);
+    return next(appErrors.NOT_FOUND, 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     results: service.length,
     data: {
-      data: service,
+      service,
     },
   });
 });
@@ -37,13 +39,13 @@ exports.getService = catchAsync(async (req, res, next) => {
   const service = await Services.findById(req.params.id);
 
   if (!service) {
-    return next(new AppError(`No Service found with this ID`), 404);
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     data: {
-      data: service,
+      service,
     },
   });
 });
@@ -60,16 +62,13 @@ exports.updateService = catchAsync(async (req, res, next) => {
   });
 
   if (!service) {
-    return next(
-      new AppError(`Cannot Update Service, Something went wrong`),
-      404,
-    );
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     data: {
-      data: service,
+      service,
     },
   });
 });
@@ -78,13 +77,11 @@ exports.deleteService = catchAsync(async (req, res, next) => {
   const service = await Services.findByIdAndDelete(req.params.id);
 
   if (!service) {
-    return next(new AppError(`No service found with this ID`));
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
-    data: {
-      data: null,
-    },
+    status: SUCCESS,
+    data: null,
   });
 });

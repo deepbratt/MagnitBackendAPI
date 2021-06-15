@@ -2,6 +2,8 @@ const Ourwork = require('../model/ourWorkModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
 const { uploadFile } = require('../utils/s3');
+const { appSuccess, appErrors } = require('../constants/appConstants');
+const { SUCCESS } = require('../constants/appConstants').resStatus;
 
 exports.createOurWork = catchAsync(async (req, res, next) => {
   const file = req.file;
@@ -11,9 +13,10 @@ exports.createOurWork = catchAsync(async (req, res, next) => {
   const newOurWork = await Ourwork.create(req.body);
 
   res.status(201).json({
-    status: 'Success',
+    status: SUCCESS,
+    message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      data: newOurWork,
+      newOurWork,
     },
   });
 });
@@ -22,14 +25,14 @@ exports.getAllOurWorks = catchAsync(async (req, res, next) => {
   const ourwork = await Ourwork.find();
 
   if (!ourwork) {
-    return next(new AppError(`No ourwork Section found.`), 404);
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     results: ourwork.length,
     data: {
-      data: ourwork,
+      ourwork,
     },
   });
 });
@@ -38,13 +41,13 @@ exports.getOurWork = catchAsync(async (req, res, next) => {
   const ourwork = await Ourwork.findById(req.params.id);
 
   if (!ourwork) {
-    return next(new AppError(`No ourwork found with this ID`), 404);
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     data: {
-      data: ourwork,
+      ourwork,
     },
   });
 });
@@ -61,16 +64,13 @@ exports.updateOurWork = catchAsync(async (req, res, next) => {
   });
 
   if (!ourwork) {
-    return next(
-      new AppError(`Cannot Update ourwork, Something went wrong`),
-      404,
-    );
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     data: {
-      data: ourwork,
+      ourwork,
     },
   });
 });
@@ -79,13 +79,12 @@ exports.deleteOurWork = catchAsync(async (req, res, next) => {
   const ourwork = await Ourwork.findByIdAndDelete(req.params.id);
 
   if (!ourwork) {
-    return next(new AppError(`No ourwork found with this ID`));
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
-    data: {
-      data: null,
-    },
+    status: SUCCESS,
+    message: appSuccess.OPERATION_SUCCESSFULL,
+    data: null,
   });
 });

@@ -9,7 +9,7 @@ const sliderSchema = new mongoose.Schema({
     unique: [true, 'Title should be Unique'],
     required: true,
   },
-  items:Array,
+  items: Array,
   buttonLabel: {
     type: String,
   },

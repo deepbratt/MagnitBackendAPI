@@ -14,6 +14,7 @@ exports.createFactsAboutUs = catchAsync(async (req, res, next) => {
     title: req.body.title,
     text: req.body.text,
   };
+
   const factsAboutUs = await Facts.create(newFactsAboutUs);
   res.status(201).json({
     status: SUCCESS,
@@ -27,8 +28,9 @@ exports.createFactsAboutUs = catchAsync(async (req, res, next) => {
 exports.getFactAboutUs = catchAsync(async (req, res, next) => {
   const id = req.params.id;
   const factAboutUs = await Facts.findOne({ _id: id });
+
   if (!factAboutUs) {
-    return next(new AppError(appErrors.NOT_FOUND, 404));
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
   res.status(200).json({
     status: SUCCESS,
@@ -40,9 +42,11 @@ exports.getFactAboutUs = catchAsync(async (req, res, next) => {
 
 exports.getAllFactsAboutUs = catchAsync(async (req, res, next) => {
   const factsAboutUs = await Facts.find();
+
   if (!factsAboutUs) {
-    return next(new AppError(appErrors.NOT_FOUND, 404));
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
+
   res.status(200).json({
     status: SUCCESS,
     results: factsAboutUs.length,
@@ -61,6 +65,11 @@ exports.updateFactAboutUs = catchAsync(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
+
+  if (!factAboutUs) {
+    return next(new AppError(appErrors.NOT_FOUND), 404);
+  }
+
   res.status(200).json({
     status: SUCCESS,
     data: {
@@ -73,6 +82,7 @@ exports.deleteFactAboutUs = catchAsync(async (req, res, next) => {
   await Facts.findByIdAndDelete(req.params.id);
   res.status(200).json({
     status: SUCCESS,
+    message: appSuccess.OPERATION_SUCCESSFULL,
     data: null,
   });
 });

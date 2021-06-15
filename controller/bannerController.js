@@ -11,28 +11,29 @@ exports.createBanner = catchAsync(async (req, res, next) => {
   req.body.image = Location;
 
   const newBanner = await Banner.create(req.body);
-  //   console.log(req.body);
+  console.log(req.body);
 
   res.status(201).json({
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      data: newBanner,
+      newBanner,
     },
   });
 });
+
 exports.getAllBanners = catchAsync(async (req, res, next) => {
   const banner = await Banner.find();
 
   if (!banner) {
-    return next(new AppError(`No banner found.`), 404);
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
     status: SUCCESS,
     results: banner.length,
     data: {
-      data: banner,
+      banner,
     },
   });
 });
@@ -41,13 +42,13 @@ exports.getBanner = catchAsync(async (req, res, next) => {
   const banner = await Banner.findById(req.params.id);
 
   if (!banner) {
-    return next(new AppError(`No banner found with this ID`), 404);
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
     status: SUCCESS,
     data: {
-      data: banner,
+      banner,
     },
   });
 });
@@ -64,16 +65,13 @@ exports.updateBanner = catchAsync(async (req, res, next) => {
   });
 
   if (!banner) {
-    return next(
-      new AppError(`Cannot Update banner, Something went wrong`),
-      404,
-    );
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
     status: SUCCESS,
     data: {
-      data: banner,
+      banner,
     },
   });
 });
@@ -82,13 +80,12 @@ exports.deleteBanner = catchAsync(async (req, res, next) => {
   const banner = await Banner.findByIdAndDelete(req.params.id);
 
   if (!banner) {
-    return next(new AppError(`No banner found with this ID`));
+    return next(new AppError(appErrors.NOT_FOUND));
   }
 
   res.status(200).json({
     status: SUCCESS,
-    data: {
-      data: null,
-    },
+    message: appSuccess.OPERATION_SUCCESSFULL,
+    data: null,
   });
 });

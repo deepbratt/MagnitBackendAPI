@@ -18,6 +18,9 @@ const servicesSchema = new mongoose.Schema({
   buttonLink: {
     type: String,
   },
+  color: {
+    type: String,
+  },
 });
 
 const Services = mongoose.model('Services', servicesSchema);
