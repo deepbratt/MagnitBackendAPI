@@ -17,6 +17,7 @@ exports.routeConsts = {
   bannerRoute: '/v1/banners',
   workflowRoute: '/v1/workflows',
   factsAboutUsRoute: '/v1/factsAboutUs',
+  hiringOptionsRoute: '/v1/hiringOptions',
 };
 
 exports.appErrors = {
