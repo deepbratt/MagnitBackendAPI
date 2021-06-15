@@ -145,12 +145,18 @@ const router = express.Router();
 router
   .route('/')
   .get(howItWorksController.getAllHowItWorks)
-  .post(fileUpload.upload.single('image'),howItWorksController.createHowItWorks);
+  .post(
+    fileUpload.upload.single('image'),
+    howItWorksController.createHowItWorks,
+  );
 
 router
   .route('/:id')
   .get(howItWorksController.getHowItWork)
-  .patch(fileUpload.upload.single('image'),howItWorksController.updateHowItWork)
+  .patch(
+    fileUpload.upload.single('image'),
+    howItWorksController.updateHowItWork,
+  )
   .delete(howItWorksController.deleteHowItWork);
 
 module.exports = router;

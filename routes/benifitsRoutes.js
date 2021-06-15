@@ -1,5 +1,6 @@
 const express = require('express');
 const benifitsController = require('../controller/benifitsController');
+const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
 
@@ -144,12 +145,12 @@ const router = express.Router();
 router
   .route('/')
   .get(benifitsController.getAllBenifits)
-  .post(benifitsController.createBenifit);
+  .post(fileUpload.upload.single('image'), benifitsController.createBenifit);
 
 router
   .route('/:id')
   .get(benifitsController.getBenifit)
-  .patch(benifitsController.updateBenifit)
+  .patch(fileUpload.upload.single('image'), benifitsController.updateBenifit)
   .delete(benifitsController.deleteBenifit);
 
 module.exports = router;

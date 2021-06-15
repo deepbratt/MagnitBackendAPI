@@ -1,8 +1,13 @@
 const Ourwork = require('../model/ourWorkModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
+const { uploadFile } = require('../utils/s3');
 
 exports.createOurWork = catchAsync(async (req, res, next) => {
+  const file = req.file;
+  const { Location } = await uploadFile(file);
+  req.body.image = Location;
+
   const newOurWork = await Ourwork.create(req.body);
 
   res.status(201).json({
@@ -45,6 +50,11 @@ exports.getOurWork = catchAsync(async (req, res, next) => {
 });
 
 exports.updateOurWork = catchAsync(async (req, res, next) => {
+  if (req.file) {
+    const { Location } = await uploadFile(req.file);
+    req.body.image = Location;
+  }
+
   const ourwork = await Ourwork.findByIdAndUpdate(req.params.id, req.body, {
     runValidator: true,
     new: true,
