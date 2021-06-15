@@ -26,9 +26,10 @@ const quoteRouter = require('./routes/quoteRoutes'); // quote Route
 const emailRouter = require('./routes/emailRoutes'); // email route
 const reviewRouter = require('./routes/reviewRoutes'); // review Route
 const adminPanelRouter=require('./routes/appAdminPanelRoutes') // Admin Panel Route
-const ourObjectivesRouter=require('./routes/ourObjectivesRoutes'); // Our Objectives Route
+const ourObjectivesRouter=require('./routes/ourObjectivesRoutes')
 const trainingCertificationRouter = require('./routes/trainingCertificationRoutes'); // training&Certification route
 const globalErrorHandler = require('./utils/errorHandler'); // errorHandler
+const swaggerOptions = require('./constants/swaggerOptions');
 
 // For Slider
 const sliderRoute = require('./constants/appConstants').routeConsts.sliderRoute;
@@ -90,7 +91,7 @@ app.use(cors());
 //ejs for emails
 app.set('view engine', 'ejs');
 
-app.set('utils', path.join(__dirname, 'utils'));
+app.set('utils', path.join(__dirname, 'utils'))
 
 // Morgan
 app.use(
@@ -126,7 +127,7 @@ app.use(factsAboutUsRoute, factsAboutUsRouter);
 app.use(reviewRoute, reviewRouter); // review route
 app.use(trainingCertificationRoute,trainingCertificationRouter); // training route
 app.use(appAdminPanelRoute,adminPanelRouter); // Admin Panel Route
-app.use(ourObjectivesRoute,ourObjectivesRouter) // our Objectives Route
+app.use(ourObjectivesRoute,ourObjectivesRouter) // our Objectives 
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
 });
