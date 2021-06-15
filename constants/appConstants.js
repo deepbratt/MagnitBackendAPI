@@ -6,6 +6,7 @@ exports.routeConsts = {
 	reviewRoute: '/v1/Review',
 	trainingCertificationRoute: '/v1/trainingCertification',
 	appAdminPanelRoute:'/v1/adminPanel',
+	ourObjectives:'/v1/ourObjectives',
 	sliderRoute: '/v1/sliders',
 	servicesRoute: '/v1/services',
 	benifitsRoute: '/v1/benifits',
