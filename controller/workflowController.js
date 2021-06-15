@@ -2,10 +2,8 @@ const Workflow = require('../model/workflowModel');
 const catchAsync = require('../utils/catchAsync');
 const { appErrors, appSuccess } = require('../constants/appConstants');
 const { SUCCESS } = require('../constants/appConstants').resStatus;
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 const { uploadFile } = require('../utils/s3');
-
-var counter = 0;
 
 exports.createWorkflow = catchAsync(async (req, res, next) => {
   const file = req.file;
@@ -27,7 +25,7 @@ exports.getAllWorkflows = catchAsync(async (req, res, next) => {
   const workflow = await Workflow.find();
 
   if (!workflow) {
-    return next(new AppError(`No workflow found.`), 404);
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
@@ -37,14 +35,13 @@ exports.getAllWorkflows = catchAsync(async (req, res, next) => {
       data: workflow,
     },
   });
-  console.log(counter++);
 });
 
 exports.getWorkflow = catchAsync(async (req, res, next) => {
   const workflow = await Workflow.findById(req.params.id);
 
   if (!workflow) {
-    return next(new AppError(`No workflow found with this ID`), 404);
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
@@ -66,14 +63,11 @@ exports.updateWorkflow = catchAsync(async (req, res, next) => {
   });
 
   if (!workflow) {
-    return next(
-      new AppError(`Cannot Update workflow, Something went wrong`),
-      404,
-    );
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     data: {
       data: workflow,
     },
@@ -84,11 +78,11 @@ exports.deleteWorkflow = catchAsync(async (req, res, next) => {
   const workflow = await Workflow.findByIdAndDelete(req.params.id);
 
   if (!workflow) {
-    return next(new AppError(`No workflow found with this ID`));
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     data: {
       data: null,
     },

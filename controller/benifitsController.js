@@ -1,7 +1,9 @@
 const Benifits = require('../model/benifitsModel');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 const { uploadFile } = require('../utils/s3');
+const { SUCCESS } = require('../constants/appConstants').resStatus;
+const { appErrors, appSuccess } = require('../constants/appConstants');
 
 exports.createBenifit = catchAsync(async (req, res, next) => {
   const file = req.file;
@@ -11,7 +13,8 @@ exports.createBenifit = catchAsync(async (req, res, next) => {
   const newBenifit = await Benifits.create(req.body);
 
   res.status(201).json({
-    status: 'Success',
+    status: SUCCESS,
+    message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
       data: newBenifit,
     },
@@ -21,11 +24,11 @@ exports.getAllBenifits = catchAsync(async (req, res, next) => {
   const benifit = await Benifits.find();
 
   if (!benifit) {
-    return next(new AppError(`No benifit found.`), 404);
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     results: benifit.length,
     data: {
       data: benifit,
@@ -37,11 +40,11 @@ exports.getBenifit = catchAsync(async (req, res, next) => {
   const benifit = await Benifits.findById(req.params.id);
 
   if (!benifit) {
-    return next(new AppError(`No benifit found with this ID`), 404);
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     data: {
       data: benifit,
     },
@@ -60,14 +63,11 @@ exports.updateBenifit = catchAsync(async (req, res, next) => {
   });
 
   if (!benifit) {
-    return next(
-      new AppError(`Cannot Update benifit, Something went wrong`),
-      404,
-    );
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     data: {
       data: benifit,
     },
@@ -78,11 +78,12 @@ exports.deleteBenifit = catchAsync(async (req, res, next) => {
   const benifit = await Benifits.findByIdAndDelete(req.params.id);
 
   if (!benifit) {
-    return next(new AppError(`No benifit found with this ID`));
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
+    message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
       data: null,
     },

@@ -1,12 +1,15 @@
 const FeedbackAndQuestion = require('../model/FAQsModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
+const { appSuccess, appErrors } = require('../constants/appConstants');
+const { SUCCESS } = require('../constants/appConstants').resStatus;
 
 exports.createFAQ = catchAsync(async (req, res, next) => {
   const newFAQ = await FeedbackAndQuestion.create(req.body);
 
   res.status(201).json({
-    status: 'Success',
+    status: SUCCESS,
+    message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
       data: newFAQ,
     },
@@ -17,11 +20,11 @@ exports.getAllFAQs = catchAsync(async (req, res, next) => {
   const feedbackAndQuestion = await FeedbackAndQuestion.find();
 
   if (!feedbackAndQuestion) {
-    return next(new AppError(`No Feedback And Question found.`), 404);
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     results: feedbackAndQuestion.length,
     data: {
       data: feedbackAndQuestion,
@@ -33,14 +36,11 @@ exports.getFAQ = catchAsync(async (req, res, next) => {
   const feedbackAndQuestion = await FeedbackAndQuestion.findById(req.params.id);
 
   if (!feedbackAndQuestion) {
-    return next(
-      new AppError(`No Feedback And Question found with this ID`),
-      404,
-    );
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     data: {
       data: feedbackAndQuestion,
     },
@@ -58,14 +58,11 @@ exports.updateFAQ = catchAsync(async (req, res, next) => {
   );
 
   if (!feedbackAndQuestion) {
-    return next(
-      new AppError(`Cannot Update Feedback And Question, Something went wrong`),
-      404,
-    );
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     data: {
       data: feedbackAndQuestion,
     },
@@ -78,11 +75,12 @@ exports.deleteFAQ = catchAsync(async (req, res, next) => {
   );
 
   if (!feedbackAndQuestion) {
-    return next(new AppError(`No Feedback And Question found with this ID`));
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
+    message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
       data: null,
     },

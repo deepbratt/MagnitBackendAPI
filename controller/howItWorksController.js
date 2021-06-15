@@ -2,6 +2,8 @@ const HowItWorks = require('../model/howItWorksModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
 const { uploadFile } = require('../utils/s3');
+const { appSuccess, appErrors } = require('../constants/appConstants');
+const { SUCCESS } = require('../constants/appConstants').resStatus;
 
 exports.createHowItWorks = catchAsync(async (req, res, next) => {
   const file = req.file;
@@ -15,7 +17,8 @@ exports.createHowItWorks = catchAsync(async (req, res, next) => {
   const newHowItWork = await HowItWorks.create(newObj);
 
   res.status(201).json({
-    status: 'Success',
+    status: SUCCESS,
+    message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
       data: newHowItWork,
     },
@@ -25,11 +28,11 @@ exports.getAllHowItWorks = catchAsync(async (req, res, next) => {
   const howItWorks = await HowItWorks.find();
 
   if (!howItWorks) {
-    return next(new AppError(`No Document found.`), 404);
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     results: howItWorks.length,
     data: {
       data: howItWorks,
@@ -41,11 +44,11 @@ exports.getHowItWork = catchAsync(async (req, res, next) => {
   const howItWork = await HowItWorks.findById(req.params.id);
 
   if (!howItWork) {
-    return next(new AppError(`No Document found with this ID`), 404);
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     data: {
       data: howItWork,
     },
@@ -67,8 +70,12 @@ exports.updateHowItWork = catchAsync(async (req, res, next) => {
     },
   );
 
+  if (!howItWork) {
+    return next(new AppError(appErrors.NOT_FOUND), 404);
+  }
+
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
     data: {
       data: howItWork,
     },
@@ -79,11 +86,12 @@ exports.deleteHowItWork = catchAsync(async (req, res, next) => {
   const howItWork = await HowItWorks.findByIdAndDelete(req.params.id);
 
   if (!howItWork) {
-    return next(new AppError(`No Document found with this ID`));
+    return next(new AppError(appErrors.NOT_FOUND), 404);
   }
 
   res.status(200).json({
-    status: 'success',
+    status: SUCCESS,
+    message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
       data: null,
     },
