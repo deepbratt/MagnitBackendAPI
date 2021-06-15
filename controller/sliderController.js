@@ -27,7 +27,7 @@ exports.createSlider = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      data: newSlider,
+      newSlider,
     },
   });
 });
@@ -42,7 +42,7 @@ exports.getAllSliders = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: slider.length,
     data: {
-      data: slider,
+      slider,
     },
   });
 });
@@ -57,7 +57,7 @@ exports.getSlider = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      data: slider,
+      slider,
     },
   });
 });
@@ -82,7 +82,7 @@ exports.updateSlider = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      data: slider,
+      slider,
     },
   });
 });
@@ -97,8 +97,6 @@ exports.deleteSlider = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
-    data: {
-      data: null,
-    },
+    data: null,
   });
 });

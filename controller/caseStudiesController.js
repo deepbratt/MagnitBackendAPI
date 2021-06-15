@@ -17,7 +17,7 @@ exports.createCaseStudy = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: SUCCESS,
     data: {
-      data: caseStudy,
+      caseStudy,
     },
   });
 });
@@ -34,7 +34,7 @@ exports.getAllCaseStudies = catchAsync(async (req, res, next) => {
     message: appSuccess.OPERATION_SUCCESSFULL,
     results: caseStudy.length,
     data: {
-      data: caseStudy,
+      caseStudy,
     },
   });
 });
@@ -49,7 +49,7 @@ exports.getCaseStudy = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      data: caseStudy,
+      caseStudy,
     },
   });
 });
@@ -76,7 +76,7 @@ exports.updateCaseStudy = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      data: caseStudy,
+      caseStudy,
     },
   });
 });
@@ -91,8 +91,6 @@ exports.deleteCaseStudy = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
-    data: {
-      data: null,
-    },
+    data: null,
   });
 });

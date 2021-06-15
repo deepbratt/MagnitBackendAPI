@@ -11,7 +11,7 @@ exports.createHiringOption = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      data: newHiring,
+      newHiring,
     },
   });
 });
@@ -27,7 +27,7 @@ exports.getAllHiringOptions = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: hiringOptions.length,
     data: {
-      data: hiringOptions,
+      hiringOptions,
     },
   });
 });
@@ -42,7 +42,7 @@ exports.getHiringOption = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      data: hiringOption,
+      hiringOption,
     },
   });
 });
@@ -60,7 +60,7 @@ exports.updateHiringOption = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      data: hiringOption,
+      hiringOption,
     },
   });
 });
@@ -75,8 +75,6 @@ exports.deleteHiringOption = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
-    data: {
-      data: null,
-    },
+    data: null,
   });
 });

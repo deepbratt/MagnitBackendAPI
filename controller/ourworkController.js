@@ -16,7 +16,7 @@ exports.createOurWork = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      data: newOurWork,
+      newOurWork,
     },
   });
 });
@@ -32,7 +32,7 @@ exports.getAllOurWorks = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: ourwork.length,
     data: {
-      data: ourwork,
+      ourwork,
     },
   });
 });
@@ -47,7 +47,7 @@ exports.getOurWork = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      data: ourwork,
+      ourwork,
     },
   });
 });
@@ -70,7 +70,7 @@ exports.updateOurWork = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      data: ourwork,
+      ourwork,
     },
   });
 });
@@ -85,8 +85,6 @@ exports.deleteOurWork = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
-    data: {
-      data: null,
-    },
+    data: null,
   });
 });

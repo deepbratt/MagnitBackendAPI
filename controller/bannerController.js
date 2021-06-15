@@ -17,7 +17,7 @@ exports.createBanner = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      data: newBanner,
+      newBanner,
     },
   });
 });
@@ -33,7 +33,7 @@ exports.getAllBanners = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: banner.length,
     data: {
-      data: banner,
+      banner,
     },
   });
 });
@@ -48,7 +48,7 @@ exports.getBanner = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      data: banner,
+      banner,
     },
   });
 });
@@ -71,7 +71,7 @@ exports.updateBanner = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      data: banner,
+      banner,
     },
   });
 });
@@ -86,8 +86,6 @@ exports.deleteBanner = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
-    data: {
-      data: null,
-    },
+    data: null,
   });
 });
