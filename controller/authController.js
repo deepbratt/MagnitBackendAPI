@@ -68,6 +68,16 @@ exports.authenticate = catchAsync(async (req, res, next) => {
 	next();
 });
 
+exports.restrictTo = (...role) => {
+	//rest parameter ['admin','user']
+	return (req, res, next) => {
+		if (!role.includes(req.user.role)) {
+			return next(new AppError('You do not have permission to perform this action', 403));
+		}
+		next();
+	};
+};
+
 exports.forgotPassword = catchAsync(async (req, res, next) => {
 	const email = req.body.email.trim();
 	//get user on pasted email address
@@ -117,6 +127,18 @@ module.exports.resetPassword = catchAsync(async (req, res, next) => {
 		message: 'Your Password has been reset successfully',
 	});
 });
+
+exports.updatePassword= catchAsync(async (req, res, next) => {
+	const user = await User.findOne({ _id: req.user._id }).select('+password');
+	console.log(user.password, req.body.currentPassword);
+	if (!(await user.correctPassword(req.body.currentPassword, user.password))) {
+		return next(new AppError('Your current Password is not correct', 400));
+	}
+	user.password = req.body.password;
+	user.passwordConfirm = req.body.passwordConfirm;
+	await user.save();
+	jwtManagement.createSendJwtToken(user, 200, req, res);
+})
 
 exports.logout = catchAsync(async (req, res, next) => {
 	res.cookie('jwt', 'loggedout', {

@@ -11,30 +11,23 @@ require('./config/dbConnection')(); // db connection
 const AppError = require('./utils/AppError');
 
 // Swagger routes
-const swaggerRoute = require('./constants/appConstants').routeConsts
-  .swaggerDocRoute; // swagger doc constant
 const swaggerOptions = require('./constants/swaggerOptions');
 
-const userRouter = require('./routes/userRoutes'); // userRoute
 const userRoute = require('./constants/appConstants').routeConsts.userRoute; // User Api constant
-
-const quoteRouter = require('./routes/quoteRoutes'); // quote Route
 const quoteRoute = require('./constants/appConstants').routeConsts.quoteRoute; // Quote Api constant
-
 const emailRoute = require('./constants/appConstants').routeConsts.emailRoute; // for emails handling / subscription
-const emailRouter = require('./routes/emailRoutes'); // email route
-
-const reviewRouter = require('./routes/reviewRoutes'); // review Route
 const reviewRoute = require('./constants/appConstants').routeConsts.reviewRoute; // for reviews
-
-const adminPanelRouter = require('./routes/appAdminPanelRoutes'); // Admin Panel Route
-const appAdminPanelRoute = require('./constants/appConstants').routeConsts
-  .appAdminPanelRoute; // for admin panel
-
-const trainingCertificationRoute = require('./constants/appConstants')
-  .routeConsts.trainingCertificationRoute; //for training&Certification
+const trainingCertificationRoute = require('./constants/appConstants').routeConsts.trainingCertificationRoute; //for training&Certification
+const appAdminPanelRoute=require('./constants/appConstants').routeConsts.appAdminPanelRoute; // for admin panel 
+const ourObjectivesRoute=require('./constants/appConstants').routeConsts.ourObjectivesRoute; //for our objectives          
+const swaggerRoute = require('./constants/appConstants').routeConsts.swaggerDocRoute; // swagger doc constant
+const userRouter = require('./routes/userRoutes'); // userRoute
+const quoteRouter = require('./routes/quoteRoutes'); // quote Route
+const emailRouter = require('./routes/emailRoutes'); // email route
+const reviewRouter = require('./routes/reviewRoutes'); // review Route
+const adminPanelRouter=require('./routes/appAdminPanelRoutes') // Admin Panel Route
+const ourObjectivesRouter=require('./routes/ourObjectivesRoutes') // Our Objectives Route
 const trainingCertificationRouter = require('./routes/trainingCertificationRoutes'); // training&Certification route
-
 const globalErrorHandler = require('./utils/errorHandler'); // errorHandler
 
 // For Slider
@@ -102,7 +95,7 @@ app.use(cors());
 //ejs for emails
 app.set('view engine', 'ejs');
 
-app.set('utils', path.join(__dirname, 'utils'));
+app.set('utils', path.join(__dirname, 'utils'))
 
 // Morgan
 app.use(
@@ -138,9 +131,9 @@ app.use(factsAboutUsRoute, factsAboutUsRouter);
 app.use(hiringOptionsRoute, hiringOptionsRouter);
 
 app.use(reviewRoute, reviewRouter); // review route
-app.use(trainingCertificationRoute, trainingCertificationRouter); // training route
-app.use(appAdminPanelRoute, adminPanelRouter); // Admin Panel Route
-
+app.use(trainingCertificationRoute,trainingCertificationRouter); // training route
+app.use(appAdminPanelRoute,adminPanelRouter); // Admin Panel Route
+app.use(ourObjectivesRoute,ourObjectivesRouter) // our Objectives 
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
 });
