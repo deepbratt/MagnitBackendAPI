@@ -19,7 +19,8 @@ const emailRoute = require('./constants/appConstants').routeConsts.emailRoute; /
 const reviewRoute = require('./constants/appConstants').routeConsts.reviewRoute; // for reviews
 const trainingCertificationRoute = require('./constants/appConstants').routeConsts.trainingCertificationRoute; //for training&Certification
 const appAdminPanelRoute=require('./constants/appConstants').routeConsts.appAdminPanelRoute; // for admin panel 
-const ourObjectivesRoute=require('./constants/appConstants').routeConsts.ourObjectivesRoute; //for our objectives          
+const ourObjectivesRoute=require('./constants/appConstants').routeConsts.ourObjectivesRoute; //for our objectives
+const joinTeamsRoute=require('./constants/appConstants').routeConsts.joinTeamsRoute;  // for joinTeam          
 const swaggerRoute = require('./constants/appConstants').routeConsts.swaggerDocRoute; // swagger doc constant
 const userRouter = require('./routes/userRoutes'); // userRoute
 const quoteRouter = require('./routes/quoteRoutes'); // quote Route
@@ -27,6 +28,7 @@ const emailRouter = require('./routes/emailRoutes'); // email route
 const reviewRouter = require('./routes/reviewRoutes'); // review Route
 const adminPanelRouter=require('./routes/appAdminPanelRoutes') // Admin Panel Route
 const ourObjectivesRouter=require('./routes/ourObjectivesRoutes') // Our Objectives Route
+const joinTeamsRouter=require('./routes/joinTeamRoutes') // joinTeam Route
 const trainingCertificationRouter = require('./routes/trainingCertificationRoutes'); // training&Certification route
 const globalErrorHandler = require('./utils/errorHandler'); // errorHandler
 
@@ -129,11 +131,11 @@ app.use(bannerRoute, bannerRouter); //banner route
 app.use(workflowRoute, workflowRouter); // workflow router
 app.use(factsAboutUsRoute, factsAboutUsRouter);
 app.use(hiringOptionsRoute, hiringOptionsRouter);
-
 app.use(reviewRoute, reviewRouter); // review route
 app.use(trainingCertificationRoute,trainingCertificationRouter); // training route
 app.use(appAdminPanelRoute,adminPanelRouter); // Admin Panel Route
-app.use(ourObjectivesRoute,ourObjectivesRouter) // our Objectives 
+app.use(ourObjectivesRoute,ourObjectivesRouter) // our Objectives
+app.use(joinTeamsRoute,joinTeamsRouter) // joinTeams
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
 });
