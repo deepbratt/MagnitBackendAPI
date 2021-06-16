@@ -23,6 +23,7 @@ const appAdminPanelRoute = require('./constants/appConstants').routeConsts.appAd
 const ourObjectivesRoute = require('./constants/appConstants').routeConsts.ourObjectivesRoute; //for our objectives
 const joinTeamsRoute = require('./constants/appConstants').routeConsts.joinTeamsRoute; // for joinTeam
 //const appSolutionRoute = require('./constants/appConstants').routeConsts.appSolutioRoute; // for appSolution
+const opportunitesRoute = require('./constants/appConstants').routeConsts.opportuniteRoute; // for opportunites
 const jobBenifitRoute = require('./constants/appConstants').routeConsts.jobBenifitsRoute; // for jobBenifits
 const swaggerRoute = require('./constants/appConstants').routeConsts.swaggerDocRoute; // swagger doc constant
 const userRouter = require('./routes/userRoutes'); // userRoute
@@ -35,6 +36,7 @@ const joinTeamsRouter = require('./routes/joinTeamRoutes'); // joinTeam Route
 //const appSolutionRouter = require('./routes/appSolutionRoutes'); // appSolution Route
 const trainingCertificationRouter = require('./routes/trainingCertificationRoutes'); // training&Certification route
 const jobBenifitRouter = require('./routes/jobBenifitsRoutes'); // job Benifits Route
+const opportunitesRouter = require('./routes/opportunitesRoutes'); // opportunities Route
 const globalErrorHandler = require('./utils/errorHandler'); // errorHandler
 
 // For Slider
@@ -134,7 +136,8 @@ app.use(appAdminPanelRoute, adminPanelRouter); // Admin Panel Route
 app.use(ourObjectivesRoute, ourObjectivesRouter); // our Objectives
 app.use(joinTeamsRoute, joinTeamsRouter); // joinTeams
 //app.use(appSolutionRoute, appSolutionRouter); // appSolutions
-app.use(jobBenifitRoute,jobBenifitRouter); // jobBenifits
+app.use(jobBenifitRoute, jobBenifitRouter); // jobBenifits
+app.use(opportunitesRoute,opportunitesRouter); // Opportunite
 app.all('*', (req, res, next) => {
 	next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
 });
