@@ -12,6 +12,7 @@ exports.routeConsts = {
 	FAQRoutes: '/v1/faqs',
 	reviewRoute: '/v1/Review',
 	appSolutioRoute:'/v1/appSolutions',
+	opportuniteRoute:'/v1/opportunites',
 	jobBenifitsRoute: '/v1/jobBenifits',
 	trainingCertificationRoute: '/v1/trainingCertification',
 	ourObjectivesRoute: '/v1/ourObjectives',
