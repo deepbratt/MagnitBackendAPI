@@ -13,6 +13,7 @@ exports.routeConsts = {
 	reviewRoute: '/v1/Review',
 	trainingCertificationRoute: '/v1/trainingCertification',
 	ourObjectivesRoute: '/v1/ourObjectives',
+	joinTeamsRoute:'/v1/teams',
 	appAdminPanelRoute: '/v1/adminPanel',
 	caseStudyRoute: '/v1/casestudies',
 	bannerRoute: '/v1/banners',
