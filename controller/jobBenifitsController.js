@@ -30,7 +30,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			jobBenifit,
+			result:jobBenifit,
 		},
 	});
 });
@@ -42,8 +42,9 @@ exports.getAll = catchAsync(async (req, res, next) => {
 	}
 	res.status(200).json({
 		status: SUCCESS,
+        results:jobBenifits.length,
 		data: {
-			jobBenifits,
+			result:jobBenifits,
 		},
 	});
 });
@@ -60,7 +61,7 @@ exports.updateOne = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			updatedjobBenifit,
+			result:updatedjobBenifit,
 		},
 	});
 });

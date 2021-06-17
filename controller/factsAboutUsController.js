@@ -20,7 +20,7 @@ exports.createFactsAboutUs = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      data: factsAboutUs,
+      result: factsAboutUs,
     },
   });
 });
@@ -35,7 +35,7 @@ exports.getFactAboutUs = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      factAboutUs,
+      result:factAboutUs,
     },
   });
 });
@@ -51,7 +51,7 @@ exports.getAllFactsAboutUs = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: factsAboutUs.length,
     data: {
-      factsAboutUs,
+      result:factsAboutUs,
     },
   });
 });
@@ -73,7 +73,7 @@ exports.updateFactAboutUs = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      factAboutUs,
+      result:factAboutUs,
     },
   });
 });

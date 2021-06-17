@@ -16,7 +16,7 @@ exports.createAward = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      newAward,
+      result:newAward,
     },
   });
 });
@@ -32,7 +32,7 @@ exports.getAllAwards = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: awards.length,
     data: {
-      awards,
+      result:awards,
     },
   });
 });
@@ -47,7 +47,7 @@ exports.getAward = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      award,
+      result:award,
     },
   });
 });
@@ -70,7 +70,7 @@ exports.updateAward = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      award,
+      result:award,
     },
   });
 });

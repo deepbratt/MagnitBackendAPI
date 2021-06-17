@@ -26,7 +26,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			opportunite,
+			result:opportunite,
 		},
 	});
 });
@@ -38,8 +38,9 @@ exports.getAll = catchAsync(async (req, res, next) => {
 	}
 	res.status(200).json({
 		status: SUCCESS,
+        results:opportunites.length,
 		data: {
-			opportunites,
+			result:opportunites,
 		},
 	});
 });
@@ -52,7 +53,7 @@ exports.updateOne = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			updatedOpportunite,
+			result:updatedOpportunite,
 		},
 	});
 });

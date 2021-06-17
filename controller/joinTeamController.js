@@ -25,7 +25,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			joinTeam,
+			result:joinTeam,
 		},
 	});
 });
@@ -37,8 +37,9 @@ exports.getAll = catchAsync(async (req, res, next) => {
 	}
 	res.status(200).json({
 		status: SUCCESS,
+        results:teams.length,
 		data: {
-			teams,
+			result:teams,
 		},
 	});
 });
@@ -51,7 +52,7 @@ exports.updateOne = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			updatedteam,
+			result:updatedteam,
 		},
 	});
 });

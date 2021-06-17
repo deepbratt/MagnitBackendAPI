@@ -16,7 +16,7 @@ exports.createBenifit = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      newBenifit,
+      result:newBenifit,
     },
   });
 });
@@ -31,7 +31,7 @@ exports.getAllBenifits = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: benifit.length,
     data: {
-      benifit,
+      result:benifit,
     },
   });
 });
@@ -46,7 +46,7 @@ exports.getBenifit = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      benifit,
+      result:benifit,
     },
   });
 });
@@ -69,7 +69,7 @@ exports.updateBenifit = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      benifit,
+      result:benifit,
     },
   });
 });

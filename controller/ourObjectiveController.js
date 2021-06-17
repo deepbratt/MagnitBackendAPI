@@ -28,7 +28,7 @@ exports.getObjective = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			objective,
+			result:objective,
 		},
 	});
 });
@@ -40,8 +40,9 @@ exports.getAllObjectives = catchAsync(async (req, res, next) => {
 	}
 	res.status(200).json({
 		status: SUCCESS,
+        results:objectives.length,
 		data: {
-			objectives,
+			result:objectives,
 		},
 	});
 });
@@ -57,7 +58,7 @@ exports.updateObjective = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			updatedObjective,
+			result:updatedObjective,
 		},
 	});
 });

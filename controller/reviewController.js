@@ -32,7 +32,7 @@ exports.getReview = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			review,
+			result:review,
 		},
 	});
 });
@@ -44,8 +44,9 @@ exports.getAllReviews = catchAsync(async (req, res, next) => {
 	}
 	res.status(200).json({
 		status: SUCCESS,
+		results:reviews.length,
 		data: {
-			reviews,
+			result:reviews,
 		},
 	});
 });
@@ -62,7 +63,7 @@ exports.updateReview = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			updatedReview,
+			result:updatedReview,
 		},
 	});
 });

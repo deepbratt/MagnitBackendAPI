@@ -16,7 +16,7 @@ exports.createWorkflow = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      workflow,
+      result:workflow,
     },
   });
 });
@@ -32,7 +32,7 @@ exports.getAllWorkflows = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: workflow.length,
     data: {
-      workflow,
+      result:workflow,
     },
   });
 });
@@ -47,7 +47,7 @@ exports.getWorkflow = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      workflow,
+      result:workflow,
     },
   });
 });
@@ -69,7 +69,7 @@ exports.updateWorkflow = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      workflow,
+      result:workflow,
     },
   });
 });

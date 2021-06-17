@@ -20,7 +20,7 @@ exports.createHowItWorks = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      newHowItWork,
+      result:newHowItWork,
     },
   });
 });
@@ -35,7 +35,7 @@ exports.getAllHowItWorks = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: howItWorks.length,
     data: {
-      howItWorks,
+      result:howItWorks,
     },
   });
 });
@@ -50,7 +50,7 @@ exports.getHowItWork = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      howItWork,
+      result:howItWork,
     },
   });
 });
@@ -77,7 +77,7 @@ exports.updateHowItWork = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      howItWork,
+      result:howItWork,
     },
   });
 });

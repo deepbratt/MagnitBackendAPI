@@ -16,7 +16,7 @@ exports.createOurWork = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      newOurWork,
+      result:newOurWork,
     },
   });
 });
@@ -32,7 +32,7 @@ exports.getAllOurWorks = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: ourwork.length,
     data: {
-      ourwork,
+      result:ourwork,
     },
   });
 });
@@ -47,7 +47,7 @@ exports.getOurWork = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      ourwork,
+      result:ourwork,
     },
   });
 });
@@ -70,7 +70,7 @@ exports.updateOurWork = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      ourwork,
+      result:ourwork,
     },
   });
 });

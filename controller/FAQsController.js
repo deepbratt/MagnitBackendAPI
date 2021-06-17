@@ -11,7 +11,7 @@ exports.createFAQ = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      newFAQ,
+      result:newFAQ,
     },
   });
 });
@@ -27,7 +27,7 @@ exports.getAllFAQs = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: feedbackAndQuestion.length,
     data: {
-      feedbackAndQuestion,
+      result:feedbackAndQuestion,
     },
   });
 });
@@ -42,7 +42,7 @@ exports.getFAQ = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      feedbackAndQuestion,
+      result:feedbackAndQuestion,
     },
   });
 });
@@ -64,7 +64,7 @@ exports.updateFAQ = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      feedbackAndQuestion,
+      result:feedbackAndQuestion,
     },
   });
 });

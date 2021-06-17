@@ -6,7 +6,7 @@ const router = express.Router();
 // CREATE trainingCertification
 /**
  *@swagger
- *  /v1/trainingCertification/create:
+ *  /v1/trainingCertification:
  *  post:
  *    tags:
  *    - "trainingCertification"
@@ -36,12 +36,15 @@ const router = express.Router();
  *      "201":
  *        description: "Operation Successfull"
  */
-router.post('/create',trainingCertificationController.createTrainingCertification);
+router
+	.route('/')
+	.post(trainingCertificationController.createTrainingCertification)
+	.get(trainingCertificationController.getAll);
 
 // GET ALL Reviews
 /**
  *@swagger
- *  /v1/trainingCertification/getAll:
+ *  /v1/trainingCertification:
  *  get:
  *    tags:
  *    - "trainingCertification"
@@ -55,12 +58,11 @@ router.post('/create',trainingCertificationController.createTrainingCertificatio
  *      "200":
  *        description: "Success"
  */
-router.get('/getAll', trainingCertificationController.getAll);
 
 // GET REVIEW
 /**
  *@swagger
- *  /v1/trainingCertification/getOne/{id}:
+ *  /v1/trainingCertification/{id}:
  *  get:
  *    tags:
  *    - "trainingCertification"
@@ -81,13 +83,17 @@ router.get('/getAll', trainingCertificationController.getAll);
  *      "200":
  *        description: "Success"
  */
-router.get('/getOne/:id', trainingCertificationController.getOne);
+router
+	.route('/:id')
+	.get(trainingCertificationController.getOne)
+	.put(trainingCertificationController.updateTrainingCertification)
+	.delete(trainingCertificationController.deleteTrainingCertification);
 
 // UPDATE trainingCertification
 
 /**
  *@swagger
- *  /v1/trainingCertification/update/{id}:
+ *  /v1/trainingCertification/{id}:
  *  put:
  *    tags:
  *    - "trainingCertification"
@@ -124,12 +130,10 @@ router.get('/getOne/:id', trainingCertificationController.getOne);
  *        description: "operation Successfull"
  */
 
-router.put('/update/:id', trainingCertificationController.updateTrainingCertification);
-
 // DELETE REVIEW
 /**
  *@swagger
- *  /v1/trainingCertification/delete/{id}:
+ *  /v1/trainingCertification/{id}:
  *  delete:
  *    tags:
  *    - "trainingCertification"
@@ -150,6 +154,5 @@ router.put('/update/:id', trainingCertificationController.updateTrainingCertific
  *      "200":
  *        description: "Success"
  */
-router.delete('/delete/:id', trainingCertificationController.deleteTrainingCertification);
 
 module.exports = router;

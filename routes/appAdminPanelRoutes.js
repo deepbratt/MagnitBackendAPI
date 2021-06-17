@@ -7,7 +7,7 @@ const router = express.Router();
 // CREATE PANEL
 /**
  *@swagger
- *  /v1/adminPanel/create:
+ *  /v1/adminPanel:
  *  post:
  *    tags:
  *    - "Admin Panel"
@@ -35,12 +35,15 @@ const router = express.Router();
  *      "201":
  *        description: "Operation Successfull"
  */
-router.post('/create', fileUpload.upload.single('image'), adminPanelController.createAdminPanel);
+router
+	.route('/')
+	.post(fileUpload.upload.single('image'), adminPanelController.createAdminPanel)
+	.get(adminPanelController.getAll);
 
 // GET ALL Panels
 /**
  *@swagger
- *  /v1/adminPanel/getAll:
+ *  /v1/adminPanel:
  *  get:
  *    tags:
  *    - "Admin Panel"
@@ -54,12 +57,11 @@ router.post('/create', fileUpload.upload.single('image'), adminPanelController.c
  *      "200":
  *        description: "Success"
  */
-router.get('/getAll', adminPanelController.getAll);
 
 // GET Admin Panel
 /**
  *@swagger
- *  /v1/adminPanel/getOne/{id}:
+ *  /v1/adminPanel/{id}:
  *  get:
  *    tags:
  *    - "Admin Panel"
@@ -80,13 +82,17 @@ router.get('/getAll', adminPanelController.getAll);
  *      "200":
  *        description: "Success"
  */
-router.get('/getOne/:id', adminPanelController.getOne);
+router
+	.route('/:id')
+	.get(adminPanelController.getOne)
+	.put(fileUpload.upload.single('image'), adminPanelController.updatePanel)
+	.delete(adminPanelController.deletePanel);
 
 // UPDATE Admin Panel
 
 /**
  *@swagger
- *  /v1/adminPanel/update/{id}:
+ *  /v1/adminPanel/{id}:
  *  put:
  *    tags:
  *    - "Admin Panel"
@@ -121,12 +127,10 @@ router.get('/getOne/:id', adminPanelController.getOne);
  *        description: "operation Successfull"
  */
 
-router.put('/update/:id', fileUpload.upload.single('image'), adminPanelController.updatePanel);
-
 // DELETE Admin Panel
 /**
  *@swagger
- *  /v1/adminPanel/delete/{id}:
+ *  /v1/adminPanel/{id}:
  *  delete:
  *    tags:
  *    - "Admin Panel"
@@ -147,6 +151,5 @@ router.put('/update/:id', fileUpload.upload.single('image'), adminPanelControlle
  *      "200":
  *        description: "Success"
  */
-router.delete('/delete/:id', adminPanelController.deletePanel);
 
 module.exports = router;

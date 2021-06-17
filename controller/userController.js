@@ -25,8 +25,9 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 	}
 	res.status(200).json({
 		status: SUCCESS,
+        results:users.length,
 		data: {
-			users,
+			result:users,
 		},
 	});
 });
@@ -39,7 +40,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			user,
+			result:user,
 		},
 	});
 });
