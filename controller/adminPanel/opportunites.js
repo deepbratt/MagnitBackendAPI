@@ -10,6 +10,7 @@ exports.createOne = catchAsync(async (req, res, next) => {
 		location: req.body.location.trim(),
         link: req.body.link.trim(),
 		buttonLabel: req.body.buttonLabel.trim(),
+		description: req.body.description.trim(),
 	};
 	await Opportunite.create(newObj);
 	res.status(201).json({

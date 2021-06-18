@@ -15,6 +15,9 @@ const opportunitesSchema = new mongoose.Schema({
 	buttonLabel: {
 		type: String,
 	},
+	description: {
+		type: String,
+	},
 });
 
 const Opportunite = mongoose.model('Opportunites', opportunitesSchema);

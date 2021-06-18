@@ -9,6 +9,7 @@ exports.routeConsts = {
   ourWorkRoute: '/v1/ourwork',
   awardsRoute: '/v1/awards',
   howItWorksRoute: '/v1/howitworks',
+  companiesRoute: '/v1/companies',
   FAQRoutes: '/v1/faqs',
   reviewRoute: '/v1/Reviews',
   appSolutioRoute: '/v1/appSolutions',
