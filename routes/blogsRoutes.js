@@ -1,5 +1,5 @@
 const express = require('express');
-const blogsController = require('../controller/blogsController');
+const blogsController = require('../controller/adminPanel/blogsController');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -161,12 +161,12 @@ const router = express.Router();
 router
   .route('/')
   .get(blogsController.getAllBlogs)
-  .post(fileUpload.upload.single('image'), blogsController.createBlog);
+  .post(fileUpload.upload('image').single('image'), blogsController.createBlog);
 
 router
   .route('/:id')
   .get(blogsController.getBlog)
-  .patch(fileUpload.upload.single('image'), blogsController.updateBlog)
+  .patch(fileUpload.upload('image').single('image'), blogsController.updateBlog)
   .delete(blogsController.deleteBlog);
 
 module.exports = router;
