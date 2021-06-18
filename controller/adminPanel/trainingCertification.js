@@ -1,12 +1,15 @@
-const TrainingCertification = require('../model/trainingCertificationModel');
-const AppError = require('../utils/AppError');
-const { appErrors, appSuccess } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
-const catchAsync = require('../utils/catchAsync');
+const TrainingCertification = require('../../model/trainingCertificationModel');
+const AppError = require('../../utils/AppError');
+const { appErrors, appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
+const catchAsync = require('../../utils/catchAsync');
+const { uploadFile } = require('../../utils/s3');
 
 exports.createTrainingCertification = catchAsync(async (req, res, next) => {
+	const file = req.file;
+	const { Location } = await uploadFile(file);
 	const newobj = {
-		jsonText: req.body.jsonText,
+		jsonFile: Location,
 		title: req.body.title,
 		description: req.body.description,
 	};
@@ -46,10 +49,15 @@ exports.getAll = catchAsync(async (req, res, next) => {
 });
 
 exports.updateTrainingCertification = catchAsync(async (req, res, next) => {
+	if (req.file) {
+		const { Location } = await uploadFile(req.file);
+		req.body.jsonFile = Location;
+	}
 	const updatedTrainingCertification = await TrainingCertification.findByIdAndUpdate(
 		req.params.id,
 		req.body,
 		{
+			runValidators: true,
 			new: true,
 		}
 	);

@@ -1,5 +1,5 @@
 const express = require('express');
-const sliderController = require('../controller/sliderController');
+const sliderController = require('../controller/adminPanel/slider');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -154,7 +154,7 @@ router
   .route('/')
   .get(sliderController.getAllSliders)
   .post(
-    fileUpload.upload.single('backgroundImage'),
+    fileUpload.upload('image').single('backgroundImage'),
     sliderController.createSlider,
   );
 
@@ -162,7 +162,7 @@ router
   .route('/:id')
   .get(sliderController.getSlider)
   .patch(
-    fileUpload.upload.single('backgroundImage'),
+    fileUpload.upload('image').single('backgroundImage'),
     sliderController.updateSlider,
   )
   .delete(sliderController.deleteSlider);

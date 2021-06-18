@@ -4,14 +4,15 @@ const validator = require('validator');
 const { appErrors } = require('../constants/appConstants');
 
 const trainingCertifictionSchema = new mongoose.Schema({
-	jsonText: {
-		type: Object,
-		required: [true, 'Please Enter jsonText'],
+	jsonFile: {
+		type: String,
+		required: true,
 	},
 	title: {
 		type: String,
 		minlength: 3,
 		maxlength: 30,
+		unique:true,
 		required: [true, 'Please Enter Title'],
 	},
 	description: {

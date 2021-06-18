@@ -1,5 +1,5 @@
 const express = require('express');
-const opportunitesController = require('../controller/opportunitesController');
+const opportunitesController = require('../controller/adminPanel/opportunites');
 //const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();

@@ -1,5 +1,6 @@
 const express = require('express');
-const trainingCertificationController = require('../controller/trainingCertification');
+const trainingCertificationController = require('../controller/adminPanel/trainingCertification');
+const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
 
@@ -24,8 +25,8 @@ const router = express.Router();
  *      schema:
  *        type: "object"
  *        properties:
- *              jsonText:
- *                  type: "object"
+ *              jsonFile:
+ *                  type: "string"
  *              title:
  *                  type: "string"
  *              description:
@@ -38,7 +39,10 @@ const router = express.Router();
  */
 router
 	.route('/')
-	.post(trainingCertificationController.createTrainingCertification)
+	.post(
+		fileUpload.upload('application/json').single('jsonFile'),
+		trainingCertificationController.createTrainingCertification
+	)
 	.get(trainingCertificationController.getAll);
 
 // GET ALL Reviews
@@ -86,7 +90,7 @@ router
 router
 	.route('/:id')
 	.get(trainingCertificationController.getOne)
-	.put(trainingCertificationController.updateTrainingCertification)
+	.put(fileUpload.upload('application/json').single('jsonFile'),trainingCertificationController.updateTrainingCertification)
 	.delete(trainingCertificationController.deleteTrainingCertification);
 
 // UPDATE trainingCertification
@@ -117,8 +121,8 @@ router
  *      schema:
  *        type: "object"
  *        properties:
- *              jsonText:
- *                  type: "object"
+ *              jsonFile:
+ *                  type: "string"
  *              title:
  *                  type: "string"
  *              description:

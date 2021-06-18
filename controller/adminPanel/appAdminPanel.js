@@ -1,9 +1,9 @@
-const AdminPanel = require('../model/appAdminPanelModel');
-const AppError = require('../utils/AppError');
-const { appErrors, appSuccess } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
-const catchAsync = require('../utils/catchAsync');
-const { uploadFile } = require('../utils/s3');
+const AdminPanel = require('../../model/appAdminPanelModel');
+const AppError = require('../../utils/AppError');
+const { appErrors, appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
+const catchAsync = require('../../utils/catchAsync');
+const { uploadFile } = require('../../utils/s3');
 
 exports.createAdminPanel = catchAsync(async (req, res, next) => {
 	const file = req.file;

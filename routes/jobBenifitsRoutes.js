@@ -1,5 +1,5 @@
 const express = require('express');
-const jobBenifitController = require('../controller/jobBenifitsController');
+const jobBenifitController = require('../controller/adminPanel/jobBenifits');
 const fileUpload = require('../utils/mluter');
 const { uploadFile } = require('../utils/s3');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
@@ -60,7 +60,7 @@ const router = express.Router();
  *      "200":
  *        description: "Success"
  */
-router.route('/').post(fileUpload.upload.single('icon'),jobBenifitController.createOne).get(jobBenifitController.getAll);
+router.route('/').post(fileUpload.upload('image').single('icon'),jobBenifitController.createOne).get(jobBenifitController.getAll);
 
 // GET JobBenifits
 /**
@@ -159,7 +159,7 @@ router.route('/').post(fileUpload.upload.single('icon'),jobBenifitController.cre
 router
 	.route('/:id')
 	.get(jobBenifitController.getOne)
-	.put(fileUpload.upload.single('icon'), jobBenifitController.updateOne)
+	.put(fileUpload.upload('image').single('icon'), jobBenifitController.updateOne)
 	.delete(jobBenifitController.deleteOne);
 
 module.exports = router;

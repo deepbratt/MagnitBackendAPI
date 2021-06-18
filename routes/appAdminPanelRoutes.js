@@ -1,5 +1,5 @@
 const express = require('express');
-const adminPanelController = require('../controller/appAdminPanelController');
+const adminPanelController = require('../controller/adminPanel/appAdminPanel');
 const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
@@ -37,7 +37,7 @@ const router = express.Router();
  */
 router
 	.route('/')
-	.post(fileUpload.upload.single('image'), adminPanelController.createAdminPanel)
+	.post(fileUpload.upload('image').single('image'), adminPanelController.createAdminPanel)
 	.get(adminPanelController.getAll);
 
 // GET ALL Panels
@@ -85,7 +85,7 @@ router
 router
 	.route('/:id')
 	.get(adminPanelController.getOne)
-	.put(fileUpload.upload.single('image'), adminPanelController.updatePanel)
+	.put(fileUpload.upload('image').single('image'), adminPanelController.updatePanel)
 	.delete(adminPanelController.deletePanel);
 
 // UPDATE Admin Panel

@@ -1,5 +1,5 @@
 const express = require('express');
-const benifitsController = require('../controller/benifitsController');
+const benifitsController = require('../controller/adminPanel/benifits');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -145,12 +145,12 @@ const router = express.Router();
 router
   .route('/')
   .get(benifitsController.getAllBenifits)
-  .post(fileUpload.upload.single('image'), benifitsController.createBenifit);
+  .post(fileUpload.upload('image').single('image'), benifitsController.createBenifit);
 
 router
   .route('/:id')
   .get(benifitsController.getBenifit)
-  .patch(fileUpload.upload.single('image'), benifitsController.updateBenifit)
+  .patch(fileUpload.upload('image').single('image'), benifitsController.updateBenifit)
   .delete(benifitsController.deleteBenifit);
 
 module.exports = router;

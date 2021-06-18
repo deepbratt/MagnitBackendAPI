@@ -1,5 +1,5 @@
 const express = require('express');
-const HiringController = require('../controller/hiringOptionsController');
+const HiringController = require('../controller/adminPanel/hiringOptions');
 const router = express.Router();
 
 // Creating Hiring Option

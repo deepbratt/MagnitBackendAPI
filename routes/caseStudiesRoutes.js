@@ -1,5 +1,5 @@
 const express = require('express');
-const caseStudiesController = require('../controller/caseStudiesController');
+const caseStudiesController = require('../controller/adminPanel/caseStudies');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -146,7 +146,7 @@ router
   .route('/')
   .get(caseStudiesController.getAllCaseStudies)
   .post(
-    fileUpload.upload.single('icon'),
+    fileUpload.upload('image').single('icon'),
     caseStudiesController.createCaseStudy,
   );
 
@@ -154,7 +154,7 @@ router
   .route('/:id')
   .get(caseStudiesController.getCaseStudy)
   .patch(
-    fileUpload.upload.single('icon'),
+    fileUpload.upload('image').single('icon'),
     caseStudiesController.updateCaseStudy,
   )
   .delete(caseStudiesController.deleteCaseStudy);

@@ -1,5 +1,5 @@
 const express = require('express');
-const reviewController = require('../controller/reviewController');
+const reviewController = require('../controller/adminPanel/reviews');
 const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
@@ -45,7 +45,7 @@ const router = express.Router();
  */
 router
 	.route('/')
-	.post(fileUpload.upload.single('image'), reviewController.addReview)
+	.post(fileUpload.upload('image').single('image'), reviewController.addReview)
 	.get(reviewController.getAllReviews);
 
 // GET ALL Reviews
@@ -93,7 +93,7 @@ router
 router
 	.route('/:id')
 	.get(reviewController.getReview)
-	.put(fileUpload.upload.single('image'), reviewController.updateReview)
+	.put(fileUpload.upload('image').single('image'), reviewController.updateReview)
 	.delete(reviewController.deleteReview);
 
 // UPDATE REVIEW

@@ -1,8 +1,8 @@
-const Opportunite = require('../model/opportunitiesModel');
-const AppError = require('../utils/AppError');
-const { appErrors, appSuccess } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
-const catchAsync = require('../utils/catchAsync');
+const Opportunite = require('../../model/opportunitiesModel');
+const AppError = require('../../utils/AppError');
+const { appErrors, appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
+const catchAsync = require('../../utils/catchAsync');
 
 exports.createOne = catchAsync(async (req, res, next) => {
 	const newObj = {

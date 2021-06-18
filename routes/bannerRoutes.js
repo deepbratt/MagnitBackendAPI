@@ -1,5 +1,5 @@
 const express = require('express');
-const bannerController = require('../controller/bannerController');
+const bannerController = require('../controller/adminPanel/banners');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -161,12 +161,12 @@ const router = express.Router();
 router
   .route('/')
   .get(bannerController.getAllBanners)
-  .post(fileUpload.upload.single('image'), bannerController.createBanner);
+  .post(fileUpload.upload('image').single('image'), bannerController.createBanner);
 
 router
   .route('/:id')
   .get(bannerController.getBanner)
-  .patch(fileUpload.upload.single('image'), bannerController.updateBanner)
+  .patch(fileUpload.upload('image').single('image'), bannerController.updateBanner)
   .delete(bannerController.deleteBanner);
 
 module.exports = router;

@@ -1,9 +1,9 @@
-const CaseStudies = require('../model/caseStudiesModel');
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/AppError');
-const { uploadFile } = require('../utils/s3');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
-const { appErrors, appSuccess } = require('../constants/appConstants');
+const CaseStudies = require('../../model/caseStudiesModel');
+const catchAsync = require('../../utils/catchAsync');
+const AppError = require('../../utils/AppError');
+const { uploadFile } = require('../../utils/s3');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
+const { appErrors, appSuccess } = require('../../constants/appConstants');
 
 exports.createCaseStudy = catchAsync(async (req, res, next) => {
   const file = req.file;

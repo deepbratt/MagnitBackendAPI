@@ -1,8 +1,8 @@
-const Hiring = require('../model/hiringOptionsModel');
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/AppError');
-const { appErrors, appSuccess } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
+const Hiring = require('../../model/hiringOptionsModel');
+const catchAsync = require('../../utils/catchAsync');
+const AppError = require('../../utils/AppError');
+const { appErrors, appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
 
 exports.createHiringOption = catchAsync(async (req, res, next) => {
   const newHiring = await Hiring.create(req.body);

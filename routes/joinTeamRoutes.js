@@ -1,5 +1,5 @@
 const express = require('express');
-const joinTeamController = require('../controller/joinTeamController');
+const joinTeamController = require('../controller/adminPanel/joinTeam');
 //const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();

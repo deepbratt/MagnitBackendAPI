@@ -1,9 +1,9 @@
-const Ourwork = require('../model/ourWorkModel');
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/AppError');
-const { uploadFile } = require('../utils/s3');
-const { appSuccess, appErrors } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
+const Ourwork = require('../../model/ourWorkModel');
+const catchAsync = require('../../utils/catchAsync');
+const AppError = require('../../utils/AppError');
+const { uploadFile } = require('../../utils/s3');
+const { appSuccess, appErrors } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
 
 exports.createOurWork = catchAsync(async (req, res, next) => {
   const file = req.file;

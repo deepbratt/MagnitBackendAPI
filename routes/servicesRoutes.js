@@ -1,5 +1,5 @@
 const express = require('express');
-const servicesController = require('../controller/servicesController');
+const servicesController = require('../controller/adminPanel/services');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -157,12 +157,12 @@ const router = express.Router();
 router
   .route('/')
   .get(servicesController.getAllServices)
-  .post(fileUpload.upload.single('image'), servicesController.createService);
+  .post(fileUpload.upload('image').single('image'), servicesController.createService);
 
 router
   .route('/:id')
   .get(servicesController.getService)
-  .patch(fileUpload.upload.single('image'), servicesController.updateService)
+  .patch(fileUpload.upload('image').single('image'), servicesController.updateService)
   .delete(servicesController.deleteService);
 
 module.exports = router;

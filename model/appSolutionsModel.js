@@ -8,13 +8,7 @@ const appSolutionSchema = new mongoose.Schema({
 		type: String,
 		required: [true, appErrors.IMAGE_REQUIRED],
 	},
-	dataArray: [
-		{
-			icon: String,
-			title: String,
-			text: String,
-		},
-	],
+	dataArray: Array,
 });
 
 const AppSolution = mongoose.model('AppSolution', appSolutionSchema);

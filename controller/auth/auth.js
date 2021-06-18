@@ -1,12 +1,12 @@
 const crypto = require('crypto');
-const User = require('../model/userModel');
-const AppError = require('../utils/AppError');
-const catchAsync = require('../utils/catchAsync');
-const Email = require('../utils/email');
-const { appErrors, appSuccess } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
+const User = require('../../model/userModel');
+const AppError = require('../../utils/AppError');
+const catchAsync = require('../../utils/catchAsync');
+const Email = require('../../utils/email');
+const { appErrors, appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const jwt = require('jsonwebtoken');
-const jwtManagement = require('../utils/jwtManagement');
+const jwtManagement = require('../../utils/jwtManagement');
 
 exports.signup = catchAsync(async (req, res, next) => {
 	const newUser = {

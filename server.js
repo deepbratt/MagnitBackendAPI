@@ -22,7 +22,7 @@ const trainingCertificationRoute = require('./constants/appConstants').routeCons
 const appAdminPanelRoute = require('./constants/appConstants').routeConsts.appAdminPanelRoute; // for admin panel
 const ourObjectivesRoute = require('./constants/appConstants').routeConsts.ourObjectivesRoute; //for our objectives
 const joinTeamsRoute = require('./constants/appConstants').routeConsts.joinTeamsRoute; // for joinTeam
-//const appSolutionRoute = require('./constants/appConstants').routeConsts.appSolutioRoute; // for appSolution
+const appSolutionRoute = require('./constants/appConstants').routeConsts.appSolutioRoute; // for appSolution
 const opportunitesRoute = require('./constants/appConstants').routeConsts.opportuniteRoute; // for opportunites
 const jobBenifitRoute = require('./constants/appConstants').routeConsts.jobBenifitsRoute; // for jobBenifits
 const swaggerRoute = require('./constants/appConstants').routeConsts.swaggerDocRoute; // swagger doc constant
@@ -108,7 +108,7 @@ app.use(
 );
 
 // GLOBAL MIDDLEWARES
-app.use(express.json()); // body parser (reading data from body to req.body)
+app.use(express.json({limit: '50mb'})); // body parser (reading data from body to req.body)
 app.use(cookieParser()); // cookie parser (reading data from cookie to req.cookie)
 
 // swagger docs Route
@@ -135,7 +135,7 @@ app.use(trainingCertificationRoute, trainingCertificationRouter); // training ro
 app.use(appAdminPanelRoute, adminPanelRouter); // Admin Panel Route
 app.use(ourObjectivesRoute, ourObjectivesRouter); // our Objectives
 app.use(joinTeamsRoute, joinTeamsRouter); // joinTeams
-//app.use(appSolutionRoute, appSolutionRouter); // appSolutions
+app.use(appSolutionRoute, appSolutionRouter); // appSolutions
 app.use(jobBenifitRoute, jobBenifitRouter); // jobBenifits
 app.use(opportunitesRoute,opportunitesRouter); // Opportunite
 app.all('*', (req, res, next) => {
