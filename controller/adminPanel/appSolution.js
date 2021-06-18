@@ -1,5 +1,3 @@
-const base64 = require('base-64');
-const { decode } = require('node-base64-image');
 const AppSolution = require('../../model/appSolutionsModel');
 const AppError = require('../../utils/AppError');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
