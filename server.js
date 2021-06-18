@@ -27,6 +27,7 @@ const joinTeamsRoute = require('./constants/appConstants').routeConsts
   .joinTeamsRoute; // for joinTeam
 const swaggerRoute = require('./constants/appConstants').routeConsts
   .swaggerDocRoute; // swagger doc constant
+
 const userRouter = require('./routes/userRoutes'); // userRoute
 const quoteRouter = require('./routes/quoteRoutes'); // quote Route
 const emailRouter = require('./routes/emailRoutes'); // email route
