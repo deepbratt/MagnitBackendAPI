@@ -17,15 +17,24 @@ const userRoute = require('./constants/appConstants').routeConsts.userRoute; // 
 const quoteRoute = require('./constants/appConstants').routeConsts.quoteRoute; // Quote Api constant
 const emailRoute = require('./constants/appConstants').routeConsts.emailRoute; // for emails handling / subscription
 const reviewRoute = require('./constants/appConstants').routeConsts.reviewRoute; // for reviews
-const trainingCertificationRoute = require('./constants/appConstants').routeConsts
-	.trainingCertificationRoute; //for training&Certification
-const appAdminPanelRoute = require('./constants/appConstants').routeConsts.appAdminPanelRoute; // for admin panel
-const ourObjectivesRoute = require('./constants/appConstants').routeConsts.ourObjectivesRoute; //for our objectives
-const joinTeamsRoute = require('./constants/appConstants').routeConsts.joinTeamsRoute; // for joinTeam
-const appSolutionRoute = require('./constants/appConstants').routeConsts.appSolutioRoute; // for appSolution
-const opportunitesRoute = require('./constants/appConstants').routeConsts.opportuniteRoute; // for opportunites
-const jobBenifitRoute = require('./constants/appConstants').routeConsts.jobBenifitsRoute; // for jobBenifits
-const swaggerRoute = require('./constants/appConstants').routeConsts.swaggerDocRoute; // swagger doc constant
+
+const trainingCertificationRoute = require('./constants/appConstants')
+  .routeConsts.trainingCertificationRoute; //for training&Certification
+const appAdminPanelRoute = require('./constants/appConstants').routeConsts
+  .appAdminPanelRoute; // for admin panel
+const ourObjectivesRoute = require('./constants/appConstants').routeConsts
+  .ourObjectivesRoute; //for our objectives
+const joinTeamsRoute = require('./constants/appConstants').routeConsts
+  .joinTeamsRoute; // for joinTeam
+const appSolutionRoute = require('./constants/appConstants').routeConsts
+  .appSolutioRoute; // for appSolution
+const opportunitesRoute = require('./constants/appConstants').routeConsts
+  .opportuniteRoute; // for opportunites
+const jobBenifitRoute = require('./constants/appConstants').routeConsts
+  .jobBenifitsRoute; // for jobBenifits
+const swaggerRoute = require('./constants/appConstants').routeConsts
+  .swaggerDocRoute; // swagger doc constant
+
 const userRouter = require('./routes/userRoutes'); // userRoute
 const quoteRouter = require('./routes/quoteRoutes'); // quote Route
 const emailRouter = require('./routes/emailRoutes'); // email route
@@ -33,6 +42,7 @@ const reviewRouter = require('./routes/reviewRoutes'); // review Route
 const adminPanelRouter = require('./routes/appAdminPanelRoutes'); // Admin Panel Route
 const ourObjectivesRouter = require('./routes/ourObjectivesRoutes'); // Our Objectives Route
 const joinTeamsRouter = require('./routes/joinTeamRoutes'); // joinTeam Route
+
 const appSolutionRouter = require('./routes/appSolutionRoutes'); // appSolution Route
 const trainingCertificationRouter = require('./routes/trainingCertificationRoutes'); // training&Certification route
 const jobBenifitRouter = require('./routes/jobBenifitsRoutes'); // job Benifits Route
@@ -44,15 +54,18 @@ const sliderRoute = require('./constants/appConstants').routeConsts.sliderRoute;
 const sliderRouter = require('./routes/sliderRoutes');
 
 // For Services Section
-const servicesRoute = require('./constants/appConstants').routeConsts.servicesRoute;
+const servicesRoute = require('./constants/appConstants').routeConsts
+  .servicesRoute;
 const servicesRouter = require('./routes/servicesRoutes');
 
 // For Benifit Section
-const benifitsRoute = require('./constants/appConstants').routeConsts.benifitsRoute;
+const benifitsRoute = require('./constants/appConstants').routeConsts
+  .benifitsRoute;
 const benifitsRouter = require('./routes/benifitsRoutes');
 
 // For Our Work
-const ourWorkRoute = require('./constants/appConstants').routeConsts.ourWorkRoute;
+const ourWorkRoute = require('./constants/appConstants').routeConsts
+  .ourWorkRoute;
 const ourWorkRouter = require('./routes/ourWorkRoutes');
 
 // For Awards
@@ -60,7 +73,8 @@ const awardsRoute = require('./constants/appConstants').routeConsts.awardsRoute;
 const awardsRouter = require('./routes/awardsRoutes');
 
 // For How It Works
-const howItWorksRoute = require('./constants/appConstants').routeConsts.howItWorksRoute;
+const howItWorksRoute = require('./constants/appConstants').routeConsts
+  .howItWorksRoute;
 const howItWorksRouter = require('./routes/howItWorksRoutes');
 
 // Feedback and questions
@@ -68,7 +82,8 @@ const FAQsRoute = require('./constants/appConstants').routeConsts.FAQRoutes;
 const FAQsRouter = require('./routes/FAQsRoutes');
 
 // Case Studies
-const caseStudiesRoute = require('./constants/appConstants').routeConsts.caseStudyRoute;
+const caseStudiesRoute = require('./constants/appConstants').routeConsts
+  .caseStudyRoute;
 const caseStudiesRouter = require('./routes/caseStudiesRoutes');
 
 // For Banners
@@ -76,16 +91,23 @@ const bannerRoute = require('./constants/appConstants').routeConsts.bannerRoute;
 const bannerRouter = require('./routes/bannerRoutes');
 
 // For Workflow
-const workflowRoute = require('./constants/appConstants').routeConsts.workflowRoute;
+const workflowRoute = require('./constants/appConstants').routeConsts
+  .workflowRoute;
 const workflowRouter = require('./routes/workflowRoutes');
 
 // For Facts About Us
-const factsAboutUsRoute = require('./constants/appConstants').routeConsts.factsAboutUsRoute;
+const factsAboutUsRoute = require('./constants/appConstants').routeConsts
+  .factsAboutUsRoute;
 const factsAboutUsRouter = require('./routes/factsAboutUsRoutes');
 
 // For Hiring Options
-const hiringOptionsRoute = require('./constants/appConstants').routeConsts.hiringOptionsRoute;
+const hiringOptionsRoute = require('./constants/appConstants').routeConsts
+  .hiringOptionsRoute;
 const hiringOptionsRouter = require('./routes/hiringOptionsRoute');
+
+// For Blogs
+const blogsRoute = require('./constants/appConstants').routeConsts.blogsRoute;
+const blogsRouter = require('./routes/blogsRoutes');
 
 const PORT = process.env.PORT || 3000; // port
 const app = express();
@@ -100,15 +122,15 @@ app.set('utils', path.join(__dirname, 'utils'));
 
 // Morgan
 app.use(
-	morgan('dev', {
-		skip: function (req, res) {
-			return res.statusCode < 200;
-		},
-	})
+  morgan('dev', {
+    skip: function (req, res) {
+      return res.statusCode < 200;
+    },
+  }),
 );
 
 // GLOBAL MIDDLEWARES
-app.use(express.json({limit: '50mb'})); // body parser (reading data from body to req.body)
+app.use(express.json({ limit: '50mb' })); // body parser (reading data from body to req.body)
 app.use(cookieParser()); // cookie parser (reading data from cookie to req.cookie)
 
 // swagger docs Route
@@ -130,21 +152,24 @@ app.use(bannerRoute, bannerRouter); //banner route
 app.use(workflowRoute, workflowRouter); // workflow router
 app.use(factsAboutUsRoute, factsAboutUsRouter);
 app.use(hiringOptionsRoute, hiringOptionsRouter);
+app.use(blogsRoute, blogsRouter);
 app.use(reviewRoute, reviewRouter); // review route
 app.use(trainingCertificationRoute, trainingCertificationRouter); // training route
 app.use(appAdminPanelRoute, adminPanelRouter); // Admin Panel Route
 app.use(ourObjectivesRoute, ourObjectivesRouter); // our Objectives
 app.use(joinTeamsRoute, joinTeamsRouter); // joinTeams
+
 app.use(appSolutionRoute, appSolutionRouter); // appSolutions
 app.use(jobBenifitRoute, jobBenifitRouter); // jobBenifits
-app.use(opportunitesRoute,opportunitesRouter); // Opportunite
+app.use(opportunitesRoute, opportunitesRouter); // Opportunite
+
 app.all('*', (req, res, next) => {
-	next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
+  next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
 });
 
 //error handller
 app.use(globalErrorHandler);
 
 app.listen(PORT, () => {
-	console.log(`Listening on Port ${PORT}`);
+  console.log(`Listening on Port ${PORT}`);
 });
