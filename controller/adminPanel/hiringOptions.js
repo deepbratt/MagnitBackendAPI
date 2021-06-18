@@ -1,8 +1,8 @@
-const Hiring = require('../model/hiringOptionsModel');
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/AppError');
-const { appErrors, appSuccess } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
+const Hiring = require('../../model/hiringOptionsModel');
+const catchAsync = require('../../utils/catchAsync');
+const AppError = require('../../utils/AppError');
+const { appErrors, appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
 
 exports.createHiringOption = catchAsync(async (req, res, next) => {
   const newHiring = await Hiring.create(req.body);
@@ -11,7 +11,7 @@ exports.createHiringOption = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      newHiring,
+      result:newHiring,
     },
   });
 });
@@ -27,7 +27,7 @@ exports.getAllHiringOptions = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: hiringOptions.length,
     data: {
-      hiringOptions,
+      result:hiringOptions,
     },
   });
 });
@@ -42,7 +42,7 @@ exports.getHiringOption = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      hiringOption,
+      result:hiringOption,
     },
   });
 });
@@ -60,7 +60,7 @@ exports.updateHiringOption = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      hiringOption,
+      result:hiringOption,
     },
   });
 });

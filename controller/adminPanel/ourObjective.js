@@ -1,9 +1,9 @@
-const Objective = require('../model/ourObjectiveModel');
-const AppError = require('../utils/AppError');
-const { appErrors, appSuccess } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
-const catchAsync = require('../utils/catchAsync');
-const { uploadFile } = require('../utils/s3');
+const Objective = require('../../model/ourObjectiveModel');
+const AppError = require('../../utils/AppError');
+const { appErrors, appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
+const catchAsync = require('../../utils/catchAsync');
+const { uploadFile } = require('../../utils/s3');
 
 exports.createObjective = catchAsync(async (req, res, next) => {
 	const file = req.file;
@@ -28,7 +28,7 @@ exports.getObjective = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			objective,
+			result:objective,
 		},
 	});
 });
@@ -40,8 +40,9 @@ exports.getAllObjectives = catchAsync(async (req, res, next) => {
 	}
 	res.status(200).json({
 		status: SUCCESS,
+        results:objectives.length,
 		data: {
-			objectives,
+			result:objectives,
 		},
 	});
 });
@@ -57,7 +58,7 @@ exports.updateObjective = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			updatedObjective,
+			result:updatedObjective,
 		},
 	});
 });

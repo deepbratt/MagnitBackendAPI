@@ -1,10 +1,10 @@
 const Mailchimp = require('mailchimp-api-v3');
 const mailchimp = new Mailchimp(process.env.MAILCHIMPAPI_KEY);
 
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/AppError');
-const { appErrors,appSuccess } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
+const catchAsync = require('../../utils/catchAsync');
+const AppError = require('../../utils/AppError');
+const { appErrors,appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
 
 exports.userSubscribe = catchAsync(async (req, res, next) => {
 	mailchimp

@@ -1,5 +1,5 @@
 const express = require('express');
-const reviewController = require('../controller/reviewController');
+const reviewController = require('../controller/adminPanel/reviews');
 const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
@@ -7,7 +7,7 @@ const router = express.Router();
 // CREATE QUOTE
 /**
  *@swagger
- *  /v1/Review/addReview:
+ *  /v1/Reviews:
  *  post:
  *    tags:
  *    - "Review"
@@ -43,12 +43,15 @@ const router = express.Router();
  *      "201":
  *        description: "Operation Successfull"
  */
-router.post('/addReview', fileUpload.upload.single('image'), reviewController.addReview);
+router
+	.route('/')
+	.post(fileUpload.upload('image').single('image'), reviewController.addReview)
+	.get(reviewController.getAllReviews);
 
 // GET ALL Reviews
 /**
  *@swagger
- *  /v1/Review/getAllRewiews:
+ *  /v1/Reviews:
  *  get:
  *    tags:
  *    - "Review"
@@ -62,12 +65,11 @@ router.post('/addReview', fileUpload.upload.single('image'), reviewController.ad
  *      "200":
  *        description: "Success"
  */
-router.get('/getAllRewiews', reviewController.getAllReviews);
 
 // GET REVIEW
 /**
  *@swagger
- *  /v1/Review/getReview/{id}:
+ *  /v1/Reviews/{id}:
  *  get:
  *    tags:
  *    - "Review"
@@ -88,14 +90,17 @@ router.get('/getAllRewiews', reviewController.getAllReviews);
  *      "200":
  *        description: "Success"
  */
-router.get('/getReview/:id', reviewController.getReview);
-
+router
+	.route('/:id')
+	.get(reviewController.getReview)
+	.put(fileUpload.upload('image').single('image'), reviewController.updateReview)
+	.delete(reviewController.deleteReview);
 
 // UPDATE REVIEW
 
 /**
  *@swagger
- *  /v1/Review/updateReview/{id}:
+ *  /v1/Reviews/{id}:
  *  put:
  *    tags:
  *    - "Review"
@@ -138,12 +143,10 @@ router.get('/getReview/:id', reviewController.getReview);
  *        description: "operation Successfull"
  */
 
-router.put('/updateReview/:id', fileUpload.upload.single('image'), reviewController.updateReview);
-
 // DELETE REVIEW
 /**
  *@swagger
- *  /v1/Review/deleteReview/{id}:
+ *  /v1/Reviews/{id}:
  *  delete:
  *    tags:
  *    - "Review"
@@ -164,6 +167,5 @@ router.put('/updateReview/:id', fileUpload.upload.single('image'), reviewControl
  *      "200":
  *        description: "Success"
  */
-router.delete('/deleteReview/:id', reviewController.deleteReview);
 
 module.exports = router;

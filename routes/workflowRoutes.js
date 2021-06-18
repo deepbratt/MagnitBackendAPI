@@ -1,5 +1,5 @@
 const express = require('express');
-const workflowController = require('../controller/workflowController');
+const workflowController = require('../controller/adminPanel/workflow');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -145,12 +145,12 @@ const router = express.Router();
 router
   .route('/')
   .get(workflowController.getAllWorkflows)
-  .post(fileUpload.upload.single('image'), workflowController.createWorkflow);
+  .post(fileUpload.upload('image').single('image'), workflowController.createWorkflow);
 
 router
   .route('/:id')
   .get(workflowController.getWorkflow)
-  .patch(fileUpload.upload.single('image'), workflowController.updateWorkflow)
+  .patch(fileUpload.upload('image').single('image'), workflowController.updateWorkflow)
   .delete(workflowController.deleteWorkflow);
 
 module.exports = router;

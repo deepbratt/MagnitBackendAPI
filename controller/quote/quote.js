@@ -1,8 +1,8 @@
-const Quote = require('../model/quoteModel');
-const AppError = require('../utils/AppError');
-const { appErrors, appSuccess } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
-const catchAsync = require('../utils/catchAsync');
+const Quote = require('../../model/quoteModel');
+const AppError = require('../../utils/AppError');
+const { appErrors, appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
+const catchAsync = require('../../utils/catchAsync');
 
 exports.addQuote = catchAsync(async (req, res) => {
 	const newQuote = {
@@ -17,7 +17,7 @@ exports.addQuote = catchAsync(async (req, res) => {
 		status: SUCCESS,
 		message: `Quote Created ${appSuccess.OPERATION_SUCCESSFULL}`,
 		data: {
-			quote,
+			result:quote,
 		},
 	});
 });
@@ -29,8 +29,9 @@ exports.getAllQuote = catchAsync(async (req, res) => {
 	}
 	res.status(200).json({
 		status: SUCCESS,
+		results:quotes.length,
 		data: {
-			quotes,
+			result:quotes,
 		},
 	});
 });
@@ -44,7 +45,7 @@ exports.getQuote = catchAsync(async (req, res) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			quote,
+			result:quote,
 		},
 	});
 });

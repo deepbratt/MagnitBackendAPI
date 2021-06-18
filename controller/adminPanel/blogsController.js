@@ -1,10 +1,10 @@
-const Blogs = require('../model/blogsModel');
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/AppError');
-const { uploadFile } = require('../utils/s3');
-const { appErrors, appSuccess } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
-const APIFeatures = require('../utils/apiFeatures');
+const Blogs = require('../../model/blogsModel');
+const catchAsync = require('../../utils/catchAsync');
+const AppError = require('../../utils/AppError');
+const { uploadFile } = require('../../utils/s3');
+const { appErrors, appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
+const APIFeatures = require('../../utils/apiFeatures');
 
 exports.createBlog = catchAsync(async (req, res, next) => {
   const file = req.file;

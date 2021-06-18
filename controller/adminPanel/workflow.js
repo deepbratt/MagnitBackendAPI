@@ -1,9 +1,9 @@
-const Workflow = require('../model/workflowModel');
-const catchAsync = require('../utils/catchAsync');
-const { appErrors, appSuccess } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
-const AppError = require('../utils/AppError');
-const { uploadFile } = require('../utils/s3');
+const Workflow = require('../../model/workflowModel');
+const catchAsync = require('../../utils/catchAsync');
+const { appErrors, appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
+const AppError = require('../../utils/AppError');
+const { uploadFile } = require('../../utils/s3');
 
 exports.createWorkflow = catchAsync(async (req, res, next) => {
   const file = req.file;
@@ -16,7 +16,7 @@ exports.createWorkflow = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      workflow,
+      result:workflow,
     },
   });
 });
@@ -32,7 +32,7 @@ exports.getAllWorkflows = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: workflow.length,
     data: {
-      workflow,
+      result:workflow,
     },
   });
 });
@@ -47,7 +47,7 @@ exports.getWorkflow = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      workflow,
+      result:workflow,
     },
   });
 });
@@ -69,7 +69,7 @@ exports.updateWorkflow = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      workflow,
+      result:workflow,
     },
   });
 });

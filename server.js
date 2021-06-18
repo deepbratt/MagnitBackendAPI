@@ -17,6 +17,7 @@ const userRoute = require('./constants/appConstants').routeConsts.userRoute; // 
 const quoteRoute = require('./constants/appConstants').routeConsts.quoteRoute; // Quote Api constant
 const emailRoute = require('./constants/appConstants').routeConsts.emailRoute; // for emails handling / subscription
 const reviewRoute = require('./constants/appConstants').routeConsts.reviewRoute; // for reviews
+
 const trainingCertificationRoute = require('./constants/appConstants')
   .routeConsts.trainingCertificationRoute; //for training&Certification
 const appAdminPanelRoute = require('./constants/appConstants').routeConsts
@@ -25,6 +26,12 @@ const ourObjectivesRoute = require('./constants/appConstants').routeConsts
   .ourObjectivesRoute; //for our objectives
 const joinTeamsRoute = require('./constants/appConstants').routeConsts
   .joinTeamsRoute; // for joinTeam
+const appSolutionRoute = require('./constants/appConstants').routeConsts
+  .appSolutioRoute; // for appSolution
+const opportunitesRoute = require('./constants/appConstants').routeConsts
+  .opportuniteRoute; // for opportunites
+const jobBenifitRoute = require('./constants/appConstants').routeConsts
+  .jobBenifitsRoute; // for jobBenifits
 const swaggerRoute = require('./constants/appConstants').routeConsts
   .swaggerDocRoute; // swagger doc constant
 
@@ -35,7 +42,11 @@ const reviewRouter = require('./routes/reviewRoutes'); // review Route
 const adminPanelRouter = require('./routes/appAdminPanelRoutes'); // Admin Panel Route
 const ourObjectivesRouter = require('./routes/ourObjectivesRoutes'); // Our Objectives Route
 const joinTeamsRouter = require('./routes/joinTeamRoutes'); // joinTeam Route
+
+const appSolutionRouter = require('./routes/appSolutionRoutes'); // appSolution Route
 const trainingCertificationRouter = require('./routes/trainingCertificationRoutes'); // training&Certification route
+const jobBenifitRouter = require('./routes/jobBenifitsRoutes'); // job Benifits Route
+const opportunitesRouter = require('./routes/opportunitesRoutes'); // opportunities Route
 const globalErrorHandler = require('./utils/errorHandler'); // errorHandler
 
 // For Slider
@@ -119,7 +130,7 @@ app.use(
 );
 
 // GLOBAL MIDDLEWARES
-app.use(express.json()); // body parser (reading data from body to req.body)
+app.use(express.json({ limit: '50mb' })); // body parser (reading data from body to req.body)
 app.use(cookieParser()); // cookie parser (reading data from cookie to req.cookie)
 
 // swagger docs Route
@@ -147,6 +158,11 @@ app.use(trainingCertificationRoute, trainingCertificationRouter); // training ro
 app.use(appAdminPanelRoute, adminPanelRouter); // Admin Panel Route
 app.use(ourObjectivesRoute, ourObjectivesRouter); // our Objectives
 app.use(joinTeamsRoute, joinTeamsRouter); // joinTeams
+
+app.use(appSolutionRoute, appSolutionRouter); // appSolutions
+app.use(jobBenifitRoute, jobBenifitRouter); // jobBenifits
+app.use(opportunitesRoute, opportunitesRouter); // Opportunite
+
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
 });

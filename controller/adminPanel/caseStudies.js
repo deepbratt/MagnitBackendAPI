@@ -1,9 +1,9 @@
-const CaseStudies = require('../model/caseStudiesModel');
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/AppError');
-const { uploadFile } = require('../utils/s3');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
-const { appErrors, appSuccess } = require('../constants/appConstants');
+const CaseStudies = require('../../model/caseStudiesModel');
+const catchAsync = require('../../utils/catchAsync');
+const AppError = require('../../utils/AppError');
+const { uploadFile } = require('../../utils/s3');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
+const { appErrors, appSuccess } = require('../../constants/appConstants');
 
 exports.createCaseStudy = catchAsync(async (req, res, next) => {
   const file = req.file;
@@ -17,7 +17,7 @@ exports.createCaseStudy = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: SUCCESS,
     data: {
-      caseStudy,
+      result:caseStudy,
     },
   });
 });
@@ -34,7 +34,7 @@ exports.getAllCaseStudies = catchAsync(async (req, res, next) => {
     message: appSuccess.OPERATION_SUCCESSFULL,
     results: caseStudy.length,
     data: {
-      caseStudy,
+      result:caseStudy,
     },
   });
 });
@@ -49,7 +49,7 @@ exports.getCaseStudy = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      caseStudy,
+      result:caseStudy,
     },
   });
 });
@@ -76,7 +76,7 @@ exports.updateCaseStudy = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      caseStudy,
+      result:caseStudy,
     },
   });
 });

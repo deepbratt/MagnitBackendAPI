@@ -1,9 +1,9 @@
-const Slider = require('../model/sliderModel');
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/AppError');
-const { uploadFile } = require('../utils/s3');
-const { appErrors, appSuccess } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
+const Slider = require('../../model/sliderModel');
+const catchAsync = require('../../utils/catchAsync');
+const AppError = require('../../utils/AppError');
+const { uploadFile } = require('../../utils/s3');
+const { appErrors, appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
 
 exports.createSlider = catchAsync(async (req, res, next) => {
   const file = req.file;
@@ -27,7 +27,7 @@ exports.createSlider = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
     data: {
-      newSlider,
+      result:newSlider,
     },
   });
 });
@@ -42,7 +42,7 @@ exports.getAllSliders = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: slider.length,
     data: {
-      slider,
+      result:slider,
     },
   });
 });
@@ -57,7 +57,7 @@ exports.getSlider = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      slider,
+      result:slider,
     },
   });
 });
@@ -82,7 +82,7 @@ exports.updateSlider = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      slider,
+      result:slider,
     },
   });
 });

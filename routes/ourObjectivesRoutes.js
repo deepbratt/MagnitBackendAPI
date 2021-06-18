@@ -1,5 +1,5 @@
 const express = require('express');
-const objectivesController = require('../controller/ourObjectiveController');
+const objectivesController = require('../controller/adminPanel/ourObjective');
 const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
@@ -57,7 +57,7 @@ const router = express.Router();
  */
 router
 	.route('/')
-	.post(fileUpload.upload.single('icon'), objectivesController.createObjective)
+	.post(fileUpload.upload('image').single('icon'), objectivesController.createObjective)
 	.get(objectivesController.getAllObjectives);
 
 // GET ourObjective
@@ -153,7 +153,7 @@ router
 router
 	.route('/:id')
 	.get(objectivesController.getObjective)
-	.put(fileUpload.upload.single('icon'), objectivesController.updateObjective)
+	.put(fileUpload.upload('image').single('icon'), objectivesController.updateObjective)
 	.delete(objectivesController.deleteObjective);
 
 module.exports = router;

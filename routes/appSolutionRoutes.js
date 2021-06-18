@@ -1,17 +1,16 @@
 const express = require('express');
-const trainingCertificationController = require('../controller/adminPanel/trainingCertification');
+const appSolutionController = require('../controller/adminPanel/appSolution');
 const fileUpload = require('../utils/mluter');
-//const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
 
-// CREATE trainingCertification
+// CREATE App Solution
 /**
  *@swagger
- *  /v1/trainingCertification:
+ *  /v1/appSolutions:
  *  post:
  *    tags:
- *    - "trainingCertification"
- *    summary: "Use To create trainingCertification"
+ *    - "App Solution"
+ *    summary: "Use To create a App Solution"
  *    description: ""
  *    consumes:
  *    - "application/json"
@@ -20,39 +19,30 @@ const router = express.Router();
  *    parameters:
  *    - in: "body"
  *      name: "body"
- *      description: "trainingCertification data"
+ *      description: "data"
  *      required: true
  *      schema:
  *        type: "object"
  *        properties:
- *              jsonFile:
+ *              image:
  *                  type: "string"
- *              title:
- *                  type: "string"
- *              description:
- *                  type: "string"
+ *              dataArray:
+ *                  type: "[]"
  *    responses:
  *      "400":
  *        description: "Invalid input"
  *      "201":
  *        description: "Operation Successfull"
  */
-router
-	.route('/')
-	.post(
-		fileUpload.upload('application/json').single('jsonFile'),
-		trainingCertificationController.createTrainingCertification
-	)
-	.get(trainingCertificationController.getAll);
 
-// GET ALL Reviews
+ // GET ALL App Solution
 /**
  *@swagger
- *  /v1/trainingCertification:
+ *  /v1/appSolutions:
  *  get:
  *    tags:
- *    - "trainingCertification"
- *    summary: "Use To get All trainingCertifications"
+ *    - "App Solution"
+ *    summary: "Use To get All App Solution"
  *    description: ""
  *    consumes:
  *    - "application/json"
@@ -63,14 +53,14 @@ router
  *        description: "Success"
  */
 
-// GET REVIEW
+// GET App Solution
 /**
  *@swagger
- *  /v1/trainingCertification/{id}:
+ *  /v1/appSolutions/{id}:
  *  get:
  *    tags:
- *    - "trainingCertification"
- *    summary: "Use To get one trainingCertification"
+ *    - "App Solution"
+ *    summary: "Use To get one App Solution"
  *    description: ""
  *    parameters:
  *      - in: path
@@ -78,7 +68,7 @@ router
  *        schema:
  *          type: string
  *        required: true
- *        description: mongodb object ID of the trainingCertification to get
+ *        description: mongodb object ID of the App Solution to get
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -87,21 +77,16 @@ router
  *      "200":
  *        description: "Success"
  */
-router
-	.route('/:id')
-	.get(trainingCertificationController.getOne)
-	.put(fileUpload.upload('application/json').single('jsonFile'),trainingCertificationController.updateTrainingCertification)
-	.delete(trainingCertificationController.deleteTrainingCertification);
 
-// UPDATE trainingCertification
+ // UPDATE Admin Panel
 
 /**
  *@swagger
- *  /v1/trainingCertification/{id}:
+ *  /v1/appSolutions/{id}:
  *  put:
  *    tags:
- *    - "trainingCertification"
- *    summary: "used to update trainingCertification"
+ *    - "App Solution"
+ *    summary: "used to update App Solution"
  *    description: ""
  *    consumes:
  *    - "application/json"
@@ -121,12 +106,10 @@ router
  *      schema:
  *        type: "object"
  *        properties:
- *              jsonFile:
+ *              image:
  *                  type: "string"
- *              title:
- *                  type: "string"
- *              description:
- *                  type: "string"
+ *              dataArray:
+ *                  type: "[]"
  *    responses:
  *      "400":
  *        description: "Invalid input"
@@ -134,14 +117,14 @@ router
  *        description: "operation Successfull"
  */
 
-// DELETE REVIEW
+// DELETE App Solution
 /**
  *@swagger
- *  /v1/trainingCertification/{id}:
+ *  /v1/appSolutions/{id}:
  *  delete:
  *    tags:
- *    - "trainingCertification"
- *    summary: "Use To delete trainingCertification"
+ *    - "App Solution"
+ *    summary: "Use To delete App Solution"
  *    description: ""
  *    parameters:
  *      - in: path
@@ -149,7 +132,7 @@ router
  *        schema:
  *          type: string
  *        required: true
- *        description: mongodb object ID of the trainingCertification to delete
+ *        description: mongodb object ID of the App Solution to delete
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -158,5 +141,12 @@ router
  *      "200":
  *        description: "Success"
  */
+router.route('/').post(appSolutionController.createOne).get(appSolutionController.getAll);
+
+router
+	.route('/:id')
+	.get(appSolutionController.getOne)
+	.put(appSolutionController.updateOne)
+	.delete(appSolutionController.deleteOne);
 
 module.exports = router;

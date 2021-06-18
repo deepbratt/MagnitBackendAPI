@@ -1,5 +1,5 @@
 const express = require('express');
-const quoteController = require('../controller/quoteController');
+const quoteController = require('../controller/quote/quote');
 const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
 

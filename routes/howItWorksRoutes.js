@@ -1,5 +1,5 @@
 const express = require('express');
-const howItWorksController = require('../controller/howItWorksController');
+const howItWorksController = require('../controller/adminPanel/howItWorks');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -146,7 +146,7 @@ router
   .route('/')
   .get(howItWorksController.getAllHowItWorks)
   .post(
-    fileUpload.upload.single('image'),
+    fileUpload.upload('image').single('image'),
     howItWorksController.createHowItWorks,
   );
 
@@ -154,7 +154,7 @@ router
   .route('/:id')
   .get(howItWorksController.getHowItWork)
   .patch(
-    fileUpload.upload.single('image'),
+    fileUpload.upload('image').single('image'),
     howItWorksController.updateHowItWork,
   )
   .delete(howItWorksController.deleteHowItWork);

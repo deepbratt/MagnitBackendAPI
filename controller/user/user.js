@@ -1,8 +1,8 @@
-const User = require('../model/userModel');
-const AppError = require('../utils/AppError');
-const { appErrors, appSuccess } = require('../constants/appConstants');
-const { SUCCESS } = require('../constants/appConstants').resStatus;
-const catchAsync = require('../utils/catchAsync');
+const User = require('../../model/userModel');
+const AppError = require('../../utils/AppError');
+const { appErrors, appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
+const catchAsync = require('../../utils/catchAsync');
 
 exports.addUser = catchAsync(async (req, res) => {
 	const newUser = {
@@ -25,8 +25,9 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 	}
 	res.status(200).json({
 		status: SUCCESS,
+        results:users.length,
 		data: {
-			users,
+			result:users,
 		},
 	});
 });
@@ -39,7 +40,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			user,
+			result:user,
 		},
 	});
 });

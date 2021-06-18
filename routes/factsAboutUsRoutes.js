@@ -1,5 +1,5 @@
 const express = require('express');
-const factsController = require('../controller/factsAboutUsController');
+const factsController = require('../controller/adminPanel/factsAboutUs');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -145,12 +145,12 @@ const router = express.Router();
 router
   .route('/')
   .get(factsController.getAllFactsAboutUs)
-  .post(fileUpload.upload.single('icon'), factsController.createFactsAboutUs);
+  .post(fileUpload.upload('image').single('icon'), factsController.createFactsAboutUs);
 
 router
   .route('/:id')
   .get(factsController.getFactAboutUs)
-  .patch(fileUpload.upload.single('icon'), factsController.updateFactAboutUs)
+  .patch(fileUpload.upload('image').single('icon'), factsController.updateFactAboutUs)
   .delete(factsController.deleteFactAboutUs);
 
 module.exports = router;

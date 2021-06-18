@@ -1,17 +1,17 @@
 const express = require('express');
-const trainingCertificationController = require('../controller/adminPanel/trainingCertification');
-const fileUpload = require('../utils/mluter');
+const opportunitesController = require('../controller/adminPanel/opportunites');
+//const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
 
-// CREATE trainingCertification
+// CREATE opportunites
 /**
  *@swagger
- *  /v1/trainingCertification:
+ *  /v1/opportunites:
  *  post:
  *    tags:
- *    - "trainingCertification"
- *    summary: "Use To create trainingCertification"
+ *    - "Opportunites"
+ *    summary: "Use To create opportunites"
  *    description: ""
  *    consumes:
  *    - "application/json"
@@ -20,16 +20,18 @@ const router = express.Router();
  *    parameters:
  *    - in: "body"
  *      name: "body"
- *      description: "trainingCertification data"
+ *      description: "data"
  *      required: true
  *      schema:
  *        type: "object"
  *        properties:
- *              jsonFile:
- *                  type: "string"
  *              title:
  *                  type: "string"
- *              description:
+ *              location:
+ *                  type: "string"
+ *              link:
+ *                  type: "string"
+ *              buttonLabel:
  *                  type: "string"
  *    responses:
  *      "400":
@@ -37,22 +39,15 @@ const router = express.Router();
  *      "201":
  *        description: "Operation Successfull"
  */
-router
-	.route('/')
-	.post(
-		fileUpload.upload('application/json').single('jsonFile'),
-		trainingCertificationController.createTrainingCertification
-	)
-	.get(trainingCertificationController.getAll);
 
-// GET ALL Reviews
+// GET ALL opportunites
 /**
  *@swagger
- *  /v1/trainingCertification:
+ *  /v1/opportunites:
  *  get:
  *    tags:
- *    - "trainingCertification"
- *    summary: "Use To get All trainingCertifications"
+ *    - "Opportunites"
+ *    summary: "Use To get All opportunites"
  *    description: ""
  *    consumes:
  *    - "application/json"
@@ -62,15 +57,16 @@ router
  *      "200":
  *        description: "Success"
  */
+router.route('/').post(opportunitesController.createOne).get(opportunitesController.getAll);
 
-// GET REVIEW
+// GET opportunite
 /**
  *@swagger
- *  /v1/trainingCertification/{id}:
+ *  /v1/opportunites/{id}:
  *  get:
  *    tags:
- *    - "trainingCertification"
- *    summary: "Use To get one trainingCertification"
+ *    - "Opportunites"
+ *    summary: "Use To get one opportunites"
  *    description: ""
  *    parameters:
  *      - in: path
@@ -78,7 +74,7 @@ router
  *        schema:
  *          type: string
  *        required: true
- *        description: mongodb object ID of the trainingCertification to get
+ *        description: mongodb object ID of the opportunites to get
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -87,21 +83,16 @@ router
  *      "200":
  *        description: "Success"
  */
-router
-	.route('/:id')
-	.get(trainingCertificationController.getOne)
-	.put(fileUpload.upload('application/json').single('jsonFile'),trainingCertificationController.updateTrainingCertification)
-	.delete(trainingCertificationController.deleteTrainingCertification);
 
-// UPDATE trainingCertification
+// UPDATE opportunites
 
 /**
  *@swagger
- *  /v1/trainingCertification/{id}:
+ *  /v1/opportunites/{id}:
  *  put:
  *    tags:
- *    - "trainingCertification"
- *    summary: "used to update trainingCertification"
+ *    - "Opportunites"
+ *    summary: "used to update opportunites"
  *    description: ""
  *    consumes:
  *    - "application/json"
@@ -121,11 +112,13 @@ router
  *      schema:
  *        type: "object"
  *        properties:
- *              jsonFile:
- *                  type: "string"
  *              title:
  *                  type: "string"
- *              description:
+ *              location:
+ *                  type: "string"
+ *              link:
+ *                  type: "string"
+ *              buttonLabel:
  *                  type: "string"
  *    responses:
  *      "400":
@@ -134,14 +127,14 @@ router
  *        description: "operation Successfull"
  */
 
-// DELETE REVIEW
+// DELETE opportunites
 /**
  *@swagger
- *  /v1/trainingCertification/{id}:
+ *  /v1/opportunites/{id}:
  *  delete:
  *    tags:
- *    - "trainingCertification"
- *    summary: "Use To delete trainingCertification"
+ *    - "Opportunites"
+ *    summary: "Use To delete opportunite"
  *    description: ""
  *    parameters:
  *      - in: path
@@ -149,7 +142,7 @@ router
  *        schema:
  *          type: string
  *        required: true
- *        description: mongodb object ID of the trainingCertification to delete
+ *        description: mongodb object ID of the opportunite to delete
  *    consumes:
  *    - "application/json"
  *    produces:
@@ -158,5 +151,10 @@ router
  *      "200":
  *        description: "Success"
  */
+router
+	.route('/:id')
+	.get(opportunitesController.getOne)
+	.put(opportunitesController.updateOne)
+	.delete(opportunitesController.deleteOne);
 
 module.exports = router;

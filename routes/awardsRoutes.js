@@ -1,5 +1,5 @@
 const express = require('express');
-const awardsController = require('../controller/awardsController');
+const awardsController = require('../controller/adminPanel/awards');
 const fileUpload = require('../utils/mluter');
 const router = express.Router();
 
@@ -145,12 +145,12 @@ const router = express.Router();
 router
   .route('/')
   .get(awardsController.getAllAwards)
-  .post(fileUpload.upload.single('image'), awardsController.createAward);
+  .post(fileUpload.upload('image').single('image'), awardsController.createAward);
 
 router
   .route('/:id')
   .get(awardsController.getAward)
-  .patch(fileUpload.upload.single('image'), awardsController.updateAward)
+  .patch(fileUpload.upload('image').single('image'), awardsController.updateAward)
   .delete(awardsController.deleteAward);
 
 module.exports = router;
