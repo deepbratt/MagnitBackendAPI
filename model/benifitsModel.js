@@ -12,6 +12,12 @@ const benifitsSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  buttonLabel: {
+    type: String,
+  },
+  buttonLink: {
+    type: String,
+  },
 });
 
 const Benifits = mongoose.model('Benifits', benifitsSchema);
