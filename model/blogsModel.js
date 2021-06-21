@@ -25,7 +25,6 @@ const blogsSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now,
-    select: false,
   },
 });
 
