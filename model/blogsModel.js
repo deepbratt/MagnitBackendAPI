@@ -24,9 +24,10 @@ const blogsSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    default: Date.now,
+    required:true,
   },
 });
+
 
 const Blogs = mongoose.model('Blogs', blogsSchema);
 module.exports = Blogs;
