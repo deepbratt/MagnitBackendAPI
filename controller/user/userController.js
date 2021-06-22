@@ -11,6 +11,7 @@ exports.addUser = catchAsync(async (req, res) => {
 		email: req.body.email.trim(),
 		password: req.body.password,
 		passwordConfirm: req.body.passwordConfirm,
+		role: req.body.role,
 	};
 	await User.create(newUser);
 	res.status(201).json({
@@ -25,9 +26,9 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 	}
 	res.status(200).json({
 		status: SUCCESS,
-        results:users.length,
+		results: users.length,
 		data: {
-			result:users,
+			result: users,
 		},
 	});
 });
@@ -40,7 +41,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			result:user,
+			result: user,
 		},
 	});
 });

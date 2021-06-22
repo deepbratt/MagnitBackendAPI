@@ -83,7 +83,7 @@ const router = express.Router();
 /**
  *@swagger
  *  /v1/appSolutions/{id}:
- *  put:
+ *  patch:
  *    tags:
  *    - "App Solution"
  *    summary: "used to update App Solution"
@@ -146,7 +146,7 @@ router.route('/').post(appSolutionController.createOne).get(appSolutionControlle
 router
 	.route('/:id')
 	.get(appSolutionController.getOne)
-	.put(appSolutionController.updateOne)
+	.patch(appSolutionController.updateOne)
 	.delete(appSolutionController.deleteOne);
 
 module.exports = router;

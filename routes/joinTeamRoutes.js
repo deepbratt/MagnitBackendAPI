@@ -87,7 +87,7 @@ router.route('/').post(joinTeamController.createOne).get(joinTeamController.getA
 /**
  *@swagger
  *  /v1/teams/{id}:
- *  put:
+ *  patch:
  *    tags:
  *    - "JoinTeam"
  *    summary: "used to update Team"
@@ -150,7 +150,7 @@ router.route('/').post(joinTeamController.createOne).get(joinTeamController.getA
 router
 	.route('/:id')
 	.get(joinTeamController.getOne)
-	.put(joinTeamController.updateOne)
+	.patch(joinTeamController.updateOne)
 	.delete(joinTeamController.deleteOne);
 
 module.exports = router;

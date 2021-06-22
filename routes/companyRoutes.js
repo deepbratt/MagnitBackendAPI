@@ -85,7 +85,7 @@ const router = express.Router();
 /**
  *@swagger
  *  /v1/companies/{id}:
- *  put:
+ *  patch:
  *    tags:
  *    - "Company"
  *    summary: "used to update Company"
@@ -150,7 +150,7 @@ router.route('/').post(companyController.createOne).get(companyController.getAll
 router
 	.route('/:id')
 	.get(companyController.getOne)
-	.put(companyController.updateOne)
+	.patch(companyController.updateOne)
 	.delete(companyController.deleteOne);
 
 module.exports = router;

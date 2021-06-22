@@ -89,7 +89,7 @@ router.route('/').post(opportunitesController.createOne).get(opportunitesControl
 /**
  *@swagger
  *  /v1/opportunites/{id}:
- *  put:
+ *  patch:
  *    tags:
  *    - "Opportunites"
  *    summary: "used to update opportunites"
@@ -154,7 +154,7 @@ router.route('/').post(opportunitesController.createOne).get(opportunitesControl
 router
 	.route('/:id')
 	.get(opportunitesController.getOne)
-	.put(opportunitesController.updateOne)
+	.patch(opportunitesController.updateOne)
 	.delete(opportunitesController.deleteOne);
 
 module.exports = router;
