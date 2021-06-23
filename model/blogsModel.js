@@ -28,6 +28,10 @@ const blogsSchema = new mongoose.Schema({
   },
 });
 
+blogsSchema.pre('save', function (next) {
+  this.date =new Date(this.date).toLocaleDateString
+  next();
+});
 
 const Blogs = mongoose.model('Blogs', blogsSchema);
 module.exports = Blogs;
