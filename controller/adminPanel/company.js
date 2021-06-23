@@ -6,12 +6,12 @@ const catchAsync = require('../../utils/catchAsync');
 const { uploadFile } = require('../../utils/s3');
 
 exports.createOne = catchAsync(async (req, res, next) => {
-    if (req.socialMedia){
-        req.socialMedia.dataArray.forEach(el=>{
-            el.icon=await uploadFile(el.icon)
-        })
-    }
-    await Company.create(req.body);
+	if (req.socialMedia) {
+		req.socialMedia.dataArray.forEach(async (el) => {
+			el.icon = await uploadFile(el.icon);
+		});
+	}
+	await Company.create(req.body);
 	res.status(201).json({
 		status: SUCCESS,
 		message: appSuccess.OPERATION_SUCCESSFULL,
