@@ -1,6 +1,6 @@
 const express = require('express');
-const authController = require('../controller/auth/auth');
-const userController = require('../controller/user/user');
+const authController = require('../controller/auth/authController');
+const userController = require('../controller/user/userController');
 const { signupValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
 
@@ -202,6 +202,8 @@ router.patch('/resetPassword/:token', authController.resetPassword);
  *                  type: "string"
  *              passwordConfirm:
  *                  type: "string"
+ *              role:
+ *                  type: "string"
  *    responses:
  *      "400":
  *        description: "Invalid input"
@@ -317,5 +319,23 @@ router.route('/:id').get(userController.getOne).delete(userController.deleteUser
  *        description: "Password updated Successfully"
  */
 router.patch('/updateMyPassword', authController.authenticate, authController.updatePassword);
+
+/**
+ *@swagger
+ *  /v1/Users/roles:
+ *  post:
+ *    tags:
+ *    - "Users"
+ *    summary: "Use To get user Roles"
+ *    description: ""
+ *    consumes:
+ *    - "application/json"
+ *    produces:
+ *    - "application/json"
+ *    responses:
+ *      "200":
+ *        description: "Success"
+ */
+router.post('/roles', authController.authenticate,authController.getRoles)
 
 module.exports = router;

@@ -93,7 +93,7 @@ router
 router
 	.route('/:id')
 	.get(reviewController.getReview)
-	.put(fileUpload.upload('image').single('image'), reviewController.updateReview)
+	.patch(fileUpload.upload('image').single('image'), reviewController.updateReview)
 	.delete(reviewController.deleteReview);
 
 // UPDATE REVIEW
@@ -101,7 +101,7 @@ router
 /**
  *@swagger
  *  /v1/Reviews/{id}:
- *  put:
+ *  patch:
  *    tags:
  *    - "Review"
  *    summary: "used to update review"

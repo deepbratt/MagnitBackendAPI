@@ -42,6 +42,9 @@ const jobBenifitRouter = require('./routes/jobBenifitsRoutes'); // job Benifits 
 const opportunitesRouter = require('./routes/opportunitesRoutes'); // opportunities Route
 const globalErrorHandler = require('./utils/errorHandler'); // errorHandler
 
+//For Page
+const pageRoute = require('./constants/appConstants').routeConsts.pageRoute;
+const pageRouter = require('./routes/pageRoutes');
 // For Slider
 const sliderRoute = require('./constants/appConstants').routeConsts.sliderRoute;
 const sliderRouter = require('./routes/sliderRoutes');
@@ -147,6 +150,7 @@ app.use(companyRoute, companyRouter); // company
 app.use(appSolutionRoute, appSolutionRouter); // appSolutions
 app.use(jobBenifitRoute, jobBenifitRouter); // jobBenifits
 app.use(opportunitesRoute, opportunitesRouter); // Opportunite
+app.use(pageRoute, pageRouter);
 
 app.all('*', (req, res, next) => {
 	next(new AppError(`can't find ${req.originalUrl} on this server`, 404));

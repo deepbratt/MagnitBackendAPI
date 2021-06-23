@@ -90,7 +90,7 @@ router
 /**
  *@swagger
  *  /v1/ourObjectives/{id}:
- *  put:
+ *  patch:
  *    tags:
  *    - "OurObjectives"
  *    summary: "used to update objective"
@@ -153,7 +153,7 @@ router
 router
 	.route('/:id')
 	.get(objectivesController.getObjective)
-	.put(fileUpload.upload('image').single('icon'), objectivesController.updateObjective)
+	.patch(fileUpload.upload('image').single('icon'), objectivesController.updateObjective)
 	.delete(objectivesController.deleteObjective);
 
 module.exports = router;

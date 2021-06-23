@@ -26,10 +26,11 @@ const blogsSchema = new mongoose.Schema({
     type: Date,
     required:true,
   },
+
 });
 
 blogsSchema.pre('save', function (next) {
-  this.date =new Date(this.date).toLocaleDateString
+  this.date = new Date(this.date).toLocaleDateString
   next();
 });
 

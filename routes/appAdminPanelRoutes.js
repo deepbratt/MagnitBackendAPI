@@ -85,7 +85,7 @@ router
 router
 	.route('/:id')
 	.get(adminPanelController.getOne)
-	.put(fileUpload.upload('image').single('image'), adminPanelController.updatePanel)
+	.patch(fileUpload.upload('image').single('image'), adminPanelController.updatePanel)
 	.delete(adminPanelController.deletePanel);
 
 // UPDATE Admin Panel
@@ -93,7 +93,7 @@ router
 /**
  *@swagger
  *  /v1/adminPanel/{id}:
- *  put:
+ *  patch:
  *    tags:
  *    - "Admin Panel"
  *    summary: "used to update Admin Panel"

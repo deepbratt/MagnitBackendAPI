@@ -60,7 +60,10 @@ const router = express.Router();
  *      "200":
  *        description: "Success"
  */
-router.route('/').post(fileUpload.upload('image').single('icon'),jobBenifitController.createOne).get(jobBenifitController.getAll);
+router
+	.route('/')
+	.post(fileUpload.upload('image').single('icon'), jobBenifitController.createOne)
+	.get(jobBenifitController.getAll);
 
 // GET JobBenifits
 /**
@@ -92,7 +95,7 @@ router.route('/').post(fileUpload.upload('image').single('icon'),jobBenifitContr
 /**
  *@swagger
  *  /v1/jobBenifits/{id}:
- *  put:
+ *  patch:
  *    tags:
  *    - "JobBenifits"
  *    summary: "used to update JobBenifit"
@@ -159,7 +162,7 @@ router.route('/').post(fileUpload.upload('image').single('icon'),jobBenifitContr
 router
 	.route('/:id')
 	.get(jobBenifitController.getOne)
-	.put(fileUpload.upload('image').single('icon'), jobBenifitController.updateOne)
+	.patch(fileUpload.upload('image').single('icon'), jobBenifitController.updateOne)
 	.delete(jobBenifitController.deleteOne);
 
 module.exports = router;

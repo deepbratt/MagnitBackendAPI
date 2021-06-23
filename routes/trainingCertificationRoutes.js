@@ -90,7 +90,7 @@ router
 router
 	.route('/:id')
 	.get(trainingCertificationController.getOne)
-	.put(fileUpload.upload('application/json').single('jsonFile'),trainingCertificationController.updateTrainingCertification)
+	.patch(fileUpload.upload('application/json').single('jsonFile'),trainingCertificationController.updateTrainingCertification)
 	.delete(trainingCertificationController.deleteTrainingCertification);
 
 // UPDATE trainingCertification
@@ -98,7 +98,7 @@ router
 /**
  *@swagger
  *  /v1/trainingCertification/{id}:
- *  put:
+ *  patch:
  *    tags:
  *    - "trainingCertification"
  *    summary: "used to update trainingCertification"
