@@ -7,106 +7,105 @@ const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const APIFeatures = require('../../utils/apiFeatures');
 
 exports.createBlog = catchAsync(async (req, res, next) => {
-	const file = req.file;
-	const { Location } = await uploadFile(file);
-	req.body.image = Location;
+  const file = req.file;
+  const { Location } = await uploadFile(file);
+  req.body.image = Location;
 
-	// console.log(items);
+  // console.log(items);
 
-	const obj = {
-		image: req.body.image,
-		title: req.body.title,
-		text: req.body.text,
-		link: req.body.link,
-		buttonLabel: req.body.buttonLabel,
-		views: req.body.views,
-		date: req.body.date,
-	};
+  const obj = {
+    image: req.body.image,
+    title: req.body.title,
+    text: req.body.text,
+    link: req.body.link,
+    buttonLabel: req.body.buttonLabel,
+    views: req.body.views,
+    date: req.body.date,
+  };
 
-	const result = await Blogs.create(obj);
+  const result = await Blogs.create(obj);
 
-	res.status(201).json({
-		status: SUCCESS,
-		message: appSuccess.OPERATION_SUCCESSFULL,
-		data: {
-			result,
-		},
-	});
+  res.status(201).json({
+    status: SUCCESS,
+    message: appSuccess.OPERATION_SUCCESSFULL,
+    data: {
+      result,
+    },
+  });
 });
 
 exports.getAllBlogs = catchAsync(async (req, res, next) => {
-	console.log(req.query);
-	const features = new APIFeatures(Blogs.find(), req.query)
-		.filter()
-		.sort()
-		.limitFields()
-		.pagination();
+  const features = new APIFeatures(Blogs.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .pagination();
 
-	const result = await features.query;
+  const result = await features.query;
 
-	if (!result) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
+  if (!result) {
+    return next(new AppError(appErrors.NOT_FOUND), 404);
+  }
 
-	res.status(200).json({
-		status: SUCCESS,
-		totalResults: result.length,
-		data: {
-			result,
-		},
-		skipLatest: 9,
-		skipTrending: 3,
-	});
+  res.status(200).json({
+    status: SUCCESS,
+    totalResults: result.length,
+    data: {
+      result,
+    },
+    skipLatest: 9,
+    skipTrending: 3,
+  });
 });
 
 exports.getBlog = catchAsync(async (req, res, next) => {
-	const result = await Blogs.findById(req.params.id);
+  const result = await Blogs.findById(req.params.id);
 
-	if (!result) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
-	console.count();
-	res.status(200).json({
-		status: SUCCESS,
-		data: {
-			result,
-		},
-	});
+  if (!result) {
+    return next(new AppError(appErrors.NOT_FOUND), 404);
+  }
+  console.count();
+  res.status(200).json({
+    status: SUCCESS,
+    data: {
+      result,
+    },
+  });
 });
 
 exports.updateBlog = catchAsync(async (req, res, next) => {
-	if (req.file) {
-		const { Location } = await uploadFile(req.file);
-		req.body.image = Location;
-	}
+  if (req.file) {
+    const { Location } = await uploadFile(req.file);
+    req.body.image = Location;
+  }
 
-	const result = await Blogs.findByIdAndUpdate(req.params.id, req.body, {
-		runValidator: true,
-		new: true,
-	});
+  const result = await Blogs.findByIdAndUpdate(req.params.id, req.body, {
+    runValidator: true,
+    new: true,
+  });
 
-	if (!result) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
+  if (!result) {
+    return next(new AppError(appErrors.NOT_FOUND), 404);
+  }
 
-	res.status(200).json({
-		status: SUCCESS,
-		data: {
-			result,
-		},
-	});
+  res.status(200).json({
+    status: SUCCESS,
+    data: {
+      result,
+    },
+  });
 });
 
 exports.deleteBlog = catchAsync(async (req, res, next) => {
-	const result = await Blogs.findByIdAndDelete(req.params.id);
+  const result = await Blogs.findByIdAndDelete(req.params.id);
 
-	if (!result) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
+  if (!result) {
+    return next(new AppError(appErrors.NOT_FOUND), 404);
+  }
 
-	res.status(200).json({
-		status: SUCCESS,
-		message: appSuccess.OPERATION_SUCCESSFULL,
-		data: null,
-	});
+  res.status(200).json({
+    status: SUCCESS,
+    message: appSuccess.OPERATION_SUCCESSFULL,
+    data: null,
+  });
 });

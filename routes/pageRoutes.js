@@ -1,5 +1,5 @@
 const express = require('express');
-const pageController= require('../controller/adminPanel/pageController');
+const pageController = require('../controller/adminPanel/pageController');
 const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
@@ -35,10 +35,7 @@ const router = express.Router();
  *      "201":
  *        description: "Operation Successfull"
  */
-router
-	.route('/')
-	.post(pageController.createOne)
-	.get(pageController.getAll);
+router.route('/').post(pageController.createOne).get(pageController.getAll);
 
 // GET ALL Pages
 /**
@@ -107,12 +104,14 @@ router
  *      "200":
  *        description: "Success"
  */
-router.get('/:slug',pageController.getOneBySlug);
+
 router
 	.route('/:id')
 	.get(pageController.getOne)
 	.patch(pageController.updateOne)
 	.delete(pageController.deleteOne);
+
+//router.get('/:slug', pageController.getOneBySlug);
 
 // UPDATE Page
 

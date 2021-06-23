@@ -28,7 +28,8 @@ exports.getAll = catchAsync(async (req, res, next) => {
 });
 
 exports.getOne = catchAsync(async (req, res, next) => {
-	const page = await Page.findById(req.params.id);
+	console.log(req.params.id);
+	const page = await Page.findOne({_id: req.params.id});
 
 	if (!page) {
 		return next(new AppError(appErrors.NOT_FOUND), 404);
@@ -44,7 +45,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 
 exports.getOneBySlug = catchAsync(async (req, res, next) => {
 	console.log(req.params.slug);
-	const page = await Page.findOne({ 'metaData.canonical': req.params.slug });
+	const page = await Page.find({ 'metaData.canonical': req.params.slug });
 	if (!page) {
 		return next(new AppError(appErrors.NOT_FOUND), 404);
 	}
