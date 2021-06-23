@@ -19,7 +19,7 @@ exports.uploadFile = (file) => {
 	const ext = myFile[myFile.length - 1];
 	const uploadParams = {
 		Bucket: bucketName,
-		Body: file.buffer,
+		Body: file.buffer || file,
 		Key: `${uuidv4()}.${ext}`,
 	};
 	return s3.upload(uploadParams).promise();

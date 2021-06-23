@@ -145,7 +145,10 @@ const router = express.Router();
  *      "200":
  *        description: "Success"
  */
-router.route('/').post(companyController.createOne).get(companyController.getAll);
+router
+	.route('/')
+	.post(fileUpload.upload('image').array('icon', 5), companyController.createOne)
+	.get(companyController.getAll);
 
 router
 	.route('/:id')

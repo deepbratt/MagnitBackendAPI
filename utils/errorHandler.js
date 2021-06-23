@@ -1,6 +1,6 @@
 const AppError = require('./AppError');
 const { appErrors } = require('../constants/appConstants');
-const { SUCCESS,ERROR } = require('../constants/appConstants').resStatus;
+const { ERROR } = require('../constants/appConstants').resStatus;
 
 const handleCastErrorDB = (err) => {
 	const message = `invalid ${err.path}:${err.value}.`;
@@ -8,7 +8,7 @@ const handleCastErrorDB = (err) => {
 };
 const handleDuplicatefieldsDB = (err) => {
 	const value = err.message.match(/(["'])(?:(?=(\\?))\2.)*?\1/)[0];
-	const message = `This email id already exists ${value} please use and other id`;
+	const message = `Duplicate Entery '${value}' Please Use Another.`;
 	return new AppError(message, 400);
 };
 const handleValidationErrorDB = (err) => {
