@@ -13,6 +13,7 @@ exports.createFactsAboutUs = catchAsync(async (req, res, next) => {
     icon: Location,
     title: req.body.title,
     text: req.body.text,
+    color: req.body.color,
   };
 
   const factsAboutUs = await Facts.create(newFactsAboutUs);
@@ -35,7 +36,7 @@ exports.getFactAboutUs = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      result:factAboutUs,
+      result: factAboutUs,
     },
   });
 });
@@ -51,7 +52,7 @@ exports.getAllFactsAboutUs = catchAsync(async (req, res, next) => {
     status: SUCCESS,
     results: factsAboutUs.length,
     data: {
-      result:factsAboutUs,
+      result: factsAboutUs,
     },
   });
 });
@@ -73,7 +74,7 @@ exports.updateFactAboutUs = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: SUCCESS,
     data: {
-      result:factAboutUs,
+      result: factAboutUs,
     },
   });
 });
