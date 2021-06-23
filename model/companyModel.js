@@ -4,6 +4,11 @@ const validator = require('validator');
 const { appErrors } = require('../constants/appConstants');
 
 const companySchema = new mongoose.Schema({
+	heading: {
+		type: String,
+		unique: true,
+		required: [true, 'Footer heading required'],
+	},
 	locations: {
 		heading: String,
 		dataArray: [

@@ -25,56 +25,10 @@ const router = express.Router();
  *      schema:
  *        type: "object"
  *        properties:
- *              title:
- *                  type: "string"
- *              canonical:
- *                  type: "string"
- *              description:
- *                  type: "string"
- *              keywords:
- *                  type: "string"
- *              banner:
- *                  type: "string"
- *              services:
- *                  type: "string"
- *              reviews:
- *                  type: "string"
- *              homeSlider:
- *                  type: "string"
- *              awards:
- *                  type: "string"
- *              company:
- *                  type: "string"
- *              opportunites:
- *                  type: "string"
- *              trainingCertification:
- *                  type: "string"
- *              workFlow:
- *                  type: "string"
- *              joinTeam:
- *                  type: "string"
- *              jobBenifits:
- *                  type: "string"
- *              FAQs:
- *                  type: "string"
- *              appAdminPanel:
- *                  type: "string"
- *              appSolutions:
- *                  type: "string"
- *              blogs:
- *                  type: "string"
- *              benefits:
- *                  type: "string"
- *              hiringOptions:
- *                  type: "string"
- *              factsAboutUs:
- *                  type: "string"
- *              ourWork:
- *                  type: "string"
- *              ourObjectives:
- *                  type: "string"
- *              howitWorks:
- *                  type: "string"
+ *              metaData:
+ *                  type: "object"
+ *              sections:
+ *                  type: "object"
  *    responses:
  *      "400":
  *        description: "Invalid input"
@@ -128,6 +82,32 @@ router
  *      "200":
  *        description: "Success"
  */
+
+// GET Page By slug
+/**
+ *@swagger
+ *  /v1/pages/{slug}:
+ *  get:
+ *    tags:
+ *    - "Page"
+ *    summary: "Use To get one Page"
+ *    description: ""
+ *    parameters:
+ *      - in: path
+ *        name: slug
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: slug of the Page to get
+ *    consumes:
+ *    - "application/json"
+ *    produces:
+ *    - "application/json"
+ *    responses:
+ *      "200":
+ *        description: "Success"
+ */
+router.get('/:slug',pageController.getOneBySlug);
 router
 	.route('/:id')
 	.get(pageController.getOne)
@@ -162,56 +142,10 @@ router
  *      schema:
  *        type: "object"
  *        properties:
- *              title:
- *                  type: "string"
- *              canonical:
- *                  type: "string"
- *              description:
- *                  type: "string"
- *              keywords:
- *                  type: "string"
- *              banner:
- *                  type: "string"
- *              services:
- *                  type: "string"
- *              reviews:
- *                  type: "string"
- *              homeSlider:
- *                  type: "string"
- *              awards:
- *                  type: "string"
- *              company:
- *                  type: "string"
- *              opportunites:
- *                  type: "string"
- *              trainingCertification:
- *                  type: "string"
- *              workFlow:
- *                  type: "string"
- *              joinTeam:
- *                  type: "string"
- *              jobBenifits:
- *                  type: "string"
- *              FAQs:
- *                  type: "string"
- *              appAdminPanel:
- *                  type: "string"
- *              appSolutions:
- *                  type: "string"
- *              blogs:
- *                  type: "string"
- *              benefits:
- *                  type: "string"
- *              hiringOptions:
- *                  type: "string"
- *              factsAboutUs:
- *                  type: "string"
- *              ourWork:
- *                  type: "string"
- *              ourObjectives:
- *                  type: "string"
- *              howitWorks:
- *                  type: "string"
+ *              meyaData:
+ *                  type: "object"
+ *              sections:
+ *                  type: "object"
  *    responses:
  *      "400":
  *        description: "Invalid input"
