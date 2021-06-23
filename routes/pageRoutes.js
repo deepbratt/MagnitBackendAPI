@@ -25,7 +25,7 @@ const router = express.Router();
  *      schema:
  *        type: "object"
  *        properties:
- *              meyaData:
+ *              metaData:
  *                  type: "object"
  *              sections:
  *                  type: "object"
