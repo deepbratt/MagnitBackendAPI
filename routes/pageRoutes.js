@@ -4,6 +4,8 @@ const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
 
+router.route('/bySlug/:slug').get(pageController.getOneBySlug);
+
 // CREATE Page
 /**
  *@swagger
@@ -83,7 +85,7 @@ router.route('/').post(pageController.createOne).get(pageController.getAll);
 // GET Page By slug
 /**
  *@swagger
- *  /v1/pages/{slug}:
+ *  /v1/pages/bySlug/{slug}:
  *  get:
  *    tags:
  *    - "Page"
@@ -110,8 +112,6 @@ router
 	.get(pageController.getOne)
 	.patch(pageController.updateOne)
 	.delete(pageController.deleteOne);
-
-//router.get('/:slug', pageController.getOneBySlug);
 
 // UPDATE Page
 

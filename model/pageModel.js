@@ -8,7 +8,7 @@ const sectionObj = {
 	order: Number,
 	title: String,
 	subTitle: String,
-	dataArray: [],
+	dataArray: { type: Array, default: undefined },
 };
 
 const pageSchema = new mongoose.Schema({

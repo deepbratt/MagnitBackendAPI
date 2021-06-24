@@ -29,7 +29,7 @@ exports.getAll = catchAsync(async (req, res, next) => {
 
 exports.getOne = catchAsync(async (req, res, next) => {
 	console.log(req.params.id);
-	const page = await Page.findOne({_id: req.params.id});
+	const page = await Page.findById(req.params.id);
 
 	if (!page) {
 		return next(new AppError(appErrors.NOT_FOUND), 404);
@@ -45,10 +45,11 @@ exports.getOne = catchAsync(async (req, res, next) => {
 
 exports.getOneBySlug = catchAsync(async (req, res, next) => {
 	console.log(req.params.slug);
-	const page = await Page.find({ 'metaData.canonical': req.params.slug });
+	let page = await Page.findOne({ 'metaData.canonical': req.params.slug });
 	if (!page) {
 		return next(new AppError(appErrors.NOT_FOUND), 404);
 	}
+	console.log(page);
 	const data = await pageApi(page);
 
 	res.status(200).json({
