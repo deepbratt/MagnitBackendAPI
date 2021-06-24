@@ -6,7 +6,7 @@ const catchAsync = require('../../utils/catchAsync');
 const { base64FileUpload } = require('../../utils/s3');
 
 exports.createOne = catchAsync(async (req, res, next) => {
-	if (req.body.socialMedia.dataArray.length > 0) {
+	if (req.body.socialMedia.dataArray) {
 		for (var i = 0; i < req.body.socialMedia.dataArray.length; i++) {
 			let { Location } = await base64FileUpload(req.body.socialMedia.dataArray[i].icon, next);
 			req.body.socialMedia.dataArray[i].icon = Location;
@@ -50,7 +50,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 });
 
 exports.updateOne = catchAsync(async (req, res, next) => {
-	if (req.body.socialMedia.dataArray.length > 0) {
+	if (req.body.socialMedia.dataArray) {
 		for (var i = 0; i < req.body.socialMedia.dataArray.length; i++) {
 			if (req.body.socialMedia.dataArray[i].icon.split(':')[0] !== 'https') {
 				let { Location } = await base64FileUpload(req.body.socialMedia.dataArray[i].icon, next);

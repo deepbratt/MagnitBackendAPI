@@ -7,12 +7,12 @@ const { base64FileUpload } = require('../../utils/s3');
 
 exports.createOne = catchAsync(async (req, res, next) => {
 	if (req.body.image) {
-		if (req.body.dataArray[i].icon.split(':')[0] !== 'https') {
+		if (req.body.image.split(':')[0] !== 'https') {
 			let { Location } = await base64FileUpload(req.body.image, next);
 			req.body.image = Location;
 		}
 	}
-	if (req.body.dataArray.length > 0) {
+	if (req.body.dataArray) {
 		for (var i = 0; i < req.body.dataArray.length; i++) {
 			let { Location } = await base64FileUpload(req.body.dataArray[i].icon, next);
 			req.body.dataArray[i].icon = Location;
@@ -57,12 +57,12 @@ exports.getOne = catchAsync(async (req, res, next) => {
 
 exports.updateOne = catchAsync(async (req, res, next) => {
 	if (req.body.image) {
-		if (req.body.dataArray[i].icon.split(':')[0] !== 'https') {
+		if (req.body.image.split(':')[0] !== 'https') {
 			let { Location } = await base64FileUpload(req.body.image, next);
 			req.body.image = Location;
 		}
 	}
-	if (req.body.dataArray.length > 0) {
+	if (req.body.dataArray) {
 		for (var i = 0; i < req.body.dataArray.length; i++) {
 			if (req.body.dataArray[i].icon.split(':')[0] !== 'https') {
 				let { Location } = await base64FileUpload(req.body.dataArray[i].icon, next);
