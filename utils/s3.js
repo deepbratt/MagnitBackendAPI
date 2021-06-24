@@ -19,23 +19,37 @@ exports.uploadFile = (file) => {
 	const ext = myFile[myFile.length - 1];
 	const uploadParams = {
 		Bucket: bucketName,
-		Body: file.buffer || file,
+		Body: file.buffer,
 		Key: `${uuidv4()}.${ext}`,
 	};
 	return s3.upload(uploadParams).promise();
 };
 
-exports.uploadArrayOfFiles = (files) => {
-	const fileArray = [];
-	files.forEach((file) => {
-		let myFile = file.originalname.split('.');
-		const ext = myFile[myFile.length - 1];
-		const uploadParams = {
-			Bucket: bucketName,
-			Body: file.buffer,
-			Key: `${uuidv4()}.${ext}`,
-		};
-		fileArray.push(s3.upload(uploadParams).promise());
-	});
-	return fileArray;
+exports.base64FileUpload = (base64) => {
+	const base64Data = new Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+	const type = base64.split(';')[0].split('/')[1];
+	const uploadParams = {
+		Bucket: bucketName,
+		Key: `${uuidv4()}.${type}`,
+		Body: base64Data,
+		ContentEncoding: 'base64',
+		ContentType: `image/${type}` || 'image/jpeg',
+	};
+
+	return s3.upload(uploadParams).promise();
 };
+
+// exports.uploadArrayOfFiles = (files) => {
+// 	const fileArray = [];
+// 	files.forEach((file) => {
+// 		let myFile = file.originalname.split('.');
+// 		const ext = myFile[myFile.length - 1];
+// 		const uploadParams = {
+// 			Bucket: bucketName,
+// 			Body: file.buffer,
+// 			Key: `${uuidv4()}.${ext}`,
+// 		};
+// 		fileArray.push(s3.upload(uploadParams).promise());
+// 	});
+// 	return fileArray;
+// };
