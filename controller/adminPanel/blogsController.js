@@ -8,7 +8,7 @@ const APIFeatures = require('../../utils/apiFeatures');
 
 exports.createBlog = catchAsync(async (req, res, next) => {
   const file = req.file;
-  const { Location } = await uploadFile(file);
+  const { Location } = await uploadFile(file, next);
   req.body.image = Location;
 
   // console.log(items);
@@ -75,7 +75,7 @@ exports.getBlog = catchAsync(async (req, res, next) => {
 
 exports.updateBlog = catchAsync(async (req, res, next) => {
   if (req.file) {
-    const { Location } = await uploadFile(req.file);
+    const { Location } = await uploadFile(req.file,next);
     req.body.image = Location;
   }
 

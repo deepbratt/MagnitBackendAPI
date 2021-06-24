@@ -7,7 +7,7 @@ const { uploadFile } = require('../../utils/s3');
 
 exports.createBanner = catchAsync(async (req, res, next) => {
   const file = req.file;
-  const { Location } = await uploadFile(file);
+  const { Location } = await uploadFile(file, next);
   req.body.image = Location;
 
   const newBanner = await Banner.create(req.body);
@@ -55,7 +55,7 @@ exports.getBanner = catchAsync(async (req, res, next) => {
 
 exports.updateBanner = catchAsync(async (req, res, next) => {
   if (req.file) {
-    const { Location } = await uploadFile(req.file);
+    const { Location } = await uploadFile(req.file, next);
     req.body.image = Location;
   }
 

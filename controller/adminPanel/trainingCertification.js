@@ -7,7 +7,7 @@ const { uploadFile } = require('../../utils/s3');
 
 exports.createTrainingCertification = catchAsync(async (req, res, next) => {
 	const file = req.file;
-	const { Location } = await uploadFile(file);
+	const { Location } = await uploadFile(file,next);
 	const newobj = {
 		jsonFile: Location,
 		title: req.body.title,
@@ -50,7 +50,7 @@ exports.getAll = catchAsync(async (req, res, next) => {
 
 exports.updateTrainingCertification = catchAsync(async (req, res, next) => {
 	if (req.file) {
-		const { Location } = await uploadFile(req.file);
+		const { Location } = await uploadFile(req.file,next);
 		req.body.jsonFile = Location;
 	}
 	const updatedTrainingCertification = await TrainingCertification.findByIdAndUpdate(

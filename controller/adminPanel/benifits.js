@@ -7,7 +7,7 @@ const { appErrors, appSuccess } = require('../../constants/appConstants');
 
 exports.createBenifit = catchAsync(async (req, res, next) => {
   const file = req.file;
-  const { Location } = await uploadFile(file);
+  const { Location } = await uploadFile(file, next);
   req.body.image = Location;
 
   const newBenifit = await Benifits.create(req.body);
@@ -53,7 +53,7 @@ exports.getBenifit = catchAsync(async (req, res, next) => {
 
 exports.updateBenifit = catchAsync(async (req, res, next) => {
   if (req.file) {
-    const { Location } = await uploadFile(req.file);
+    const { Location } = await uploadFile(req.file, next);
     req.body.image = Location;
   }
 

@@ -7,7 +7,7 @@ const { appErrors, appSuccess } = require('../../constants/appConstants');
 
 exports.createCaseStudy = catchAsync(async (req, res, next) => {
   const file = req.file;
-  const { Location } = await uploadFile(file);
+  const { Location } = await uploadFile(file,next);
   req.body.icon = Location;
 
   const caseStudy = await CaseStudies.create(req.body);
@@ -56,7 +56,7 @@ exports.getCaseStudy = catchAsync(async (req, res, next) => {
 
 exports.updateCaseStudy = catchAsync(async (req, res, next) => {
   if (req.file) {
-    const { Location } = await uploadFile(req.file);
+    const { Location } = await uploadFile(req.file, next);
     req.body.icon = Location;
   }
 

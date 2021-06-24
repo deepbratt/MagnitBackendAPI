@@ -7,7 +7,7 @@ const { uploadFile } = require('../../utils/s3');
 
 exports.createWorkflow = catchAsync(async (req, res, next) => {
   const file = req.file;
-  const { Location } = await uploadFile(file);
+  const { Location } = await uploadFile(file,next);
   req.body.image = Location;
 
   workflow = await Workflow.create(req.body);
@@ -54,7 +54,7 @@ exports.getWorkflow = catchAsync(async (req, res, next) => {
 
 exports.updateWorkflow = catchAsync(async (req, res, next) => {
   const file = req.file;
-  const { Location } = await uploadFile(file);
+  const { Location } = await uploadFile(file,next);
   req.body.image = Location;
 
   const workflow = await Workflow.findByIdAndUpdate(req.params.id, req.body, {

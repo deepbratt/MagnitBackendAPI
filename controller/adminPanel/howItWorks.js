@@ -7,7 +7,7 @@ const { SUCCESS } = require('../../constants/appConstants').resStatus;
 
 exports.createHowItWorks = catchAsync(async (req, res, next) => {
   const file = req.file;
-  const { Location } = await uploadFile(file);
+  const { Location } = await uploadFile(file,next);
 
   const newObj = {
     title: req.body.title.trim(),
@@ -57,7 +57,7 @@ exports.getHowItWork = catchAsync(async (req, res, next) => {
 
 exports.updateHowItWork = catchAsync(async (req, res, next) => {
   if (req.file) {
-    const { Location } = await uploadFile(req.file);
+    const { Location } = await uploadFile(req.file,next);
     req.body.image = Location;
   }
 

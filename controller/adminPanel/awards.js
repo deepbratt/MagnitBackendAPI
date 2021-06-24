@@ -7,7 +7,7 @@ const { SUCCESS } = require('../../constants/appConstants').resStatus;
 
 exports.createAward = catchAsync(async (req, res, next) => {
   const file = req.file;
-  const { Location } = await uploadFile(file);
+  const { Location } = await uploadFile(file, next);
   req.body.image = Location;
 
   const newAward = await Awards.create(req.body);
@@ -54,7 +54,7 @@ exports.getAward = catchAsync(async (req, res, next) => {
 
 exports.updateAward = catchAsync(async (req, res, next) => {
   if (req.file) {
-    const { Location } = await uploadFile(req.file);
+    const { Location } = await uploadFile(req.file, next);
     req.body.image = Location;
   }
 

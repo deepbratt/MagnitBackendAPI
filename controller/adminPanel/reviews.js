@@ -7,7 +7,7 @@ const { uploadFile } = require('../../utils/s3');
 
 exports.addReview = catchAsync(async (req, res, next) => {
 	const file = req.file;
-	const { Location } = await uploadFile(file);
+	const { Location } = await uploadFile(file,next);
 	const newReview = {
 		clientName: req.body.clientName.trim(),
 		projectName: req.body.projectName.trim(),
@@ -53,7 +53,7 @@ exports.getAllReviews = catchAsync(async (req, res, next) => {
 
 exports.updateReview = catchAsync(async (req, res, next) => {
 	if (req.file) {
-		const { Location } = await uploadFile(req.file);
+		const { Location } = await uploadFile(req.file,next);
 		req.body.image = Location;
 	}
 	const updatedReview = await Review.findByIdAndUpdate(req.params.id, req.body, {

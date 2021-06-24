@@ -7,7 +7,7 @@ const { uploadFile } = require('../../utils/s3');
 
 exports.createFactsAboutUs = catchAsync(async (req, res, next) => {
   const file = req.file;
-  const { Location } = await uploadFile(file);
+  const { Location } = await uploadFile(file,next);
 
   const newFactsAboutUs = {
     icon: Location,
@@ -58,7 +58,7 @@ exports.getAllFactsAboutUs = catchAsync(async (req, res, next) => {
 
 exports.updateFactAboutUs = catchAsync(async (req, res, next) => {
   if (req.file) {
-    const { Location } = await uploadFile(req.file);
+    const { Location } = await uploadFile(req.file, next);
     req.body.icon = Location;
   }
   const factAboutUs = await Facts.findByIdAndUpdate(req.params.id, req.body, {

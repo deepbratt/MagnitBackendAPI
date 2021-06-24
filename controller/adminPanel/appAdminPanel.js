@@ -7,7 +7,7 @@ const { uploadFile } = require('../../utils/s3');
 
 exports.createAdminPanel = catchAsync(async (req, res, next) => {
 	const file = req.file;
-	const { Location } = await uploadFile(file);
+	const { Location } = await uploadFile(file, next);
 	const newObj = {
 		image: Location,
 		description: req.body.description,
@@ -49,7 +49,7 @@ exports.getAll = catchAsync(async (req, res, next) => {
 
 exports.updatePanel = catchAsync(async (req, res, next) => {
 	if (req.file) {
-		const { Location } = await uploadFile(req.file);
+		const { Location } = await uploadFile(req.file, next);
 		req.body.image = Location;
 	}
 	const updatedPanel = await AdminPanel.findByIdAndUpdate(req.params.id, req.body, {
