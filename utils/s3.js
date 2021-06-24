@@ -15,6 +15,7 @@ const s3 = new S3({
 });
 
 exports.uploadFile = (file) => {
+	console.log(typeof file);
 	let myFile = file.originalname.split('.');
 	const ext = myFile[myFile.length - 1];
 	const uploadParams = {

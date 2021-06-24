@@ -4,6 +4,7 @@ const AppError = require('../../utils/AppError');
 const { uploadFile } = require('../../utils/s3');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
+const { servicesEnum } = require('../../utils/scripts');
 
 exports.createService = catchAsync(async (req, res, next) => {
 	const file = req.file;
@@ -12,9 +13,14 @@ exports.createService = catchAsync(async (req, res, next) => {
 	if (req.body.type === 'Parent' && req.body.category) {
 		delete req.body.category;
 	}
-  if(req.body.type === 'Child' && !req.body.category){
-    return next(new AppError('Please add a category', 400));
-  }
+	if (req.body.type === 'Child' && !req.body.category) {
+		return next(new AppError('Please add a category', 400));
+	}
+	if (req.body.category) {
+		if (!(await servicesEnum(req.body.category))) {
+			return next(new AppError('No Category Found', 400));
+		}
+	}
 	const newService = await Services.create(req.body);
 	res.status(201).json({
 		status: SUCCESS,
@@ -58,6 +64,17 @@ exports.updateService = catchAsync(async (req, res, next) => {
 	if (req.file) {
 		const { Location } = await uploadFile(req.file);
 		req.body.image = Location;
+	}
+	if (req.body.type === 'Parent' && req.body.category) {
+		req.body.category = undefined;
+	}
+	if (req.body.type === 'Child' && !req.body.category) {
+		return next(new AppError('Please add a category', 400));
+	}
+	if (req.body.category) {
+		if (!(await servicesEnum(req.body.category))) {
+			return next(new AppError('No Category Found', 400));
+		}
 	}
 
 	const service = await Services.findByIdAndUpdate(req.params.id, req.body, {

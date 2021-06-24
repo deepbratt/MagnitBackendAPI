@@ -126,3 +126,7 @@ exports.pageApi = async (page) => {
 	}
 	return page;
 };
+
+exports.servicesEnum = async (v) => {
+	return !!(await Service.findOne({ type: 'Parent', title: v }));
+};
