@@ -25,7 +25,10 @@ exports.uploadFile = (file) => {
 	return s3.upload(uploadParams).promise();
 };
 
-exports.base64FileUpload = (base64) => {
+exports.base64FileUpload = (base64, next) => {
+	if (!base64.startsWith('data:image/')) {
+		return next(new AppError('Invalid base64 String', 400));
+	}
 	const base64Data = new Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ''), 'base64');
 	const type = base64.split(';')[0].split('/')[1];
 	const uploadParams = {
@@ -33,7 +36,7 @@ exports.base64FileUpload = (base64) => {
 		Key: `${uuidv4()}.${type}`,
 		Body: base64Data,
 		ContentEncoding: 'base64',
-		ContentType: `image/${type}` || 'image/jpeg',
+		ContentType: `image/${type}`,
 	};
 
 	return s3.upload(uploadParams).promise();
