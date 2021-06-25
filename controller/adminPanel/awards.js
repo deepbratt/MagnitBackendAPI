@@ -1,6 +1,7 @@
 const Awards = require('../../model/awardsModel');
 const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { uploadFile } = require('../../utils/s3');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
@@ -23,21 +24,7 @@ exports.createAward = catchAsync(async (req, res, next) => {
 	});
 });
 
-exports.getAllAwards = catchAsync(async (req, res, next) => {
-	const awards = await Awards.find();
-
-	if (!awards) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
-
-	res.status(200).json({
-		status: SUCCESS,
-		results: awards.length,
-		data: {
-			result: awards,
-		},
-	});
-});
+exports.getAllAwards = factory.getAll(Awards);
 
 exports.getAward = catchAsync(async (req, res, next) => {
 	const award = await Awards.findById(req.params.id);

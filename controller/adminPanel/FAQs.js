@@ -1,6 +1,7 @@
 const FeedbackAndQuestion = require('../../model/FAQsModel');
 const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { appSuccess, appErrors } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 
@@ -16,21 +17,7 @@ exports.createFAQ = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAllFAQs = catchAsync(async (req, res, next) => {
-  const feedbackAndQuestion = await FeedbackAndQuestion.find();
-
-  if (!feedbackAndQuestion) {
-    return next(new AppError(appErrors.NOT_FOUND), 404);
-  }
-
-  res.status(200).json({
-    status: SUCCESS,
-    results: feedbackAndQuestion.length,
-    data: {
-      result:feedbackAndQuestion,
-    },
-  });
-});
+exports.getAllFAQs = factory.getAll(FeedbackAndQuestion);
 
 exports.getFAQ = catchAsync(async (req, res, next) => {
   const feedbackAndQuestion = await FeedbackAndQuestion.findById(req.params.id);

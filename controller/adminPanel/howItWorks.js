@@ -1,6 +1,7 @@
 const HowItWorks = require('../../model/howItWorksModel');
 const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { uploadFile } = require('../../utils/s3');
 const { appSuccess, appErrors } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
@@ -22,21 +23,7 @@ exports.createHowItWorks = catchAsync(async (req, res, next) => {
 		},
 	});
 });
-exports.getAllHowItWorks = catchAsync(async (req, res, next) => {
-	const howItWorks = await HowItWorks.find();
-
-	if (!howItWorks) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
-
-	res.status(200).json({
-		status: SUCCESS,
-		results: howItWorks.length,
-		data: {
-			result: howItWorks,
-		},
-	});
-});
+exports.getAllHowItWorks = factory.getAll(HowItWorks);
 
 exports.getHowItWork = catchAsync(async (req, res, next) => {
 	const howItWork = await HowItWorks.findById(req.params.id);

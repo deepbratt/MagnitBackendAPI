@@ -1,4 +1,5 @@
 const Slider = require('../../model/sliderModel');
+const factory = require('../handlerFactory/factoryHandler');
 const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/AppError');
 const { uploadFile } = require('../../utils/s3');
@@ -31,21 +32,7 @@ exports.createSlider = catchAsync(async (req, res, next) => {
 		},
 	});
 });
-exports.getAllSliders = catchAsync(async (req, res, next) => {
-	const slider = await Slider.find();
-
-	if (!slider) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
-
-	res.status(200).json({
-		status: SUCCESS,
-		results: slider.length,
-		data: {
-			result: slider,
-		},
-	});
-});
+exports.getAllSliders = factory.getAll(Slider);
 
 exports.getSlider = catchAsync(async (req, res, next) => {
 	const slider = await Slider.findById(req.params.id);

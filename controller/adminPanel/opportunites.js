@@ -1,5 +1,6 @@
 const Opportunite = require('../../model/opportunitiesModel');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const catchAsync = require('../../utils/catchAsync');
@@ -25,19 +26,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 	});
 });
 
-exports.getAll = catchAsync(async (req, res, next) => {
-	const opportunites = await Opportunite.find();
-	if (opportunites.length === 0) {
-		return next(new AppError(appErrors.NOT_FOUND, 404));
-	}
-	res.status(200).json({
-		status: SUCCESS,
-        results:opportunites.length,
-		data: {
-			result:opportunites,
-		},
-	});
-});
+exports.getAll = factory.getAll(Opportunite);
 
 exports.updateOne = catchAsync(async (req, res, next) => {
 	const updatedOpportunite = await Opportunite.findByIdAndUpdate(req.params.id, req.body, {

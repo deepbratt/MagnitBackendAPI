@@ -1,5 +1,6 @@
 const Review = require('../../model/reviewModel');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const catchAsync = require('../../utils/catchAsync');
@@ -32,19 +33,7 @@ exports.getReview = catchAsync(async (req, res, next) => {
 	});
 });
 
-exports.getAllReviews = catchAsync(async (req, res, next) => {
-	const reviews = await Review.find();
-	if (reviews.length === 0) {
-		return next(new AppError('Not Found', 404));
-	}
-	res.status(200).json({
-		status: SUCCESS,
-		results: reviews.length,
-		data: {
-			result: reviews,
-		},
-	});
-});
+exports.getAllReviews = factory.getAll(Review);
 
 exports.updateReview = catchAsync(async (req, res, next) => {
 	if (req.file) {

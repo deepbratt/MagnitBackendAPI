@@ -1,6 +1,7 @@
 const Benifits = require('../../model/benifitsModel');
 const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { uploadFile } = require('../../utils/s3');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const { appErrors, appSuccess } = require('../../constants/appConstants');
@@ -20,21 +21,7 @@ exports.createBenifit = catchAsync(async (req, res, next) => {
 		},
 	});
 });
-exports.getAllBenifits = catchAsync(async (req, res, next) => {
-	const benifit = await Benifits.find();
-
-	if (!benifit) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
-
-	res.status(200).json({
-		status: SUCCESS,
-		results: benifit.length,
-		data: {
-			result: benifit,
-		},
-	});
-});
+exports.getAllBenifits = factory.getAll(Benifits);
 
 exports.getBenifit = catchAsync(async (req, res, next) => {
 	const benifit = await Benifits.findById(req.params.id);

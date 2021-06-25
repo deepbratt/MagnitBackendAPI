@@ -1,6 +1,7 @@
 const Banner = require('../../model/bannerModel');
 const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { uploadFile } = require('../../utils/s3');
@@ -23,21 +24,7 @@ exports.createBanner = catchAsync(async (req, res, next) => {
 	});
 });
 
-exports.getAllBanners = catchAsync(async (req, res, next) => {
-	const banner = await Banner.find();
-
-	if (!banner) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
-
-	res.status(200).json({
-		status: SUCCESS,
-		results: banner.length,
-		data: {
-			result: banner,
-		},
-	});
-});
+exports.getAllBanners = factory.getAll(Banner);
 
 exports.getBanner = catchAsync(async (req, res, next) => {
 	const banner = await Banner.findById(req.params.id);

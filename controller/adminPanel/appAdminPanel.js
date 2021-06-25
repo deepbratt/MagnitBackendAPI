@@ -1,5 +1,6 @@
 const AdminPanel = require('../../model/appAdminPanelModel');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const catchAsync = require('../../utils/catchAsync');
@@ -32,19 +33,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 	});
 });
 
-exports.getAll = catchAsync(async (req, res, next) => {
-	const adminPanelList = await AdminPanel.find();
-	if (adminPanelList.length === 0) {
-		return next(new AppError(appErrors.NOT_FOUND, 404));
-	}
-	res.status(200).json({
-		status: SUCCESS,
-		results: adminPanelList.length,
-		data: {
-			result: adminPanelList,
-		},
-	});
-});
+exports.getAll = factory.getAll(AdminPanel);
 
 exports.updatePanel = catchAsync(async (req, res, next) => {
 	if (req.file) {

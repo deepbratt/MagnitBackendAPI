@@ -1,5 +1,6 @@
 const Objective = require('../../model/ourObjectiveModel');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const catchAsync = require('../../utils/catchAsync');
@@ -32,19 +33,7 @@ exports.getObjective = catchAsync(async (req, res, next) => {
 	});
 });
 
-exports.getAllObjectives = catchAsync(async (req, res, next) => {
-	const objectives = await Objective.find();
-	if (objectives.length === 0) {
-		return next(new AppError('Not Found', 404));
-	}
-	res.status(200).json({
-		status: SUCCESS,
-		results: objectives.length,
-		data: {
-			result: objectives,
-		},
-	});
-});
+exports.getAllObjectives = factory.getAll(Objective);
 
 exports.updateObjective = catchAsync(async (req, res, next) => {
 	if (req.file) {

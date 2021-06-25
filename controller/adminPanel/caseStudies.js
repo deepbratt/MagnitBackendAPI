@@ -1,6 +1,7 @@
 const CaseStudies = require('../../model/caseStudiesModel');
 const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { uploadFile } = require('../../utils/s3');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const { appErrors, appSuccess } = require('../../constants/appConstants');
@@ -23,22 +24,7 @@ exports.createCaseStudy = catchAsync(async (req, res, next) => {
 	});
 });
 
-exports.getAllCaseStudies = catchAsync(async (req, res, next) => {
-	const caseStudy = await CaseStudies.find();
-
-	if (!caseStudy) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
-
-	res.status(200).json({
-		status: SUCCESS,
-		message: appSuccess.OPERATION_SUCCESSFULL,
-		results: caseStudy.length,
-		data: {
-			result: caseStudy,
-		},
-	});
-});
+exports.getAllCaseStudies = factory.getAll(CaseStudies);
 
 exports.getCaseStudy = catchAsync(async (req, res, next) => {
 	const caseStudy = await CaseStudies.findById(req.params.id);

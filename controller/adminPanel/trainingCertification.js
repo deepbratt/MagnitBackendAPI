@@ -1,5 +1,6 @@
 const TrainingCertification = require('../../model/trainingCertificationModel');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const catchAsync = require('../../utils/catchAsync');
@@ -32,19 +33,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 	});
 });
 
-exports.getAll = catchAsync(async (req, res, next) => {
-	const trainingCertifications = await TrainingCertification.find();
-	if (trainingCertifications.length === 0) {
-		return next(new AppError(appErrors.NOT_FOUND, 404));
-	}
-	res.status(200).json({
-		status: SUCCESS,
-		results: trainingCertifications.length,
-		data: {
-			result: trainingCertifications,
-		},
-	});
-});
+exports.getAll = factory.getAll(TrainingCertification);
 
 exports.updateTrainingCertification = catchAsync(async (req, res, next) => {
 	if (req.file) {

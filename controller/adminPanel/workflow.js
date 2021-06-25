@@ -1,4 +1,5 @@
 const Workflow = require('../../model/workflowModel');
+const factory = require('../handlerFactory/factoryHandler');
 const catchAsync = require('../../utils/catchAsync');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
@@ -23,21 +24,7 @@ exports.createWorkflow = catchAsync(async (req, res, next) => {
 	});
 });
 
-exports.getAllWorkflows = catchAsync(async (req, res, next) => {
-	const workflow = await Workflow.find();
-
-	if (!workflow) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
-
-	res.status(200).json({
-		status: SUCCESS,
-		results: workflow.length,
-		data: {
-			result: workflow,
-		},
-	});
-});
+exports.getAllWorkflows = factory.getAll(Workflow);
 
 exports.getWorkflow = catchAsync(async (req, res, next) => {
 	const workflow = await Workflow.findById(req.params.id);

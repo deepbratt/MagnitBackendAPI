@@ -1,4 +1,5 @@
 const Services = require('../../model/servicesModel');
+const factory = require('../handlerFactory/factoryHandler');
 const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/AppError');
 const { uploadFile } = require('../../utils/s3');
@@ -32,22 +33,7 @@ exports.createService = catchAsync(async (req, res, next) => {
 		},
 	});
 });
-exports.getAllServices = catchAsync(async (req, res, next) => {
-	const service = await Services.find();
-
-	if (!service) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
-
-	res.status(200).json({
-		status: SUCCESS,
-		results: service.length,
-		data: {
-			result: service,
-		},
-	});
-});
-
+exports.getAllServices = factory.getAll(Services);
 exports.getService = catchAsync(async (req, res, next) => {
 	const service = await Services.findById(req.params.id);
 

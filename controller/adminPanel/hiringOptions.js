@@ -1,6 +1,7 @@
 const Hiring = require('../../model/hiringOptionsModel');
 const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 
@@ -16,21 +17,7 @@ exports.createHiringOption = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAllHiringOptions = catchAsync(async (req, res, next) => {
-  const hiringOptions = await Hiring.find();
-
-  if (!hiringOptions) {
-    return next(new AppError(appErrors.NOT_FOUND), 404);
-  }
-
-  res.status(200).json({
-    status: SUCCESS,
-    results: hiringOptions.length,
-    data: {
-      result:hiringOptions,
-    },
-  });
-});
+exports.getAllHiringOptions = factory.getAll(Hiring);
 
 exports.getHiringOption = catchAsync(async (req, res, next) => {
   const hiringOption = await Hiring.findById(req.params.id);

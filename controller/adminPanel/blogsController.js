@@ -1,6 +1,7 @@
 const Blogs = require('../../model/blogsModel');
 const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { uploadFile } = require('../../utils/s3');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
@@ -24,29 +25,7 @@ exports.createBlog = catchAsync(async (req, res, next) => {
 	});
 });
 
-exports.getAllBlogs = catchAsync(async (req, res, next) => {
-	const features = new APIFeatures(Blogs.find(), req.query)
-		.filter()
-		.sort()
-		.limitFields()
-		.pagination();
-
-	const result = await features.query;
-
-	if (!result) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
-
-	res.status(200).json({
-		status: SUCCESS,
-		totalResults: result.length,
-		data: {
-			result,
-		},
-		skipLatest: 9,
-		skipTrending: 3,
-	});
-});
+exports.getAllBlogs = factory.getAll(Blogs);
 
 exports.getBlog = catchAsync(async (req, res, next) => {
 	const result = await Blogs.findById(req.params.id);

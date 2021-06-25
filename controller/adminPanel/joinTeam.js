@@ -1,5 +1,6 @@
 const JoinTeam  = require('../../model/joinTeamModel');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const catchAsync = require('../../utils/catchAsync');
@@ -25,19 +26,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 	});
 });
 
-exports.getAll = catchAsync(async (req, res, next) => {
-	const teams = await JoinTeam.find();
-	if (teams.length === 0) {
-		return next(new AppError(appErrors.NOT_FOUND, 404));
-	}
-	res.status(200).json({
-		status: SUCCESS,
-        results:teams.length,
-		data: {
-			result:teams,
-		},
-	});
-});
+exports.getAll = factory.getAll(JoinTeam);
 
 exports.updateOne = catchAsync(async (req, res, next) => {
 	const updatedteam = await JoinTeam.findByIdAndUpdate(req.params.id, req.body, {
