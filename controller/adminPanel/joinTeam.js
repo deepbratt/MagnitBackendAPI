@@ -5,12 +5,7 @@ const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const catchAsync = require('../../utils/catchAsync');
 
 exports.createOne = catchAsync(async (req, res, next) => {
-	const newObj = {
-		text: req.body.text.trim(),
-		link: req.body.link.trim(),
-		buttonLabel: req.body.buttonLabel.trim(),
-	};
-	await JoinTeam.create(newObj);
+	await JoinTeam.create(req.body);
 	res.status(201).json({
 		status: SUCCESS,
 		message: appSuccess.OPERATION_SUCCESSFULL,

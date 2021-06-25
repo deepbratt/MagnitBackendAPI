@@ -7,13 +7,12 @@ const { uploadFile } = require('../../utils/s3');
 
 exports.createObjective = catchAsync(async (req, res, next) => {
 	const file = req.file;
-	const { Location } = await uploadFile(file,next);
-	const newObj = {
-		icon: Location,
-		title: req.body.title,
-		text: req.body.text,
-	};
-	await Objective.create(newObj);
+	if (file) {
+		const { Location } = await uploadFile(file);
+		req.body.icon = Location;
+	}
+
+	await Objective.create(req.body);
 	res.status(201).json({
 		status: SUCCESS,
 		message: appSuccess.OPERATION_SUCCESSFULL,
@@ -28,7 +27,7 @@ exports.getObjective = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			result:objective,
+			result: objective,
 		},
 	});
 });
@@ -40,16 +39,16 @@ exports.getAllObjectives = catchAsync(async (req, res, next) => {
 	}
 	res.status(200).json({
 		status: SUCCESS,
-        results:objectives.length,
+		results: objectives.length,
 		data: {
-			result:objectives,
+			result: objectives,
 		},
 	});
 });
 
 exports.updateObjective = catchAsync(async (req, res, next) => {
 	if (req.file) {
-		const { Location } = await uploadFile(req.file, next);
+		const { Location } = await uploadFile(req.file);
 		req.body.icon = Location;
 	}
 	const updatedObjective = await Objective.findByIdAndUpdate(req.params.id, req.body, {
@@ -58,7 +57,7 @@ exports.updateObjective = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			result:updatedObjective,
+			result: updatedObjective,
 		},
 	});
 });

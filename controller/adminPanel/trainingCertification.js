@@ -7,13 +7,11 @@ const { uploadFile } = require('../../utils/s3');
 
 exports.createTrainingCertification = catchAsync(async (req, res, next) => {
 	const file = req.file;
-	const { Location } = await uploadFile(file,next);
-	const newobj = {
-		jsonFile: Location,
-		title: req.body.title,
-		description: req.body.description,
-	};
-	await TrainingCertification.create(newobj);
+	if (file) {
+		const { Location } = await uploadFile(file);
+		req.body.jsonFile = Location;
+	}
+	await TrainingCertification.create(req.body);
 	res.status(201).json({
 		status: SUCCESS,
 		message: appSuccess.OPERATION_SUCCESSFULL,
@@ -29,7 +27,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			result:trainingCertification,
+			result: trainingCertification,
 		},
 	});
 });
@@ -37,20 +35,20 @@ exports.getOne = catchAsync(async (req, res, next) => {
 exports.getAll = catchAsync(async (req, res, next) => {
 	const trainingCertifications = await TrainingCertification.find();
 	if (trainingCertifications.length === 0) {
-		return next(new AppError(appErrors.NOT_FOUND,404));
+		return next(new AppError(appErrors.NOT_FOUND, 404));
 	}
 	res.status(200).json({
 		status: SUCCESS,
-		results:trainingCertifications.length,
+		results: trainingCertifications.length,
 		data: {
-			result:trainingCertifications,
+			result: trainingCertifications,
 		},
 	});
 });
 
 exports.updateTrainingCertification = catchAsync(async (req, res, next) => {
 	if (req.file) {
-		const { Location } = await uploadFile(req.file,next);
+		const { Location } = await uploadFile(req.file);
 		req.body.jsonFile = Location;
 	}
 	const updatedTrainingCertification = await TrainingCertification.findByIdAndUpdate(
@@ -64,7 +62,7 @@ exports.updateTrainingCertification = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			result:updatedTrainingCertification,
+			result: updatedTrainingCertification,
 		},
 	});
 });

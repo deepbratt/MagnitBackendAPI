@@ -7,16 +7,11 @@ const { uploadFile } = require('../../utils/s3');
 
 exports.addReview = catchAsync(async (req, res, next) => {
 	const file = req.file;
-	const { Location } = await uploadFile(file,next);
-	const newReview = {
-		clientName: req.body.clientName.trim(),
-		projectName: req.body.projectName.trim(),
-		projectType: req.body.projectType.trim(),
-		rating: req.body.rating,
-		review: req.body.review.trim(),
-		image: Location,
-	};
-	await Review.create(newReview);
+	if (file) {
+		const { Location } = await uploadFile(file);
+		req.body.image = Location;
+	}
+	await Review.create(req.body);
 	res.status(201).json({
 		status: SUCCESS,
 		message: appSuccess.OPERATION_SUCCESSFULL,
@@ -27,12 +22,12 @@ exports.getReview = catchAsync(async (req, res, next) => {
 	const reviewId = req.params.id;
 	const review = await Review.findOne({ _id: reviewId });
 	if (!review) {
-		return next(new AppError('Not Found',404));
+		return next(new AppError('Not Found', 404));
 	}
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			result:review,
+			result: review,
 		},
 	});
 });
@@ -40,20 +35,20 @@ exports.getReview = catchAsync(async (req, res, next) => {
 exports.getAllReviews = catchAsync(async (req, res, next) => {
 	const reviews = await Review.find();
 	if (reviews.length === 0) {
-		return next(new AppError('Not Found',404));
+		return next(new AppError('Not Found', 404));
 	}
 	res.status(200).json({
 		status: SUCCESS,
-		results:reviews.length,
+		results: reviews.length,
 		data: {
-			result:reviews,
+			result: reviews,
 		},
 	});
 });
 
 exports.updateReview = catchAsync(async (req, res, next) => {
 	if (req.file) {
-		const { Location } = await uploadFile(req.file,next);
+		const { Location } = await uploadFile(req.file);
 		req.body.image = Location;
 	}
 	const updatedReview = await Review.findByIdAndUpdate(req.params.id, req.body, {
@@ -63,7 +58,7 @@ exports.updateReview = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			result:updatedReview,
+			result: updatedReview,
 		},
 	});
 });

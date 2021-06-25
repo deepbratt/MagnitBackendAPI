@@ -6,83 +6,80 @@ const catchAsync = require('../../utils/catchAsync');
 const { uploadFile } = require('../../utils/s3');
 
 exports.createFactsAboutUs = catchAsync(async (req, res, next) => {
-  const file = req.file;
-  const { Location } = await uploadFile(file,next);
+	const file = req.file;
+	if (file) {
+		const { Location } = await uploadFile(file);
+		req.body.icon = Location;
+	}
 
-  const newFactsAboutUs = {
-    icon: Location,
-    title: req.body.title,
-    text: req.body.text,
-  };
-
-  const factsAboutUs = await Facts.create(newFactsAboutUs);
-  res.status(201).json({
-    status: SUCCESS,
-    message: appSuccess.OPERATION_SUCCESSFULL,
-    data: {
-      result: factsAboutUs,
-    },
-  });
+	const factsAboutUs = await Facts.create(req.body);
+	res.status(201).json({
+		status: SUCCESS,
+		message: appSuccess.OPERATION_SUCCESSFULL,
+		data: {
+			result: factsAboutUs,
+		},
+	});
 });
 
 exports.getFactAboutUs = catchAsync(async (req, res, next) => {
-  const id = req.params.id;
-  const factAboutUs = await Facts.findOne({ _id: id });
+	const id = req.params.id;
+	const factAboutUs = await Facts.findOne({ _id: id });
 
-  if (!factAboutUs) {
-    return next(new AppError(appErrors.NOT_FOUND), 404);
-  }
-  res.status(200).json({
-    status: SUCCESS,
-    data: {
-      result:factAboutUs,
-    },
-  });
+	if (!factAboutUs) {
+		return next(new AppError(appErrors.NOT_FOUND), 404);
+	}
+	res.status(200).json({
+		status: SUCCESS,
+		data: {
+			result: factAboutUs,
+		},
+	});
 });
 
 exports.getAllFactsAboutUs = catchAsync(async (req, res, next) => {
-  const factsAboutUs = await Facts.find();
+	const factsAboutUs = await Facts.find();
 
-  if (!factsAboutUs) {
-    return next(new AppError(appErrors.NOT_FOUND), 404);
-  }
+	if (!factsAboutUs) {
+		return next(new AppError(appErrors.NOT_FOUND), 404);
+	}
 
-  res.status(200).json({
-    status: SUCCESS,
-    results: factsAboutUs.length,
-    data: {
-      result:factsAboutUs,
-    },
-  });
+	res.status(200).json({
+		status: SUCCESS,
+		results: factsAboutUs.length,
+		data: {
+			result: factsAboutUs,
+		},
+	});
 });
 
 exports.updateFactAboutUs = catchAsync(async (req, res, next) => {
-  if (req.file) {
-    const { Location } = await uploadFile(req.file, next);
-    req.body.icon = Location;
-  }
-  const factAboutUs = await Facts.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+	if (req.file) {
+		const { Location } = await uploadFile(req.file);
+		req.body.icon = Location;
+	}
+	const factAboutUs = await Facts.findByIdAndUpdate(req.params.id, req.body, {
+		new: true,
+		runValidators: true,
+	});
 
-  if (!factAboutUs) {
-    return next(new AppError(appErrors.NOT_FOUND), 404);
-  }
+	if (!factAboutUs) {
+		return next(new AppError(appErrors.NOT_FOUND), 404);
+	}
 
-  res.status(200).json({
-    status: SUCCESS,
-    data: {
-      result:factAboutUs,
-    },
-  });
+	res.status(200).json({
+		status: SUCCESS,
+		data: {
+			result: factAboutUs,
+		},
+	});
 });
 
 exports.deleteFactAboutUs = catchAsync(async (req, res, next) => {
-  await Facts.findByIdAndDelete(req.params.id);
-  res.status(200).json({
-    status: SUCCESS,
-    message: appSuccess.OPERATION_SUCCESSFULL,
-    data: null,
-  });
+	await Facts.findByIdAndDelete(req.params.id);
+	res.status(200).json({
+		status: SUCCESS,
+		message: appSuccess.OPERATION_SUCCESSFULL,
+		data: null,
+	});
 });

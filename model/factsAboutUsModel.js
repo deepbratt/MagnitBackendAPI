@@ -12,6 +12,9 @@ const factsAboutUsSchema = new mongoose.Schema({
   text: {
     type: String,
   },
+  color:{
+    type:String
+  }
 });
 
 const Facts = mongoose.model('Facts', factsAboutUsSchema);

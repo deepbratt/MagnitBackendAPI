@@ -7,15 +7,12 @@ const { uploadFile } = require('../../utils/s3');
 
 exports.createOne = catchAsync(async (req, res, next) => {
 	const file = req.file;
-	const { Location } = await uploadFile(file, next);
-	const newObj = {
-		icon: Location,
-		title: req.body.title.trim(),
-		text: req.body.text.trim(),
-		link: req.body.link,
-		buttonLabel: req.body.buttonLabel.trim(),
-	};
-	await JobBenifit.create(newObj);
+	if (file) {
+		const { Location } = await uploadFile(file);
+		req.body.icon = Location;
+	}
+
+	await JobBenifit.create(req.body);
 	res.status(201).json({
 		status: SUCCESS,
 		message: appSuccess.OPERATION_SUCCESSFULL,
@@ -30,7 +27,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			result:jobBenifit,
+			result: jobBenifit,
 		},
 	});
 });
@@ -42,16 +39,16 @@ exports.getAll = catchAsync(async (req, res, next) => {
 	}
 	res.status(200).json({
 		status: SUCCESS,
-        results:jobBenifits.length,
+		results: jobBenifits.length,
 		data: {
-			result:jobBenifits,
+			result: jobBenifits,
 		},
 	});
 });
 
 exports.updateOne = catchAsync(async (req, res, next) => {
 	if (req.file) {
-		const { Location } = await uploadFile(req.file, next);
+		const { Location } = await uploadFile(req.file);
 		req.body.icon = Location;
 	}
 	const updatedjobBenifit = await JobBenifit.findByIdAndUpdate(req.params.id, req.body, {
@@ -61,7 +58,7 @@ exports.updateOne = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			result:updatedjobBenifit,
+			result: updatedjobBenifit,
 		},
 	});
 });

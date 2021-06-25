@@ -7,12 +7,11 @@ const { uploadFile } = require('../../utils/s3');
 
 exports.createAdminPanel = catchAsync(async (req, res, next) => {
 	const file = req.file;
-	const { Location } = await uploadFile(file, next);
-	const newObj = {
-		image: Location,
-		description: req.body.description,
-	};
-	await AdminPanel.create(newObj);
+	if (file) {
+		const { Location } = await uploadFile(file);
+		req.body.image = Location;
+	}
+	await AdminPanel.create(req.body);
 	res.status(201).json({
 		status: SUCCESS,
 		message: appSuccess.OPERATION_SUCCESSFULL,
@@ -42,14 +41,14 @@ exports.getAll = catchAsync(async (req, res, next) => {
 		status: SUCCESS,
 		results: adminPanelList.length,
 		data: {
-			result:adminPanelList,
+			result: adminPanelList,
 		},
 	});
 });
 
 exports.updatePanel = catchAsync(async (req, res, next) => {
 	if (req.file) {
-		const { Location } = await uploadFile(req.file, next);
+		const { Location } = await uploadFile(req.file);
 		req.body.image = Location;
 	}
 	const updatedPanel = await AdminPanel.findByIdAndUpdate(req.params.id, req.body, {
@@ -59,7 +58,7 @@ exports.updatePanel = catchAsync(async (req, res, next) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			result:updatedPanel,
+			result: updatedPanel,
 		},
 	});
 });

@@ -8,8 +8,11 @@ const { servicesEnum } = require('../../utils/scripts');
 
 exports.createService = catchAsync(async (req, res, next) => {
 	const file = req.file;
-	const { Location } = await uploadFile(file,next);
-	req.body.image = Location;
+	if (file) {
+		const { Location } = await uploadFile(file);
+		req.body.image = Location;
+	}
+
 	if (req.body.type === 'Parent' && req.body.category) {
 		delete req.body.category;
 	}
@@ -62,7 +65,7 @@ exports.getService = catchAsync(async (req, res, next) => {
 
 exports.updateService = catchAsync(async (req, res, next) => {
 	if (req.file) {
-		const { Location } = await uploadFile(req.file,next);
+		const { Location } = await uploadFile(req.file);
 		req.body.image = Location;
 	}
 	if (req.body.type === 'Parent' && req.body.category) {

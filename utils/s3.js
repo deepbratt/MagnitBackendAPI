@@ -14,10 +14,7 @@ const s3 = new S3({
 	secretAccessKey,
 });
 
-exports.uploadFile = (file, next) => {
-	if (typeof file !== 'object') {
-		return next(new AppError('File is not valid', 400));
-	}
+exports.uploadFile = (file) => {
 	let myFile = file.originalname.split('.');
 	const ext = myFile[myFile.length - 1];
 	const uploadParams = {
