@@ -3,10 +3,18 @@ const AppError = require('../../utils/AppError');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const catchAsync = require('../../utils/catchAsync');
-const { uploadFile } = require('../../utils/s3');
-const fs = require('fs');
+const { base64FileUpload } = require('../../utils/s3');
 
 exports.createOne = catchAsync(async (req, res, next) => {
+  if (req.body.socialMedia.dataArray.length > 0) {
+    for (var i = 0; i < req.body.socialMedia.dataArray.length; i++) {
+      let { Location } = await base64FileUpload(
+        req.body.socialMedia.dataArray[i].icon,
+        next,
+      );
+      req.body.socialMedia.dataArray[i].icon = Location;
+    }
+  }
   await Company.create(req.body);
   res.status(201).json({
     status: SUCCESS,
@@ -45,6 +53,17 @@ exports.getOne = catchAsync(async (req, res, next) => {
 });
 
 exports.updateOne = catchAsync(async (req, res, next) => {
+  if (req.body.socialMedia.dataArray.length > 0) {
+    for (var i = 0; i < req.body.socialMedia.dataArray.length; i++) {
+      if (req.body.socialMedia.dataArray[i].icon.split(':')[0] !== 'https') {
+        let { Location } = await base64FileUpload(
+          req.body.socialMedia.dataArray[i].icon,
+          next,
+        );
+        req.body.socialMedia.dataArray[i].icon = Location;
+      }
+    }
+  }
   const company = await Company.findByIdAndUpdate(req.params.id, req.body, {
     runValidator: true,
     new: true,

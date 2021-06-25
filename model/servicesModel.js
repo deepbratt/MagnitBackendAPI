@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const {category}= require('../utils/scripts')
+//const { servicesEnum } = require('../utils/scripts');
 
 const servicesSchema = new mongoose.Schema({
   image: {
@@ -12,13 +12,9 @@ const servicesSchema = new mongoose.Schema({
       message: 'Service is Either Parent or Child.',
     },
   },
-
   category: {
     type: String,
-    enum: {
-      values: ['web', 'mobile'],
-      message: 'Enter Valid Category',
-    },
+    required: false,
   },
   title: {
     type: String,
