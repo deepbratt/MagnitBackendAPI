@@ -5,6 +5,7 @@ const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const catchAsync = require('../../utils/catchAsync');
 const { uploadFile } = require('../../utils/s3');
+const { servicesAll } = require('../../utils/scripts');
 
 exports.addReview = catchAsync(async (req, res, next) => {
 	const file = req.file;
@@ -12,6 +13,12 @@ exports.addReview = catchAsync(async (req, res, next) => {
 		const { Location } = await uploadFile(file);
 		req.body.image = Location;
 	}
+	if (req.body.projectName) {
+		if (!(await servicesAll(req.body.projectName))) {
+			return next(new AppError('No Type Found', 400));
+		}
+	}
+
 	await Review.create(req.body);
 	res.status(201).json({
 		status: SUCCESS,
@@ -39,6 +46,11 @@ exports.updateReview = catchAsync(async (req, res, next) => {
 	if (req.file) {
 		const { Location } = await uploadFile(req.file);
 		req.body.image = Location;
+	}
+	if (req.body.projectName) {
+		if (!(await servicesAll(req.body.projectName))) {
+			return next(new AppError('No Type Found', 400));
+		}
 	}
 	const updatedReview = await Review.findByIdAndUpdate(req.params.id, req.body, {
 		new: true,
