@@ -13,8 +13,8 @@ exports.addReview = catchAsync(async (req, res, next) => {
 		const { Location } = await uploadFile(file);
 		req.body.image = Location;
 	}
-	if (req.body.projectName) {
-		if (!(await servicesAll(req.body.projectName))) {
+	if (req.body.projectType) {
+		if (!(await servicesAll(req.body.projectType))) {
 			return next(new AppError('No Type Found', 400));
 		}
 	}
@@ -47,8 +47,8 @@ exports.updateReview = catchAsync(async (req, res, next) => {
 		const { Location } = await uploadFile(req.file);
 		req.body.image = Location;
 	}
-	if (req.body.projectName) {
-		if (!(await servicesAll(req.body.projectName))) {
+	if (req.body.projectType) {
+		if (!(await servicesAll(req.body.projectType))) {
 			return next(new AppError('No Type Found', 400));
 		}
 	}
