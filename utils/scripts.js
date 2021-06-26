@@ -3,6 +3,7 @@ const Company = require('../model/companyModel');
 const FAQ = require('../model/FAQsModel');
 const AppAdminPanel = require('../model/appAdminPanelModel');
 const AppSolution = require('../model/appSolutionsModel');
+const OurSolution = require('../model/ourSolutionsModel');
 const Award = require('../model/awardsModel');
 const Benifit = require('../model/benifitsModel');
 const Blog = require('../model/blogsModel');
@@ -139,7 +140,13 @@ exports.pageApi = async (page) => {
 	if (page.sections.caseStudies.order) {
 		page.sections.caseStudies.dataArray = await getAllForPages(
 			CaseStudie,
-			page.sections.howitWorks.queryParams
+			page.sections.caseStudies.queryParams
+		);
+	}
+	if (page.sections.ourSolutions.order) {
+		page.sections.ourSolutions.dataArray = await getAllForPages(
+			OurSolution,
+			page.sections.ourSolutions.queryParams
 		);
 	}
 	return page;
