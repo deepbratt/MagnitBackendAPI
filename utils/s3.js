@@ -1,4 +1,3 @@
-const fs = require('fs');
 const S3 = require('aws-sdk/clients/s3');
 const { v4: uuidv4 } = require('uuid');
 const AppError = require('../utils/AppError');
