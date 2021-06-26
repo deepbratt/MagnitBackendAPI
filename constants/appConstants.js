@@ -19,6 +19,7 @@ exports.routeConsts = {
   jobBenifitsRoute: `/${version}/jobBenifits`,
   trainingCertificationRoute: `/${version}/trainingCertification`,
   ourObjectivesRoute: `/${version}/ourObjectives`,
+  ourSolutionRoute: `/${version}/ourSolutions`,
   joinTeamsRoute: `/${version}/teams`,
   appAdminPanelRoute: `/${version}/adminPanel`,
   caseStudyRoute: `/${version}/casestudies`,

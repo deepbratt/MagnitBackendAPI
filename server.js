@@ -35,16 +35,17 @@ const adminPanelRouter = require('./routes/appAdminPanelRoutes'); // Admin Panel
 const ourObjectivesRoute = require('./constants/appConstants').routeConsts.ourObjectivesRoute;
 const ourObjectivesRouter = require('./routes/ourObjectivesRoutes');
 // For joinTeam
-const joinTeamsRoute = require('./constants/appConstants').routeConsts.joinTeamsRoute; 
+const joinTeamsRoute = require('./constants/appConstants').routeConsts.joinTeamsRoute;
 const joinTeamsRouter = require('./routes/joinTeamRoutes');
 // For appSolution
-const appSolutionRoute = require('./constants/appConstants').routeConsts.appSolutioRoute; 
+const appSolutionRoute = require('./constants/appConstants').routeConsts.appSolutioRoute;
 const appSolutionRouter = require('./routes/appSolutionRoutes');
 //For training&Certification
-const trainingCertificationRoute = require('./constants/appConstants').routeConsts.trainingCertificationRoute; 
+const trainingCertificationRoute = require('./constants/appConstants').routeConsts
+	.trainingCertificationRoute;
 const trainingCertificationRouter = require('./routes/trainingCertificationRoutes');
 // For jobBenifits
-const jobBenifitRoute = require('./constants/appConstants').routeConsts.jobBenifitsRoute; 
+const jobBenifitRoute = require('./constants/appConstants').routeConsts.jobBenifitsRoute;
 const jobBenifitRouter = require('./routes/jobBenifitsRoutes');
 // For opportunities
 const opportunitesRouter = require('./routes/opportunitesRoutes');
@@ -91,6 +92,9 @@ const hiringOptionsRouter = require('./routes/hiringOptionsRoute');
 // For Blogs
 const blogsRoute = require('./constants/appConstants').routeConsts.blogsRoute;
 const blogsRouter = require('./routes/blogsRoutes');
+// For ourSolutions
+const ourSolutionsRoute = require('./constants/appConstants').routeConsts.ourSolutionRoute;
+const ourSolutionsRouter = require('./routes/ourSolutionRoutes');
 
 const PORT = process.env.PORT || 3000; // port
 const app = express();
@@ -146,6 +150,7 @@ app.use(appSolutionRoute, appSolutionRouter); // appSolutions
 app.use(jobBenifitRoute, jobBenifitRouter); // jobBenifits
 app.use(opportunitesRoute, opportunitesRouter); // Opportunite
 app.use(pageRoute, pageRouter); // Page
+app.use(ourSolutionsRoute, ourSolutionsRouter); // Our solutions
 
 app.all('*', (req, res, next) => {
 	next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
