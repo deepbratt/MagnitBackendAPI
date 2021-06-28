@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const { appErrors } = require('../constants/appConstants');
+
 const bannerSchema = new mongoose.Schema({
   heading: {
     type: String,
@@ -10,6 +12,7 @@ const bannerSchema = new mongoose.Schema({
   },
   image: {
     type: String,
+    required: [true, ]
   },
   link: {
     type: String,

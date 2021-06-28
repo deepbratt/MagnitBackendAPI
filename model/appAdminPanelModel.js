@@ -10,7 +10,7 @@ const adminPanelSchema = new mongoose.Schema({
 	},
 	description: {
 		type: String,
-		required: [true, 'Description Required'],
+		required: [true, appErrors.DESC_REQUIRED],
 	},
 });
 

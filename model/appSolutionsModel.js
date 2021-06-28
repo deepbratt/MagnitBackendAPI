@@ -10,9 +10,9 @@ const appSolutionSchema = new mongoose.Schema({
 	},
 	dataArray: [
 		{
-			icon: String,
-			title: String,
-			text: String,
+			icon: { type: String, required: [true, `icon/${appErrors.IMAGE_REQUIRED}`] },
+			title: { type: String, required: [true, appErrors.TITLE_REQUIRED] },
+			text: { type: String, required: [true, appErrors.TEXT_REQUIRED] },
 		},
 	],
 });
