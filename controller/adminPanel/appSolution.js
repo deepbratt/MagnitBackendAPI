@@ -1,12 +1,19 @@
 const AppSolution = require('../../model/appSolutionsModel');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const catchAsync = require('../../utils/catchAsync');
 const { base64FileUpload } = require('../../utils/s3');
 
 exports.createOne = catchAsync(async (req, res, next) => {
-	if (req.body.dataArray.length > 0) {
+	if (req.body.image) {
+		if (req.body.image.split(':')[0] !== 'https') {
+			let { Location } = await base64FileUpload(req.body.image, next);
+			req.body.image = Location;
+		}
+	}
+	if (req.body.dataArray) {
 		for (var i = 0; i < req.body.dataArray.length; i++) {
 			let { Location } = await base64FileUpload(req.body.dataArray[i].icon, next);
 			req.body.dataArray[i].icon = Location;
@@ -18,21 +25,7 @@ exports.createOne = catchAsync(async (req, res, next) => {
 		message: appSuccess.OPERATION_SUCCESSFULL,
 	});
 });
-exports.getAll = catchAsync(async (req, res, next) => {
-	const appSolutions = await AppSolution.find();
-
-	if (!appSolutions) {
-		return next(new AppError(appErrors.NOT_FOUND), 404);
-	}
-
-	res.status(200).json({
-		status: SUCCESS,
-		results: appSolutions.length,
-		data: {
-			result: appSolutions,
-		},
-	});
-});
+exports.getAll = factory.getAll(AppSolution);
 
 exports.getOne = catchAsync(async (req, res, next) => {
 	const appsolution = await AppSolution.findById(req.params.id);
@@ -50,7 +43,13 @@ exports.getOne = catchAsync(async (req, res, next) => {
 });
 
 exports.updateOne = catchAsync(async (req, res, next) => {
-	if (req.body.dataArray.length > 0) {
+	if (req.body.image) {
+		if (req.body.image.split(':')[0] !== 'https') {
+			let { Location } = await base64FileUpload(req.body.image, next);
+			req.body.image = Location;
+		}
+	}
+	if (req.body.dataArray) {
 		for (var i = 0; i < req.body.dataArray.length; i++) {
 			if (req.body.dataArray[i].icon.split(':')[0] !== 'https') {
 				let { Location } = await base64FileUpload(req.body.dataArray[i].icon, next);

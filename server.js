@@ -108,6 +108,10 @@ const hiringOptionsRouter = require('./routes/hiringOptionsRoute');
 // For Blogs
 const blogsRoute = require('./constants/appConstants').routeConsts.blogsRoute;
 const blogsRouter = require('./routes/blogsRoutes');
+// For ourSolutions
+const ourSolutionsRoute = require('./constants/appConstants').routeConsts
+  .ourSolutionRoute;
+const ourSolutionsRouter = require('./routes/ourSolutionRoutes');
 
 const PORT = process.env.PORT || 3000; // port
 const app = express();
@@ -163,6 +167,7 @@ app.use(appSolutionRoute, appSolutionRouter); // appSolutions
 app.use(jobBenifitRoute, jobBenifitRouter); // jobBenifits
 app.use(opportunitesRoute, opportunitesRouter); // Opportunite
 app.use(pageRoute, pageRouter); // Page
+app.use(ourSolutionsRoute, ourSolutionsRouter); // Our solutions
 
 app.all('*', (req, res, next) => {
   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));

@@ -98,6 +98,9 @@ const pageSchema = new mongoose.Schema({
 		caseStudies: {
 			...sectionObj,
 		},
+		ourSolutions: {
+			...sectionObj,
+		},
 	},
 });
 

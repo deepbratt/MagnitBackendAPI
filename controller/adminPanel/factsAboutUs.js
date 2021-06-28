@@ -1,5 +1,6 @@
 const Facts = require('../../model/factsAboutUsModel');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const catchAsync = require('../../utils/catchAsync');
@@ -7,16 +8,12 @@ const { uploadFile } = require('../../utils/s3');
 
 exports.createFactsAboutUs = catchAsync(async (req, res, next) => {
   const file = req.file;
-  const { Location } = await uploadFile(file);
+  if (file) {
+    const { Location } = await uploadFile(file);
+    req.body.icon = Location;
+  }
 
-  const newFactsAboutUs = {
-    icon: Location,
-    title: req.body.title,
-    text: req.body.text,
-    color: req.body.color,
-  };
-
-  const factsAboutUs = await Facts.create(newFactsAboutUs);
+  const factsAboutUs = await Facts.create(req.body);
   res.status(201).json({
     status: SUCCESS,
     message: appSuccess.OPERATION_SUCCESSFULL,
@@ -41,21 +38,7 @@ exports.getFactAboutUs = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAllFactsAboutUs = catchAsync(async (req, res, next) => {
-  const factsAboutUs = await Facts.find();
-
-  if (!factsAboutUs) {
-    return next(new AppError(appErrors.NOT_FOUND), 404);
-  }
-
-  res.status(200).json({
-    status: SUCCESS,
-    results: factsAboutUs.length,
-    data: {
-      result: factsAboutUs,
-    },
-  });
-});
+exports.getAllFactsAboutUs = factory.getAll(Facts);
 
 exports.updateFactAboutUs = catchAsync(async (req, res, next) => {
   if (req.file) {

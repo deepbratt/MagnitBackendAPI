@@ -29,7 +29,9 @@ const router = express.Router();
  *                  type: "multipart/form-data"
  *              title:
  *                  type: "string"
- *              description:
+ *              type:
+ *                  type: "string"
+ *              category:
  *                  type: "string"
  *              buttonLabel:
  *                  type: "string"

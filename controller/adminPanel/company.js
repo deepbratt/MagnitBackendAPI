@@ -1,12 +1,13 @@
 const Company = require('../../model/companyModel');
 const AppError = require('../../utils/AppError');
+const factory = require('../handlerFactory/factoryHandler');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const catchAsync = require('../../utils/catchAsync');
 const { base64FileUpload } = require('../../utils/s3');
 
 exports.createOne = catchAsync(async (req, res, next) => {
-  if (req.body.socialMedia.dataArray.length > 0) {
+  if (req.body.socialMedia.dataArray) {
     for (var i = 0; i < req.body.socialMedia.dataArray.length; i++) {
       let { Location } = await base64FileUpload(
         req.body.socialMedia.dataArray[i].icon,
@@ -21,21 +22,7 @@ exports.createOne = catchAsync(async (req, res, next) => {
     message: appSuccess.OPERATION_SUCCESSFULL,
   });
 });
-exports.getAll = catchAsync(async (req, res, next) => {
-  const companies = await Company.find();
-
-  if (!companies) {
-    return next(new AppError(appErrors.NOT_FOUND), 404);
-  }
-
-  res.status(200).json({
-    status: SUCCESS,
-    results: companies.length,
-    data: {
-      result: companies,
-    },
-  });
-});
+exports.getAll = factory.getAll(Company);
 
 exports.getOne = catchAsync(async (req, res, next) => {
   const company = await Company.findById(req.params.id);
@@ -53,7 +40,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
 });
 
 exports.updateOne = catchAsync(async (req, res, next) => {
-  if (req.body.socialMedia.dataArray.length > 0) {
+  if (req.body.socialMedia.dataArray) {
     for (var i = 0; i < req.body.socialMedia.dataArray.length; i++) {
       if (req.body.socialMedia.dataArray[i].icon.split(':')[0] !== 'https') {
         let { Location } = await base64FileUpload(
