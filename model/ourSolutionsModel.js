@@ -11,6 +11,14 @@ const solutionsSchema = new mongoose.Schema({
 		type: String,
 		required: [true, appErrors.IMAGE_REQUIRED],
 	},
+	buttonLabel: {
+		type: String,
+		required: true,
+	},
+	buttonLink: {
+		type: String,
+		required: true,
+	},
 });
 
 const Solutions = mongoose.model('Solutions', solutionsSchema);

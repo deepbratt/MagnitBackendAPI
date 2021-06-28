@@ -8,10 +8,13 @@ const { uploadFile } = require('../../utils/s3');
 const { servicesAll } = require('../../utils/scripts');
 
 exports.addReview = catchAsync(async (req, res, next) => {
-	const file = req.file;
-	if (file) {
-		const { Location } = await uploadFile(file);
+	if (req.files.image) {
+		const { Location } = await uploadFile(req.files.image[0]);
 		req.body.image = Location;
+	}
+	if (req.files.clientImage) {
+		const { Location } = await uploadFile(req.files.clientImage[0]);
+		req.body.clientImage = Location;
 	}
 	if (req.body.projectType) {
 		if (!(await servicesAll(req.body.projectType))) {
@@ -43,9 +46,13 @@ exports.getReview = catchAsync(async (req, res, next) => {
 exports.getAllReviews = factory.getAll(Review);
 
 exports.updateReview = catchAsync(async (req, res, next) => {
-	if (req.file) {
-		const { Location } = await uploadFile(req.file);
+	if (req.files.image) {
+		const { Location } = await uploadFile(req.files.image[0]);
 		req.body.image = Location;
+	}
+	if (req.files.clientImage) {
+		const { Location } = await uploadFile(req.files.clientImage[0]);
+		req.body.clientImage = Location;
 	}
 	if (req.body.projectType) {
 		if (!(await servicesAll(req.body.projectType))) {

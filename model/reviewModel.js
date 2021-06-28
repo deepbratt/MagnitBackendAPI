@@ -36,6 +36,10 @@ const reviewSchema = new mongoose.Schema({
 		type: String,
 		required: [true, appErrors.IMAGE_REQUIRED],
 	},
+	clientImage: {
+		type: String,
+		required: [true, appErrors.IMAGE_REQUIRED],
+	},
 	Date: {
 		type: Date,
 		default: Date.now(),
