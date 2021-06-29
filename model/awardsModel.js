@@ -1,15 +1,20 @@
 const mongoose = require('mongoose');
 
+const { appErrors } = require('../constants/appConstants');
+
 const awardsSchema = new mongoose.Schema({
-  clientName: {
+	clientName: {
+		type: String,
+		required: [true, 'Client Name Should be unique'],
+		unique: [true, 'Client Name Should be unique'],
+	},
+	image:{
     type: String,
-    required: true,
-    unique: [true, 'Client Name Should be unique'],
+    required: [true, appErrors.IMAGE_REQUIRED]
   },
-  image: String,
-  link: {
-    type: String,
-  },
+	link: {
+		type: String,
+	},
 });
 
 const Awards = mongoose.model('Awards', awardsSchema);

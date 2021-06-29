@@ -45,7 +45,19 @@ const router = express.Router();
  */
 router
 	.route('/')
-	.post(fileUpload.upload('image').single('image'), reviewController.addReview)
+	.post(
+		fileUpload.upload('image').fields([
+			{
+				name: 'image',
+				maxCount: 1,
+			},
+			{
+				name: 'clientImage',
+				maxCount: 1,
+			},
+		]),
+		reviewController.addReview
+	)
 	.get(reviewController.getAllReviews);
 
 // GET ALL Reviews
@@ -93,7 +105,19 @@ router
 router
 	.route('/:id')
 	.get(reviewController.getReview)
-	.patch(fileUpload.upload('image').single('image'), reviewController.updateReview)
+	.patch(
+		fileUpload.upload('image').fields([
+			{
+				name: 'image',
+				maxCount: 1,
+			},
+			{
+				name: 'clientImage',
+				maxCount: 1,
+			},
+		]),
+		reviewController.updateReview
+	)
 	.delete(reviewController.deleteReview);
 
 // UPDATE REVIEW

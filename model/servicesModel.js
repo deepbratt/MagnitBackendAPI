@@ -12,12 +12,14 @@ const servicesSchema = new mongoose.Schema({
       message: 'Service is Either Parent or Child.',
     },
   },
+
   category: {
     type: String,
     required: false,
   },
   title: {
     type: String,
+    lowercase: true,
     required: true,
     unique: [true, 'A Title must be unique'],
   },
