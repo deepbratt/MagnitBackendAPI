@@ -97,8 +97,11 @@ exports.pageApi = async (page) => {
 			page.sections.appSolutions.queryParams
 		);
 	}
-	if (page.sections.blogs.order) {
-		page.sections.blogs.dataArray = await getAllForPages(Blog, page.sections.blogs.queryParams);
+	if (page.sections.trendingBlogs.order) {
+		page.sections.trendingBlogs.dataArray = await getAllForPages(Blog, page.sections.trendingBlogs.queryParams);
+	}
+	if (page.sections.latesBlogs.order) {
+		page.sections.latesBlogs.dataArray = await getAllForPages(Blog, page.sections.latesBlogs.queryParams);
 	}
 	if (page.sections.benefits.order) {
 		page.sections.benefits.dataArray = await getAllForPages(
