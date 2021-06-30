@@ -74,7 +74,10 @@ const pageSchema = new mongoose.Schema({
     appSolutions: {
       ...sectionObj,
     },
-    blogs: {
+    trendingBlogs: {
+      ...sectionObj,
+    },
+    latestBlogs: {
       ...sectionObj,
     },
     benefits: {
