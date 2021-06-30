@@ -77,7 +77,7 @@ const pageSchema = new mongoose.Schema({
 		trendingBlogs: {
 			...sectionObj,
 		},
-		latesBlogs: {
+		latestBlogs: {
 			...sectionObj,
 		},
 		benefits: {
