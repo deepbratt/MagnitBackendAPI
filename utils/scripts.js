@@ -98,10 +98,16 @@ exports.pageApi = async (page) => {
 		);
 	}
 	if (page.sections.trendingBlogs.order) {
-		page.sections.trendingBlogs.dataArray = await getAllForPages(Blog, page.sections.trendingBlogs.queryParams);
+		page.sections.trendingBlogs.dataArray = await getAllForPages(
+			Blog,
+			page.sections.trendingBlogs.queryParams
+		);
 	}
-	if (page.sections.latesBlogs.order) {
-		page.sections.latesBlogs.dataArray = await getAllForPages(Blog, page.sections.latesBlogs.queryParams);
+	if (page.sections.latestBlogs.order) {
+		page.sections.latestBlogs.dataArray = await getAllForPages(
+			Blog,
+			page.sections.latestBlogs.queryParams
+		);
 	}
 	if (page.sections.benefits.order) {
 		page.sections.benefits.dataArray = await getAllForPages(
