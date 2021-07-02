@@ -1,5 +1,6 @@
 const express = require('express');
 const caseStudiesController = require('../controller/adminPanel/caseStudies');
+const authController = require('../controller/auth/authController');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -141,7 +142,7 @@ const router = express.Router();
  *      "201":
  *        description: "Case Study Section deleted Successfully"
  */
-
+router.use(authController.authenticate);
 router
   .route('/')
   .get(caseStudiesController.getAllCaseStudies)

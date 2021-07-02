@@ -1,6 +1,6 @@
 const express = require('express');
 const ourWorkController = require('../controller/adminPanel/ourwork');
-const Ourwork = require('../model/ourWorkModel');
+const authController = require('../controller/auth/authController');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -146,7 +146,7 @@ const router = express.Router();
  *      "201":
  *        description: "Our Work deleted Successfully"
  */
-
+router.use(authController.authenticate);
 router
   .route('/')
   .get(ourWorkController.getAllOurWorks)

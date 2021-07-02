@@ -1,5 +1,6 @@
 const express = require('express');
 const opportunitesController = require('../controller/adminPanel/opportunites');
+const authController = require('../controller/auth/authController');
 //const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
@@ -57,6 +58,7 @@ const router = express.Router();
  *      "200":
  *        description: "Success"
  */
+router.use(authController.authenticate);
 router.route('/').post(opportunitesController.createOne).get(opportunitesController.getAll);
 
 // GET opportunite

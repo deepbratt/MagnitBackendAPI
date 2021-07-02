@@ -1,5 +1,6 @@
 const express = require('express');
 const blogsController = require('../controller/adminPanel/blogsController');
+const authController = require('../controller/auth/authController');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -157,7 +158,7 @@ const router = express.Router();
  *      "201":
  *        description: "Blog deleted Successfully"
  */
-
+router.use(authController.authenticate);
 router
   .route('/')
   .get(blogsController.getAllBlogs)

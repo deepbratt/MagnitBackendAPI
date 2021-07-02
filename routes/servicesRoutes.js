@@ -1,5 +1,6 @@
 const express = require('express');
 const servicesController = require('../controller/adminPanel/services');
+const authController = require('../controller/auth/authController');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -155,7 +156,7 @@ const router = express.Router();
  *      "201":
  *        description: "Service deleted Successfully"
  */
-
+router.use(authController.authenticate);
 router
   .route('/')
   .get(servicesController.getAllServices)

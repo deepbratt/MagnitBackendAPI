@@ -1,5 +1,6 @@
 const express = require('express');
 const sliderController = require('../controller/adminPanel/slider');
+const authController = require('../controller/auth/authController');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -149,7 +150,7 @@ const router = express.Router();
  *      "201":
  *        description: "Slider deleted Successfully"
  */
-
+router.use(authController.authenticate);
 router
   .route('/')
   .get(sliderController.getAllSliders)

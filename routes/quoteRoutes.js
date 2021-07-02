@@ -1,5 +1,6 @@
 const express = require('express');
 const quoteController = require('../controller/quote/quoteController');
+const authController = require('../controller/auth/authController');
 const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
 
@@ -59,6 +60,7 @@ router.post('/createQuote', quoteValidationRules, validationFunction, quoteContr
  *      "200":
  *        description: "Success"
  */
+router.use(authController.authenticate);
 router.get('/allQuote', quoteController.getAllQuote);
 
 /**

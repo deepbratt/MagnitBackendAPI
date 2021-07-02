@@ -170,7 +170,6 @@ router.post('/forgotPassword', authController.forgotPassword);
 
 router.patch('/resetPassword/:token', authController.resetPassword);
 
-
 // ADD USER
 /**
  *@swagger
@@ -228,7 +227,7 @@ router.patch('/resetPassword/:token', authController.resetPassword);
  *      "200":
  *        description: "Success"
  */
-
+router.use(authController.authenticate);
 router.route('/').post(userController.addUser).get(userController.getAllUsers);
 
 // GET ONE USER
@@ -257,7 +256,7 @@ router.route('/').post(userController.addUser).get(userController.getAllUsers);
  *        description: "Success"
  */
 
- // DELETE ONE USER
+// DELETE ONE USER
 
 /**
  *@swagger
@@ -282,8 +281,7 @@ router.route('/').post(userController.addUser).get(userController.getAllUsers);
  *      "200":
  *        description: "Success"
  */
-router.route('/:id').get(userController.getOne).delete(userController.deleteUser)
-
+router.route('/:id').get(userController.getOne).delete(userController.deleteUser);
 
 // UPDATE PASSWORD
 /**
@@ -318,7 +316,7 @@ router.route('/:id').get(userController.getOne).delete(userController.deleteUser
  *      "200":
  *        description: "Password updated Successfully"
  */
-router.patch('/updateMyPassword', authController.authenticate, authController.updatePassword);
+router.patch('/updateMyPassword', authController.updatePassword);
 
 /**
  *@swagger
@@ -336,6 +334,6 @@ router.patch('/updateMyPassword', authController.authenticate, authController.up
  *      "200":
  *        description: "Success"
  */
-router.post('/roles', authController.authenticate,authController.getRoles)
+router.post('/roles', authController.authenticate, authController.getRoles);
 
 module.exports = router;

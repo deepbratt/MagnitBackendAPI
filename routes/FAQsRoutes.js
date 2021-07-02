@@ -1,5 +1,6 @@
 const express = require('express');
 const FAQsController = require('../controller/adminPanel/FAQs');
+const authController = require('../controller/auth/authController');
 
 const router = express.Router();
 
@@ -136,7 +137,7 @@ const router = express.Router();
  *      "201":
  *        description: "Feedback and Questions deleted Successfully"
  */
-
+router.use(authController.authenticate);
 router.route('/').get(FAQsController.getAllFAQs).post(FAQsController.createFAQ);
 
 router
