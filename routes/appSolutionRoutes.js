@@ -1,5 +1,6 @@
 const express = require('express');
 const appSolutionController = require('../controller/adminPanel/appSolution');
+const authController = require('../controller/auth/authController');
 const fileUpload = require('../utils/mluter');
 const router = express.Router();
 
@@ -141,6 +142,7 @@ const router = express.Router();
  *      "200":
  *        description: "Success"
  */
+router.use(authController.authenticate);
 router.route('/').post(appSolutionController.createOne).get(appSolutionController.getAll);
 
 router

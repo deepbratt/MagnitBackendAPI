@@ -1,5 +1,6 @@
 const express = require('express');
 const howItWorksController = require('../controller/adminPanel/howItWorks');
+const authController = require('../controller/auth/authController');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -141,7 +142,7 @@ const router = express.Router();
  *      "201":
  *        description: "How It Works Section deleted Successfully"
  */
-
+router.use(authController.authenticate);
 router
   .route('/')
   .get(howItWorksController.getAllHowItWorks)

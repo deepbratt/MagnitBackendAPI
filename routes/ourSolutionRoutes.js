@@ -1,5 +1,6 @@
 const express = require('express');
-const  solutionsController = require('../controller/adminPanel/ourSolutions');
+const solutionsController = require('../controller/adminPanel/ourSolutions');
+const authController = require('../controller/auth/authController');
 const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
@@ -53,10 +54,11 @@ const router = express.Router();
  *      "200":
  *        description: "Success"
  */
+router.use(authController.authenticate);
 router
 	.route('/')
-	.post(fileUpload.upload('image').single('image'),  solutionsController.createOne)
-	.get( solutionsController.getAll);
+	.post(fileUpload.upload('image').single('image'), solutionsController.createOne)
+	.get(solutionsController.getAll);
 
 // GET ONE
 /**
@@ -148,8 +150,8 @@ router
  */
 router
 	.route('/:id')
-	.get( solutionsController.getOne)
-	.patch(fileUpload.upload('image').single('image'),  solutionsController.updateOne)
-	.delete( solutionsController.deleteOne);
+	.get(solutionsController.getOne)
+	.patch(fileUpload.upload('image').single('image'), solutionsController.updateOne)
+	.delete(solutionsController.deleteOne);
 
 module.exports = router;

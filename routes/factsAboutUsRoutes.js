@@ -1,5 +1,6 @@
 const express = require('express');
 const factsController = require('../controller/adminPanel/factsAboutUs');
+const authController = require('../controller/auth/authController');
 const fileUpload = require('../utils/mluter');
 
 const router = express.Router();
@@ -141,7 +142,7 @@ const router = express.Router();
  *      "201":
  *        description: "Fact About Us deleted Successfully"
  */
-
+router.use(authController.authenticate);
 router
   .route('/')
   .get(factsController.getAllFactsAboutUs)

@@ -1,7 +1,8 @@
 const express = require('express');
 const jobBenifitController = require('../controller/adminPanel/jobBenifits');
+const authController = require('../controller/auth/authController');
 const fileUpload = require('../utils/mluter');
-const { uploadFile } = require('../utils/s3');
+//const { uploadFile } = require('../utils/s3');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
 
@@ -60,6 +61,7 @@ const router = express.Router();
  *      "200":
  *        description: "Success"
  */
+router.use(authController.authenticate);
 router
 	.route('/')
 	.post(fileUpload.upload('image').single('icon'), jobBenifitController.createOne)

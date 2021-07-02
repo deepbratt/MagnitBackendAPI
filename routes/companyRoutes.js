@@ -1,6 +1,7 @@
 const express = require('express');
 const companyController = require('../controller/adminPanel/company');
-const fileUpload = require('../utils/mluter');
+const authController = require('../controller/auth/authController');
+//const fileUpload = require('../utils/mluter');
 const router = express.Router();
 
 // CREATE Company
@@ -145,6 +146,7 @@ const router = express.Router();
  *      "200":
  *        description: "Success"
  */
+router.use(authController.authenticate);
 router.route('/').post(companyController.createOne).get(companyController.getAll);
 
 router

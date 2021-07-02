@@ -1,5 +1,6 @@
 const express = require('express');
 const pageController = require('../controller/adminPanel/pageController');
+const authController = require('../controller/auth/authController');
 const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
@@ -37,6 +38,7 @@ router.route('/bySlug/:slug').get(pageController.getOneBySlug);
  *      "201":
  *        description: "Operation Successfull"
  */
+router.use(authController.authenticate);
 router.route('/').post(pageController.createOne).get(pageController.getAll);
 
 // GET ALL Pages

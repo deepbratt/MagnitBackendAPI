@@ -1,5 +1,6 @@
 const express = require('express');
 const objectivesController = require('../controller/adminPanel/ourObjective');
+const authController = require('../controller/auth/authController');
 const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
@@ -55,6 +56,7 @@ const router = express.Router();
  *      "200":
  *        description: "Success"
  */
+router.use(authController.authenticate);
 router
 	.route('/')
 	.post(fileUpload.upload('image').single('icon'), objectivesController.createObjective)

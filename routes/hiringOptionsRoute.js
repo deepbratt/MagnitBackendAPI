@@ -1,5 +1,6 @@
 const express = require('express');
 const HiringController = require('../controller/adminPanel/hiringOptions');
+const authController = require('../controller/auth/authController');
 const router = express.Router();
 
 // Creating Hiring Option
@@ -147,7 +148,7 @@ const router = express.Router();
  *      "201":
  *        description: "Hiring Option deleted Successfully"
  */
-
+router.use(authController.authenticate);
 router
   .route('/')
   .get(HiringController.getAllHiringOptions)

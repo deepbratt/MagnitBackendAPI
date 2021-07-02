@@ -1,5 +1,6 @@
 const express = require('express');
 const joinTeamController = require('../controller/adminPanel/joinTeam');
+const authController = require('../controller/auth/authController');
 //const fileUpload = require('../utils/mluter');
 //const { quoteValidationRules, validationFunction } = require('../utils/validation');
 const router = express.Router();
@@ -55,6 +56,7 @@ const router = express.Router();
  *      "200":
  *        description: "Success"
  */
+router.use(authController.authenticate);
 router.route('/').post(joinTeamController.createOne).get(joinTeamController.getAll);
 
 // GET joinTeam
