@@ -100,8 +100,12 @@ const PORT = process.env.PORT || 3000; // port
 const app = express();
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
+let corsOptions = {
+	origin: 'http://localhost:3000',
+	credentials: true,
+};
 // CORS
-app.use(cors());
+app.use(cors(corsOptions));
 //ejs for emails
 app.set('view engine', 'ejs');
 
