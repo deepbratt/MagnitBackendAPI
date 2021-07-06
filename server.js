@@ -98,6 +98,7 @@ const ourSolutionsRouter = require('./routes/ourSolutionRoutes');
 
 const PORT = process.env.PORT || 3000; // port
 const app = express();
+app.enable('trust proxy');
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 // let corsOptions = {
