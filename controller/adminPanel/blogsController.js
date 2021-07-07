@@ -8,10 +8,13 @@ const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const APIFeatures = require('../../utils/apiFeatures');
 
 exports.createBlog = catchAsync(async (req, res, next) => {
-	const file = req.file;
-	if (file) {
-		const { Location } = await uploadFile(file);
-		req.body.image = Location;
+	if (req.files.banner) {
+		const { Location } = await uploadFile(req.files.banner[0]);
+		req.body.banner = Location;
+	}
+	if (req.files.html) {
+		const { Location } = await uploadFile(req.files.html[0]);
+		req.body.html = Location;
 	}
 
 	const result = await Blogs.create(req.body);
@@ -26,6 +29,21 @@ exports.createBlog = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllBlogs = factory.getAll(Blogs);
+
+exports.getBlogBySlug = catchAsync(async (req, res, next) => {
+	const result = await Blogs.findOne({ canonical: req.params.slug });
+
+	if (!result) {
+		return next(new AppError(appErrors.NOT_FOUND), 404);
+	}
+	console.count();
+	res.status(200).json({
+		status: SUCCESS,
+		data: {
+			result,
+		},
+	});
+});
 
 exports.getBlog = catchAsync(async (req, res, next) => {
 	const result = await Blogs.findById(req.params.id);
@@ -43,9 +61,13 @@ exports.getBlog = catchAsync(async (req, res, next) => {
 });
 
 exports.updateBlog = catchAsync(async (req, res, next) => {
-	if (req.file) {
-		const { Location } = await uploadFile(req.file);
-		req.body.image = Location;
+	if (req.files.banner) {
+		const { Location } = await uploadFile(req.files.banner[0]);
+		req.body.banner = Location;
+	}
+	if (req.files.html) {
+		const { Location } = await uploadFile(req.files.html[0]);
+		req.body.html = Location;
 	}
 
 	const result = await Blogs.findByIdAndUpdate(req.params.id, req.body, {

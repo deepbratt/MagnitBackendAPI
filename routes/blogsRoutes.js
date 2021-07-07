@@ -11,7 +11,7 @@ const router = express.Router();
 /v1/blogs:
  *  post:
  *    tags:
- *    - [Blog's API's]
+ *    - Blogs
  *    summary: "Use to Create Blog"
  *    description: "This API used for creating Blog"
  *    consumes:
@@ -26,17 +26,23 @@ const router = express.Router();
  *      schema:
  *        type: "object"
  *        properties:
- *              image:
+ *              banner:
  *                  type: "multipart/form-data"
  *              title:
  *                  type: "string"
- *              text:
+ *              description:
  *                  type: "string"
- *              buttonLabel:
+ *              descriptionLong:
  *                  type: "string"
- *              link:
+ *              canonical:
  *                  type: "string"
- *              views: 
+ *              type:
+ *                  type: "string"
+ *              html:
+ *                  type: "string"
+ *              keywords:
+ *                  type: "string"
+ *              views:
  *                  type: "Number"
  *              date:
  *                  type: "Date"
@@ -53,7 +59,7 @@ const router = express.Router();
  *  /v1/blogs/:id:
  *  get:
  *    tags:
- *    - [Blogs's API's]
+ *    - Blogs
  *    summary: "Use to find one Blog's"
  *    description: "This API used to find single/one Blog's"
  *    consumes:
@@ -67,13 +73,41 @@ const router = express.Router();
  *        description: "Show Blog's details of specific ID"
  */
 
+// Get single/one Blog by slug
+/**
+ *@swagger
+ *  /v1/blogs/{slug}:
+ *  get:
+ *    tags:
+ *    - Blogs
+ *    summary: "Use To find Blog by slug"
+ *    description: ""
+ *    parameters:
+ *      - in: path
+ *        name: slug
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: canonical to find blog
+ *    consumes:
+ *    - "application/json"
+ *    produces:
+ *    - "application/json"
+ *    responses:
+ *      "400":
+ *        description: "Invalid input"
+ *      "201":
+ *        description: "Show Blog's details of specific ID"
+ */
+
+
 // Get All Blogs
 /**
  *@swagger
  *  /v1/blogs:
  *  get:
  *    tags:
- *    - [Blog's API's]
+ *    - Blogs
  *    summary: "Use to find All Blogs"
  *    description: "This API used to find All Blogs"
  *    consumes:
@@ -93,7 +127,7 @@ const router = express.Router();
  *  /v1/blogs/:id:
  *  patch:
  *    tags:
- *    - [Blog's API's]
+ *    - Blogs
  *    summary: "Use to Update Blog"
  *    description: "This API used for Updating Blog"
  *    consumes:
@@ -108,15 +142,21 @@ const router = express.Router();
  *      schema:
  *        type: "object"
  *        properties:
- *              image:
+ *              banner:
  *                  type: "multipart/form-data"
  *              title:
  *                  type: "string"
- *              text:
+ *              description:
  *                  type: "string"
- *              buttonLabel:
+ *              descriptionLong:
  *                  type: "string"
- *              link:
+ *              canonical:
+ *                  type: "string"
+ *              type:
+ *                  type: "string"
+ *              html:
+ *                  type: "string"
+ *              keywords:
  *                  type: "string"
  *              views:
  *                  type: "Number"
@@ -135,7 +175,7 @@ const router = express.Router();
  *  /v1/blogs/:id:
  *  delete:
  *    tags:
- *    - [Blog's API's]
+ *    - Blogs
  *    summary: "Use to Delete Blog by ID"
  *    description: "This API used to Delete Blog by ID"
  *    consumes:
@@ -158,16 +198,45 @@ const router = express.Router();
  *      "201":
  *        description: "Blog deleted Successfully"
  */
+//////////////////
+
+router.route('/bySlug/:slug').get(blogsController.getBlogBySlug);
+
+/////////////////
 router.use(authController.authenticate);
 router
-  .route('/')
-  .get(blogsController.getAllBlogs)
-  .post(fileUpload.upload('image').single('image'), blogsController.createBlog);
+	.route('/')
+	.get(blogsController.getAllBlogs)
+	.post(
+		fileUpload.upload().fields([
+			{
+				name: 'banner',
+				maxCount: 1,
+			},
+			{
+				name: 'html',
+				maxCount: 1,
+			},
+		]),
+		blogsController.createBlog
+	);
 
 router
-  .route('/:id')
-  .get(blogsController.getBlog)
-  .patch(fileUpload.upload('image').single('image'), blogsController.updateBlog)
-  .delete(blogsController.deleteBlog);
+	.route('/:id')
+	.get(blogsController.getBlog)
+	.patch(
+		fileUpload.upload().fields([
+			{
+				name: 'banner',
+				maxCount: 1,
+			},
+			{
+				name: 'html',
+				maxCount: 1,
+			},
+		]),
+		blogsController.updateBlog
+	)
+	.delete(blogsController.deleteBlog);
 
 module.exports = router;
