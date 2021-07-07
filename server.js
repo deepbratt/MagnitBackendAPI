@@ -115,8 +115,14 @@ const ourSolutionsRouter = require('./routes/ourSolutionRoutes');
 
 const PORT = process.env.PORT || 3000; // port
 const app = express();
+app.enable('trust proxy');
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
+// let corsOptions = {
+// 	origin: 'http://localhost:3000',
+// 	Access-Control-Allow-Credentials: true,
+// 	credentials: true,
+// };
 // CORS
 app.use(cors());
 //ejs for emails
