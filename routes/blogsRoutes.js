@@ -76,7 +76,7 @@ const router = express.Router();
 // Get single/one Blog by slug
 /**
  *@swagger
- *  /v1/blogs/{slug}:
+ *  /v1/blogs/bySlug/{slug}:
  *  get:
  *    tags:
  *    - Blogs
@@ -202,11 +202,11 @@ const router = express.Router();
 
 router.route('/bySlug/:slug').get(blogsController.getBlogBySlug);
 
+router.route('/').get(blogsController.getAllBlogs);
 /////////////////
 router.use(authController.authenticate);
 router
 	.route('/')
-	.get(blogsController.getAllBlogs)
 	.post(
 		fileUpload.upload().fields([
 			{
