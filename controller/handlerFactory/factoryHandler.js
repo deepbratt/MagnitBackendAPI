@@ -19,12 +19,14 @@ exports.getAll = (Model) =>
 			.limitFields()
 			.pagination();
 		const doc = await freatures.query;
+		const total_results = await Model.find();
 		if (doc.length === 0) {
 			return next(new AppError(appErrors.NOT_FOUND), 404);
 		}
 		res.status(200).json({
 			status: SUCCESS,
-			results: doc.length,
+			perPage_results: doc.length,
+			total_results: total_results.length,
 			data: {
 				result: doc,
 			},
