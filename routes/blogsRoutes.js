@@ -100,7 +100,6 @@ const router = express.Router();
  *        description: "Show Blog's details of specific ID"
  */
 
-
 // Get All Blogs
 /**
  *@swagger
@@ -202,12 +201,11 @@ const router = express.Router();
 
 router.route('/bySlug/:slug').get(blogsController.getBlogBySlug);
 
-router.route('/').get(blogsController.getAllBlogs);
-/////////////////
-router.use(authController.authenticate);
 router
 	.route('/')
+	.get(blogsController.getAllBlogs)
 	.post(
+		authController.authenticate,
 		fileUpload.upload().fields([
 			{
 				name: 'banner',
@@ -220,6 +218,8 @@ router
 		]),
 		blogsController.createBlog
 	);
+
+router.use(authController.authenticate);
 
 router
 	.route('/:id')
