@@ -123,7 +123,7 @@ app.use(
 );
 
 // GLOBAL MIDDLEWARES
-app.use(express.json({ limit: '50mb' })); // body parser (reading data from body to req.body)
+app.use(express.json({ limit: '100mb' })); // body parser (reading data from body to req.body)
 app.use(cookieParser()); // cookie parser (reading data from cookie to req.cookie)
 
 // swagger docs Route

@@ -8,7 +8,7 @@ const router = express.Router();
 // Creating Blog
 /**
  *@swagger
-/v1/blogs:
+ *  /v1/blogs:
  *  post:
  *    tags:
  *    - Blogs
