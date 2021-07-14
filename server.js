@@ -96,6 +96,10 @@ const blogsRouter = require('./routes/blogsRoutes');
 const ourSolutionsRoute = require('./constants/appConstants').routeConsts.ourSolutionRoute;
 const ourSolutionsRouter = require('./routes/ourSolutionRoutes');
 
+// For seo
+const seoRoute = require('./constants/appConstants').routeConsts.seoRoute;
+const seoRouter = require('./routes/seoRoutes');
+
 const PORT = process.env.PORT || 3000; // port
 const app = express();
 app.enable('trust proxy');
@@ -157,6 +161,7 @@ app.use(jobBenifitRoute, jobBenifitRouter); // jobBenifits
 app.use(opportunitesRoute, opportunitesRouter); // Opportunite
 app.use(pageRoute, pageRouter); // Page
 app.use(ourSolutionsRoute, ourSolutionsRouter); // Our solutions
+app.use(seoRoute, seoRouter); // seo
 
 app.all('*', (req, res, next) => {
 	next(new AppError(`can't find ${req.originalUrl} on this server`, 404));

@@ -28,6 +28,7 @@ exports.routeConsts = {
 	factsAboutUsRoute: `/${version}/factsAboutUs`,
 	hiringOptionsRoute: `/${version}/hiringOptions`,
 	blogsRoute: `/${version}/blogs`,
+	seoRoute: `/${version}/seoText`,
 };
 
 exports.appErrors = {
