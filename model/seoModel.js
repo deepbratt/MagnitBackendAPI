@@ -8,7 +8,7 @@ const seoSchema = new mongoose.Schema({
 	h1Detail: {
 		type: String,
 	},
-	h1Detail: {
+	h2Detail: {
 		type: String,
 	},
 });
