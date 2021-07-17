@@ -56,12 +56,19 @@ const router = express.Router();
 // Get single/one Blog by ID
 /**
  *@swagger
- *  /v1/blogs/:id:
+ *  /v1/blogs/{id}:
  *  get:
  *    tags:
  *    - Blogs
  *    summary: "Use to find one Blog's"
  *    description: "This API used to find single/one Blog's"
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: canonical to find blog
  *    consumes:
  *    - "application/json"
  *    produces:
