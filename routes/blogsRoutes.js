@@ -208,12 +208,13 @@ const router = express.Router();
 
 router.route('/bySlug/:slug').get(blogsController.getBlogBySlug);
 
-router.use(authController.authenticate);
+
 
 router
 	.route('/')
 	.get(blogsController.getAllBlogs)
-	.post(fileUpload.upload().fields([
+	.post(
+		authController.authenticate,fileUpload.upload().fields([
 			{
 				name: 'banner',
 				maxCount: 1,
@@ -226,6 +227,7 @@ router
 		blogsController.createBlog
 	);
 
+router.use(authController.authenticate);
 
 router
 	.route('/:id')
