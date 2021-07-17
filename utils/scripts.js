@@ -159,10 +159,10 @@ exports.pageApi = async (page) => {
 			page.sections.ourSolutions.queryParams
 		);
 	}
-	// if (page.sections.seoText) {
-	// 	const queryParams = { _id: { $in: page.sections.seoText.queryParams._id } };
-	// 	page.sections.seoText.dataArray = await getAllForPages(Seo, queryParams);
-	// }
+	if (page.sections.seoText.order) {
+		const queryParams = { _id: { $in:page.sections.seoText.queryParams._id } };
+		page.sections.seoText.dataArray = await getAllForPages(Seo, queryParams);
+	}
 	return page;
 };
 
