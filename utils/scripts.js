@@ -160,7 +160,7 @@ exports.pageApi = async (page) => {
 		);
 	}
 	if (page.sections.seoText) {
-		const queryParams = { _id: { $in: page.sections.seoText.queryParams_id } };
+		const queryParams = { _id: { $in: page.sections.seoText.queryParams._id } };
 		page.sections.seoText.dataArray = await getAllForPages(Seo, queryParams);
 	}
 	return page;
