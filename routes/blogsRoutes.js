@@ -201,12 +201,12 @@ const router = express.Router();
 
 router.route('/bySlug/:slug').get(blogsController.getBlogBySlug);
 
+router.use(authController.authenticate);
+
 router
 	.route('/')
 	.get(blogsController.getAllBlogs)
-	.post(
-		authController.authenticate,
-		fileUpload.upload().fields([
+	.post(fileUpload.upload().fields([
 			{
 				name: 'banner',
 				maxCount: 1,
@@ -219,13 +219,11 @@ router
 		blogsController.createBlog
 	);
 
-//router.use(authController.authenticate);
 
 router
 	.route('/:id')
-	.get(authController.authenticate, blogsController.getBlog)
+	.get(blogsController.getBlog)
 	.patch(
-		authController.authenticate,
 		fileUpload.upload().fields([
 			{
 				name: 'banner',
@@ -238,6 +236,6 @@ router
 		]),
 		blogsController.updateBlog
 	)
-	.delete(authController.authenticate, blogsController.deleteBlog);
+	.delete(blogsController.deleteBlog);
 
 module.exports = router;
