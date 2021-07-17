@@ -104,6 +104,9 @@ const pageSchema = new mongoose.Schema({
 		ourSolutions: {
 			...sectionObj,
 		},
+		seoText: {
+			...sectionObj,
+		},
 	},
 });
 

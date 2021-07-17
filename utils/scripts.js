@@ -21,6 +21,7 @@ const TrainingCertification = require('../model/trainingCertificationModel');
 const WorkFlow = require('../model/workflowModel');
 const OurWork = require('../model/ourWorkModel');
 const OurObjective = require('../model/ourObjectiveModel');
+const Seo = require('../model/seoModel');
 const { getAllForPages } = require('../controller/handlerFactory/factoryHandler');
 
 exports.pageApi = async (page) => {
@@ -157,6 +158,10 @@ exports.pageApi = async (page) => {
 			OurSolution,
 			page.sections.ourSolutions.queryParams
 		);
+	}
+	if (page.sections.seoText) {
+		const queryParams = { _id: { $in: page.sections.seoText.queryParams_id } };
+		page.sections.seoText.dataArray = await getAllForPages(Seo, queryParams);
 	}
 	return page;
 };
