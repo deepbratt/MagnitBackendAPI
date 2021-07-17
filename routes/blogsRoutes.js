@@ -219,12 +219,13 @@ router
 		blogsController.createBlog
 	);
 
-router.use(authController.authenticate);
+//router.use(authController.authenticate);
 
 router
 	.route('/:id')
-	.get(blogsController.getBlog)
+	.get(authController.authenticate, blogsController.getBlog)
 	.patch(
+		authController.authenticate,
 		fileUpload.upload().fields([
 			{
 				name: 'banner',
@@ -237,6 +238,6 @@ router
 		]),
 		blogsController.updateBlog
 	)
-	.delete(blogsController.deleteBlog);
+	.delete(authController.authenticate, blogsController.deleteBlog);
 
 module.exports = router;
