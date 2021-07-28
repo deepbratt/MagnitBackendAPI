@@ -11,7 +11,7 @@ exports.addUser = catchAsync(async (req, res) => {
 		email: req.body.email.trim(),
 		password: req.body.password,
 		passwordConfirm: req.body.passwordConfirm,
-		role: req.body.role,
+		//role: req.body.role,
 	};
 	await User.create(newUser);
 	res.status(201).json({

@@ -19,7 +19,7 @@ const servicesSchema = new mongoose.Schema({
 	},
 	title: {
 		type: String,
-		lowercase: true,
+		//lowercase: true,
 		required: true,
 		unique: [true, 'A Title must be unique'],
 	},
