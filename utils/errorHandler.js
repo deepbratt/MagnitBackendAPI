@@ -1,6 +1,6 @@
 const AppError = require('./AppError');
-const config = require('config');
-const NODE_ENV = config.get('ENV');
+const { appErrors } = require('../constants/appConstants');
+const { ERROR } = require('../constants/appConstants').resStatus;
 
 const handleCastErrorDB = (err) => {
 	const message = `invalid ${err.path}:${err.value}.`;
@@ -8,7 +8,7 @@ const handleCastErrorDB = (err) => {
 };
 const handleDuplicatefieldsDB = (err) => {
 	const value = err.message.match(/(["'])(?:(?=(\\?))\2.)*?\1/)[0];
-	const message = `This email id already exists ${value} please use and other id`;
+	const message = `Duplicate Entery '${value}' Please Use Another.`;
 	return new AppError(message, 400);
 };
 const handleValidationErrorDB = (err) => {
@@ -22,9 +22,9 @@ const handleValidationErrorExpress = (err) => {
 	return new AppError(message, 400);
 };
 const handleJWTError = () => {
-	return new AppError('Invalid token! Please Login Again', 401);
+	return new AppError(appErrors.INVALID_JWT, 401);
 };
-const handleJWTExpiredError = () => new AppError('Your token has expired! please login again', 401);
+const handleJWTExpiredError = () => new AppError(appErrors.EXPIRED_JWT, 401);
 const sendErrorDev = (err, req, res) => {
 	return res.status(err.statusCode).json({
 		status: err.status,
@@ -43,28 +43,23 @@ const sendErrorPro = (err, req, res) => {
 	//programming errors
 	console.error('Error', err);
 	return res.status(500).json({
-		status: 'error',
-		message: 'something went wrong',
+		status: ERROR,
+		message:appErrors.SOME_ERROR,
 	});
 };
 module.exports = (err, req, res, next) => {
 	err.statusCode = err.statusCode || 500;
 	err.status = err.status || 'error';
-	if (NODE_ENV === 'development') {
+	if (process.env.NODE_ENV === 'development') {
 		sendErrorDev(err, req, res);
 	} else {
-		let error = { ...err };
-		console.log(error);
-		error.message = err.message;
-		error.name = err.name;
-		error.code = err.code;
-		error.type = err.type;
-		if (error.name === 'CastError') error = handleCastErrorDB(error);
-		if (error.code === 11000) error = handleDuplicatefieldsDB(error);
-		if (error.name === 'ValidationError') error = handleValidationErrorDB(error);
-		if (error.type === 'expressValidationError') error = handleValidationErrorExpress(error);
-		if (error.name === 'JsonWebTokenError') error = handleJWTError();
-		if (error.name === 'TokenExpiredError') error = handleJWTExpiredError();
-		sendErrorPro(error, req, res);
+		if (err.name === 'CastError') err = handleCastErrorDB(err);
+		if (err.code === 11000) err = handleDuplicatefieldsDB(err);
+		if (err.name === 'ValidationError') err = handleValidationErrorDB(err);
+		if (err.type === 'expressValidationError') err = handleValidationErrorExpress(err);
+		if (err.name === 'JsonWebTokenError') err = handleJWTError();
+		if (err.name === 'TokenExpiredError') err = handleJWTExpiredError();
+		sendErrorPro(err, req, res);
 	}
+	next();
 };

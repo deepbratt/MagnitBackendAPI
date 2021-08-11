@@ -1,7 +1,8 @@
-const Quote = require('../model/quoteModel');
-const AppError = require('../utils/AppError');
-const Email = require('../utils/email');
-const catchAsync = require('../utils/catchAsync');
+const Quote = require('../../model/quoteModel');
+const AppError = require('../../utils/AppError');
+const { appErrors, appSuccess } = require('../../constants/appConstants');
+const { SUCCESS } = require('../../constants/appConstants').resStatus;
+const catchAsync = require('../../utils/catchAsync');
 
 exports.addQuote = catchAsync(async (req, res) => {
 	const newQuote = {
@@ -12,22 +13,25 @@ exports.addQuote = catchAsync(async (req, res) => {
 		projectDetails: req.body.projectDetails.trim(),
 	};
 	const quote = await Quote.create(newQuote);
-	new Email({ name: quote.name, email: quote.email }).sendEmailQuoteCreate();
 	res.status(201).json({
-		status: 'success',
-		message: 'Quote created successfully',
+		status: SUCCESS,
+		message: `Quote Created ${appSuccess.OPERATION_SUCCESSFULL}`,
 		data: {
-			quote,
+			result:quote,
 		},
 	});
 });
 
 exports.getAllQuote = catchAsync(async (req, res) => {
 	const quotes = await Quote.find();
+	if (quotes.length === 0) {
+		return next(new AppError(appErrors.NOT_FOUND, 404));
+	}
 	res.status(200).json({
-		status: 'success',
+		status: SUCCESS,
+		results:quotes.length,
 		data: {
-			quotes,
+			result:quotes,
 		},
 	});
 });
@@ -35,10 +39,13 @@ exports.getAllQuote = catchAsync(async (req, res) => {
 exports.getQuote = catchAsync(async (req, res) => {
 	const quoteId = req.params.id;
 	const quote = await Quote.findById(quoteId);
+	if (!quote) {
+		return next(new AppError(appErrors.NOT_FOUND, 404));
+	}
 	res.status(200).json({
-		status: 'success',
+		status: SUCCESS,
 		data: {
-			quote,
+			result:quote,
 		},
 	});
 });
