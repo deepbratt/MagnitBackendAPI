@@ -13,15 +13,20 @@ const s3 = new S3({
 	secretAccessKey,
 });
 
-exports.uploadFile = (file) => {
+exports.uploadFile = async (file) => {
 	let myFile = file.originalname.split('.');
 	const ext = myFile[myFile.length - 1];
 	const uploadParams = {
 		Bucket: bucketName,
 		Body: file.buffer,
 		Key: `${uuidv4()}.${ext}`,
+		CacheControl: 'max-age=86400',
+		ContentType: file.mimetype,
 	};
-	return s3.upload(uploadParams).promise();
+	const obj = await s3.upload(uploadParams).promise();
+	console.log(obj);
+	obj.Location = obj.Location.replace('s3.us-east-2.amazonaws.com/', '');
+	return obj;
 };
 
 exports.base64FileUpload = (base64, next) => {
@@ -34,7 +39,6 @@ exports.base64FileUpload = (base64, next) => {
 		Bucket: bucketName,
 		Key: `${uuidv4()}.${type}`,
 		Body: base64Data,
-		ContentEncoding: 'base64',
 		ContentType: `image/${type}`,
 	};
 
