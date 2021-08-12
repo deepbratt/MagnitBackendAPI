@@ -90,7 +90,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 	const resetToken = user.createPasswordResetToken();
 	await user.save({ validateBeforeSave: false });
 	//send it to user's email
-	const resetURL = `${req.protocol}://${req.get('host')}/resetpassword/${resetToken}`;
+	const resetURL = `${req.protocol}://admin.themagnit.com/resetpassword/${resetToken}`;
 	try {
 		await new Email(user.email, { ...user._doc, resetURL }).sendPasswordResetToken();
 		res.status(200).json({
