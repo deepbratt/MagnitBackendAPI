@@ -1,58 +1,55 @@
-const nodemailer = require('nodemailer');
-const ejs = require('ejs');
+const mailgun = require('mailgun-js');
+const DOMAIN = 'themagnit.com';
 
 module.exports = class Email {
-	constructor(user, url) {
-		this.to = user.email;
-		this.firstName = user.firstName;
-		this.lastName = user.lastName;
-		this.url = url;
-		this.from = `Magnet <magnetTeam@gmail.com>`;
+	constructor(to, obj) {
+		this.obj = obj;
+		this.to = to;
+		this.from = `Magnit <info@themagnit.com>`;
 	}
+
 	newTransport() {
-		if (process.env.NODE_ENV === 'production') {
-			return nodemailer.createTransport({
-				service: 'gmail',
-				auth: {
-					user: process.env.TEMP_EMAIL,
-					pass: process.env.TEMP_PASSWORD,
-				},
-			});
-		}
-		return nodemailer.createTransport({
-			host: process.env.MAIL_TRAP_HOST,
-			port: process.env.MAIL_TRAP_PORT,
-			auth: {
-				user: process.env.MAIL_TRAP_USERNAME,
-				pass: process.env.MAIL_TRAP_PASSWORD,
-			},
+		return mailgun({
+			apiKey: 'b90b68c303751feada725cdd64ee3b2b-a0cfb957-d74f1609',
+			domain: DOMAIN,
 		});
 	}
 
-	async send(template, subject) {
-		//render html based on ejs temp
-		const html = await ejs.renderFile(`utils/emailTemplates/${template}.ejs`, {
-			firstName: this.firstName,
-			url: this.url,
-		});
+	async send(template, subject, object) {
 		// mail options
-		const mailOptions = {
+		const data = {
 			from: this.from,
 			to: this.to,
-			subject,
-			html,
+			subject: subject,
+			template: template,
+			'h:X-Mailgun-Variables': object,
 		};
 		//create transport and send email
-		await this.newTransport().sendMail(mailOptions);
+		await this.newTransport().messages().send(data);
 	}
 
-	// async sendEmailQuoteCreate() {
-	// 	await this.send(
-	// 		'your Qoute has been created successfully! We will respond you as early as possible.',
-	// 		'Quote Created'
-	// 	);
-	// }
+	async quoteCreateRes() {
+		await this.send('request-quote-response', 'Quote Submitted', `{ "fname": "${this.obj.name}" }`);
+	}
+	async quoteCreateResAdmin() {
+		await this.send('quote-submission', 'Quote Alert', 
+		`{"fname": "${this.obj.name}",\
+		  "email": "${this.obj.email}",\
+		  "phone": "${this.obj.phone}",\
+		  "company": "${this.obj.companyName}",\
+		  "project": "${this.obj.projectDetails}"}`);
+	}
 	async sendPasswordResetToken() {
-		await this.send('passwordReset', 'Your Password Reset Link(only valid for 10 minutes)');
+		await this.send(
+			'reset-password',
+			'Your Password Reset Link(only valid for 10 minutes)',
+			`{"fname": "${this.obj.firstName}","resetLink": "${this.obj.resetURL}"}`
+		);
+	}
+	async customEmail() {
+		await this.send('custom', 'Customer Support', 
+		`{"fname": "${this.obj.firstName}",\
+		  "text": "${this.obj.text}"}`
+		);
 	}
 };

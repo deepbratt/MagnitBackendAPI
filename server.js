@@ -136,7 +136,7 @@ app.use(swaggerRoute, swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 //ROUTES
 app.use(userRoute, userRouter); // user route
 app.use(quoteRoute, quoteRouter); // quote route
-app.use(emailRoute, emailRouter); // email route
+// app.use(emailRoute, emailRouter); // email route
 app.use(sliderRoute, sliderRouter); // slider route
 app.use(servicesRoute, servicesRouter); // services route
 app.use(benifitsRoute, benifitsRouter); // benifits route

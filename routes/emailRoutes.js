@@ -32,7 +32,7 @@ const router = express.Router();
  *        description: "Operation Successfull"
  */
 
-router.post('/subscribe', validEmail, validationFunction, emailController.userSubscribe);
+// router.post('/subscribe', validEmail, validationFunction, emailController.userSubscribe);
 
 
 module.exports = router;

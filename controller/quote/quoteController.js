@@ -1,5 +1,6 @@
 const Quote = require('../../model/quoteModel');
 const AppError = require('../../utils/AppError');
+const Email = require('../../utils/email');
 const { appErrors, appSuccess } = require('../../constants/appConstants');
 const { SUCCESS } = require('../../constants/appConstants').resStatus;
 const catchAsync = require('../../utils/catchAsync');
@@ -13,11 +14,13 @@ exports.addQuote = catchAsync(async (req, res) => {
 		projectDetails: req.body.projectDetails.trim(),
 	};
 	const quote = await Quote.create(newQuote);
+	await new Email(quote.email, quote).quoteCreateRes();
+	await new Email(process.env.ADMIN, quote).quoteCreateResAdmin();
 	res.status(201).json({
 		status: SUCCESS,
 		message: `Quote Created ${appSuccess.OPERATION_SUCCESSFULL}`,
 		data: {
-			result:quote,
+			result: quote,
 		},
 	});
 });
@@ -29,9 +32,9 @@ exports.getAllQuote = catchAsync(async (req, res) => {
 	}
 	res.status(200).json({
 		status: SUCCESS,
-		results:quotes.length,
+		results: quotes.length,
 		data: {
-			result:quotes,
+			result: quotes,
 		},
 	});
 });
@@ -45,7 +48,7 @@ exports.getQuote = catchAsync(async (req, res) => {
 	res.status(200).json({
 		status: SUCCESS,
 		data: {
-			result:quote,
+			result: quote,
 		},
 	});
 });
