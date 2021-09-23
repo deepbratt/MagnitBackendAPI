@@ -42,7 +42,7 @@ router.use(authController.authenticate);
 router
 	.route('/')
 	.post(
-		fileUpload.upload('application/json').single('jsonFile'),
+		fileUpload.upload('image').single('jsonFile'),
 		trainingCertificationController.createTrainingCertification
 	)
 	.get(trainingCertificationController.getAll);
@@ -92,7 +92,7 @@ router
 router
 	.route('/:id')
 	.get(trainingCertificationController.getOne)
-	.patch(fileUpload.upload('application/json').single('jsonFile'),trainingCertificationController.updateTrainingCertification)
+	.patch(fileUpload.upload('image').single('jsonFile'),trainingCertificationController.updateTrainingCertification)
 	.delete(trainingCertificationController.deleteTrainingCertification);
 
 // UPDATE trainingCertification
